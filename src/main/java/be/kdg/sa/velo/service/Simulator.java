@@ -1,6 +1,6 @@
 package be.kdg.sa.velo.service;
 
-import be.kdg.sa.velo.domain.VehicleLocation;
+import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;

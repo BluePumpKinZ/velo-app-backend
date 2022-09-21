@@ -1,7 +1,5 @@
 package be.kdg.sa.velo.service;
 
-import be.kdg.sa.velo.domain.VehicleLocation;
-import be.kdg.sa.velo.service.Messenger;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;

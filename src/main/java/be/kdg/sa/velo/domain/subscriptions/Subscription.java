@@ -1,4 +1,6 @@
-package be.kdg.sa.velo.domain;
+package be.kdg.sa.velo.domain.subscriptions;
+
+import be.kdg.sa.velo.domain.User;
 
 /**
  * @author Maxim Derboven

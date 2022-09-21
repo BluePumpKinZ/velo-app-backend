@@ -1,4 +1,6 @@
-package be.kdg.sa.velo.domain;
+package be.kdg.sa.velo.domain.vehicles;
+
+import be.kdg.sa.velo.domain.Lock;
 
 import java.util.Date;
 
