@@ -1,6 +1,6 @@
-package be.kdg.sa.velo.domain.events.vehicles.messages;
+package be.kdg.sa.velo.events.vehicles.messages;
 
-import be.kdg.sa.velo.domain.events.vehicles.VehicleEvent;
+import be.kdg.sa.velo.events.vehicles.VehicleEvent;
 
 /**
  * Jonas Leijzen

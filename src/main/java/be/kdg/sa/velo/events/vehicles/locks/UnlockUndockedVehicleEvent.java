@@ -1,4 +1,4 @@
-package be.kdg.sa.velo.domain.events.vehicles.locks;
+package be.kdg.sa.velo.events.vehicles.locks;
 
 /**
  * Jonas Leijzen
