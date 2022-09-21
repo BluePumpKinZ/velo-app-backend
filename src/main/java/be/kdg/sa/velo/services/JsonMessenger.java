@@ -1,4 +1,4 @@
-package be.kdg.sa.velo.service;
+package be.kdg.sa.velo.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

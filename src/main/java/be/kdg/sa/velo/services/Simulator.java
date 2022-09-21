@@ -1,4 +1,4 @@
-package be.kdg.sa.velo.service;
+package be.kdg.sa.velo.services;
 
 import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
 import org.slf4j.Logger;
