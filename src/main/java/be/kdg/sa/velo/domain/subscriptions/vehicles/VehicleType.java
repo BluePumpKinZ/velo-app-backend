@@ -1,4 +1,4 @@
-package be.kdg.sa.velo.domain.vehicles;
+package be.kdg.sa.velo.domain.subscriptions.vehicles;
 
 /**
  * @author Maxim Derboven
