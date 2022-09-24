@@ -1,5 +1,6 @@
 package be.kdg.sa.velo.repositories;
 
+import be.kdg.sa.velo.domain.vehicles.UndockedVehicle;
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -24,8 +25,8 @@ public class VehicleJDBCRepository implements VehicleRepository {
 	}
 	
 	@Override
-	public List<Vehicle> readAllVehicles () {
+	public List<? extends Vehicle> readAllVehicles () {
 		String sql = "SELECT * FROM vehicles";
-		return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance (Vehicle.class));
+		return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance (UndockedVehicle.class));
 	}
 }

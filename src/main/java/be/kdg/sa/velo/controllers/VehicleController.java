@@ -24,9 +24,8 @@ public class VehicleController {
 		this.vehicleService = vehicleService;
 	}
 	
-	
 	@RequestMapping(path="all")
-	public List<Vehicle> getAllVehicles () {
+	public List<? extends Vehicle> getAllVehicles () {
 		return vehicleService.getAllVehicles();
 	}
 	

@@ -1,5 +1,8 @@
 package be.kdg.sa.velo.domain.vehicles;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
 /**
@@ -8,13 +11,18 @@ import java.time.LocalDate;
  */
 public abstract class Vehicle {
 	
-	private final long id;
+	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	private long id;
 	private String serialNumber;
 	private int cityId;
 	private VehicleType type;
 	private String image;
 	private boolean isAvailable;
 	private LocalDate lastServiceDate;
+	
+	public Vehicle () {
+	}
 	
 	public Vehicle (long id, String serialNumber, int cityId, VehicleType type, String image, boolean isAvailable, LocalDate lastServiceDate) {
 		this.id = id;
@@ -28,6 +36,10 @@ public abstract class Vehicle {
 	
 	public long getId () {
 		return id;
+	}
+	
+	public void setId (long id) {
+		this.id = id;
 	}
 	
 	public String getSerialNumber () {

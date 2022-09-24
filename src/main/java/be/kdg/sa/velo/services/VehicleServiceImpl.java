@@ -20,7 +20,7 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 	
 	@Override
-	public List<Vehicle> getAllVehicles () {
+	public List<? extends Vehicle> getAllVehicles () {
 		return vehicleRepository.readAllVehicles();
 	}
 }

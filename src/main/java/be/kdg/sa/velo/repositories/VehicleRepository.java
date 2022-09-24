@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface VehicleRepository {
 	
-	List<Vehicle> readAllVehicles ();
+	List<? extends Vehicle> readAllVehicles ();
 	
 }

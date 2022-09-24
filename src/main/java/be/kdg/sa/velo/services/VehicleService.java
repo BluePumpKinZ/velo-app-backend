@@ -10,5 +10,5 @@ import java.util.List;
  */
 
 public interface VehicleService {
-	List<Vehicle> getAllVehicles ();
+	List<? extends Vehicle> getAllVehicles ();
 }
