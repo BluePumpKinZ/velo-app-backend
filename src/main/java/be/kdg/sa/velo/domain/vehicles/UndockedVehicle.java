@@ -1,7 +1,6 @@
-package be.kdg.sa.velo.domain.subscriptions.vehicles;
+package be.kdg.sa.velo.domain.vehicles;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * Jonas Leijzen

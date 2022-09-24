@@ -2,7 +2,7 @@ package be.kdg.sa.velo.domain.rides;
 
 import be.kdg.sa.velo.domain.stations.Lock;
 import be.kdg.sa.velo.domain.subscriptions.Subscription;
-import be.kdg.sa.velo.domain.subscriptions.vehicles.Vehicle;
+import be.kdg.sa.velo.domain.vehicles.Vehicle;
 
 /**
  * @author Maxim Derboven

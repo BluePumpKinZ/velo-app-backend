@@ -1,6 +1,6 @@
 package be.kdg.sa.velo.domain.stations;
 
-import be.kdg.sa.velo.domain.subscriptions.vehicles.DockedVehicle;
+import be.kdg.sa.velo.domain.vehicles.DockedVehicle;
 
 /**
  * @author Maxim Derboven

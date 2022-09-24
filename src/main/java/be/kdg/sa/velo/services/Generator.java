@@ -1,8 +1,7 @@
 package be.kdg.sa.velo.services;
 
-import be.kdg.sa.velo.domain.subscriptions.vehicles.Vehicle;
-import be.kdg.sa.velo.domain.subscriptions.vehicles.VehicleLocation;
-import be.kdg.sa.velo.domain.subscriptions.vehicles.VehicleType;
+import be.kdg.sa.velo.domain.vehicles.Vehicle;
+import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

@@ -1,18 +1,14 @@
 package be.kdg.sa.velo.services;
 
-import be.kdg.sa.velo.domain.subscriptions.vehicles.UndockedVehicle;
-import be.kdg.sa.velo.domain.subscriptions.vehicles.Vehicle;
-import be.kdg.sa.velo.domain.subscriptions.vehicles.VehicleLocation;
-import be.kdg.sa.velo.domain.subscriptions.vehicles.VehicleType;
+import be.kdg.sa.velo.domain.vehicles.UndockedVehicle;
+import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
+import be.kdg.sa.velo.domain.vehicles.VehicleType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Service
 public class Simulator {
