@@ -4,33 +4,49 @@ import be.kdg.sa.velo.domain.stations.Lock;
 import be.kdg.sa.velo.domain.subscriptions.Subscription;
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
 
+import javax.persistence.*;
+
 /**
  * @author Maxim Derboven
  * @version 1.0 20/09/2022 12:44
  */
+
+@Entity(name = "Rides")
 public class Ride {
-	private final long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "RideId")
+	private long id;
+	@ManyToOne
 	private Vehicle vehicle;
+	@OneToOne (optional = true)
 	private Lock startPoint;
+	@OneToOne (optional = true)
 	private Lock endPoint;
 	private long startTime;
+	@Column (name = "EndTime", nullable = true)
 	private long endTime;
-	private double distance;
-	private boolean isFinished;
+	@ManyToOne (optional = false)
 	private Subscription subscription;
 	
-	public Ride (long id, Vehicle vehicle, long startTime, long endTime, double distance, boolean isFinished, Subscription subscription) {
+	public Ride () {
+	
+	}
+	
+	public Ride (long id, Vehicle vehicle, long startTime, long endTime, Subscription subscription) {
 		this.id = id;
 		setVehicle (vehicle);
 		setStartTime (startTime);
 		setEndTime (endTime);
-		setDistance (distance);
-		setFinished (isFinished);
 		setSubscription (subscription);
 	}
 	
 	public long getId () {
 		return id;
+	}
+	
+	public void setId (long id) {
+		this.id = id;
 	}
 	
 	public Vehicle getVehicle () {
@@ -71,22 +87,6 @@ public class Ride {
 	
 	public void setEndTime (long endTime) {
 		this.endTime = endTime;
-	}
-	
-	public double getDistance () {
-		return distance;
-	}
-	
-	public void setDistance (double distance) {
-		this.distance = distance;
-	}
-	
-	public boolean isFinished () {
-		return isFinished;
-	}
-	
-	public void setFinished (boolean finished) {
-		isFinished = finished;
 	}
 	
 	public Subscription getSubscription () {

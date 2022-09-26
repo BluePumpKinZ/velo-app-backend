@@ -1,37 +1,33 @@
 package be.kdg.sa.velo.domain.vehicles;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import be.kdg.sa.velo.domain.stations.Lock;
+import ch.qos.logback.classic.db.names.ColumnName;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 
 /**
  * @author Maxim Derboven
  * @version 1.0 20/09/2022 12:38
  */
-public abstract class Vehicle {
-	
+@Entity(name = "Vehicles")
+public class Vehicle {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@Column (name="VehicleId")
 	private long id;
 	private String serialNumber;
-	private int cityId;
 	private VehicleType type;
-	private String image;
-	private boolean isAvailable;
-	private LocalDate lastServiceDate;
+	@OneToOne (optional = true)
+	private Lock lock;
 	
 	public Vehicle () {
 	}
 	
-	public Vehicle (long id, String serialNumber, int cityId, VehicleType type, String image, boolean isAvailable, LocalDate lastServiceDate) {
+	public Vehicle (long id, String serialNumber, VehicleType type) {
 		this.id = id;
 		this.serialNumber = serialNumber;
-		this.cityId = cityId;
 		this.type = type;
-		this.image = image;
-		this.isAvailable = isAvailable;
-		this.lastServiceDate = lastServiceDate;
 	}
 	
 	public long getId () {
@@ -50,14 +46,6 @@ public abstract class Vehicle {
 		this.serialNumber = serialNumber;
 	}
 	
-	public int getCityId () {
-		return cityId;
-	}
-	
-	public void setCityId (int cityId) {
-		this.cityId = cityId;
-	}
-	
 	public VehicleType getType () {
 		return type;
 	}
@@ -66,27 +54,4 @@ public abstract class Vehicle {
 		this.type = type;
 	}
 	
-	public String getImage () {
-		return image;
-	}
-	
-	public void setImage (String image) {
-		this.image = image;
-	}
-	
-	public boolean isAvailable () {
-		return isAvailable;
-	}
-	
-	public void setAvailable (boolean available) {
-		isAvailable = available;
-	}
-	
-	public LocalDate getLastServiceDate () {
-		return lastServiceDate;
-	}
-	
-	public void setLastServiceDate (LocalDate lastServiceDate) {
-		this.lastServiceDate = lastServiceDate;
-	}
 }

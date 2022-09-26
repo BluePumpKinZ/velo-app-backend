@@ -1,25 +1,33 @@
 package be.kdg.sa.velo.domain.stations;
 
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
  * @author Maxim Derboven
  * @version 1.0 20/09/2022 12:42
  */
+@Entity(name = "Stations")
 public class Station {
-	private final long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "StationId")
+	private long id;
 	private String name;
 	private String street;
 	private String number;
 	private String postalCode;
 	private String city;
-	private final Set<Lock> locks = new HashSet<> ();
+	@OneToMany(mappedBy = "station")
+	private List<Lock> locks;
 	private double latitude;
 	private double longitude;
 	
 	public Station (long id, String name, String street, String number, String postalCode, String city, int capacity, double latitude, double longitude) {
-		this.id = id;
+		setId(id);
 		setName (name);
 		setStreet (street);
 		setNumber (number);
@@ -29,12 +37,20 @@ public class Station {
 		setLongitude (longitude);
 	}
 	
+	public Station () {
+	
+	}
+	
 	public int getCapacity () {
 		return locks.size ();
 	}
 	
 	public long getId () {
 		return id;
+	}
+	
+	private void setId (long id) {
+		this.id = id;
 	}
 	
 	public String getName () {
@@ -77,8 +93,12 @@ public class Station {
 		this.city = city;
 	}
 	
-	public Set<Lock> getLocks () {
+	public List<Lock> getLocks () {
 		return locks;
+	}
+	
+	public void setLocks (List<Lock> locks) {
+		this.locks = locks;
 	}
 	
 	public int getAvailableBikes () {

@@ -2,17 +2,24 @@ package be.kdg.sa.velo.domain.vehicles;
 
 import be.kdg.sa.velo.domain.stations.Lock;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import java.time.LocalDate;
 
 /**
  * Jonas Leijzen
  * 23/09/2022
  */
+@Entity
 public class DockedVehicle extends Vehicle {
+	@OneToOne(optional = true)
 	private Lock lock;
 	
-	public DockedVehicle (long id, String serialNumber, int cityId, VehicleType type, String image, boolean isAvailable, LocalDate lastServiceDate, Lock lock) {
-		super (id, serialNumber, cityId, type, image, isAvailable, lastServiceDate);
+	public DockedVehicle () {
+	}
+	
+	public DockedVehicle (long id, String serialNumber, VehicleType type, Lock lock) {
+		super (id, serialNumber, type);
 		setLock(lock);
 	}
 	

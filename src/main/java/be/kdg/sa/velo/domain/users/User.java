@@ -1,11 +1,19 @@
 package be.kdg.sa.velo.domain.users;
 
+import javax.persistence.*;
+
 /**
  * @author Maxim Derboven
  * @version 1.0 20/09/2022 12:48
  */
+
+@Entity(name="Users")
 public class User {
-	private final long id;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "UserId")
+	private long id;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -19,7 +27,7 @@ public class User {
 	private boolean isDeleted;
 	
 	public User (long id, String firstName, String lastName, String email, String street, String streetNumber, String postalCode, String city, String country, String phoneNumber, boolean isBlocked) {
-		this.id = id;
+		setId(id);
 		setFirstName (firstName);
 		setLastName (lastName);
 		setEmail (email);
@@ -33,8 +41,16 @@ public class User {
 		isDeleted = false;
 	}
 	
+	public User () {
+	
+	}
+	
 	public long getId () {
 		return id;
+	}
+	
+	public void setId (long id) {
+		this.id = id;
 	}
 	
 	public String getFirstName () {
