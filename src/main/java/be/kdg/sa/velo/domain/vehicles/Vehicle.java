@@ -1,10 +1,6 @@
 package be.kdg.sa.velo.domain.vehicles;
 
-import be.kdg.sa.velo.domain.stations.Lock;
-import ch.qos.logback.classic.db.names.ColumnName;
-
 import javax.persistence.*;
-import java.time.LocalDate;
 
 /**
  * @author Maxim Derboven
@@ -14,27 +10,21 @@ import java.time.LocalDate;
 public class Vehicle {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	@Column (name="VehicleId")
-	private long id;
+	@Column (name = "VehicleId")
+	private int id;
 	private String serialNumber;
-	private VehicleType type;
-	@OneToOne (optional = true)
-	private Lock lock;
+	@ManyToOne (optional = false)
+	@JoinColumn(name = "BikeLotId", foreignKey = @ForeignKey(name = "BikeLotId"))
+	private VehicleLot type;
 	
 	public Vehicle () {
 	}
 	
-	public Vehicle (long id, String serialNumber, VehicleType type) {
-		this.id = id;
-		this.serialNumber = serialNumber;
-		this.type = type;
-	}
-	
-	public long getId () {
+	public int getId () {
 		return id;
 	}
 	
-	public void setId (long id) {
+	public void setId (int id) {
 		this.id = id;
 	}
 	
@@ -44,14 +34,6 @@ public class Vehicle {
 	
 	public void setSerialNumber (String serialNumber) {
 		this.serialNumber = serialNumber;
-	}
-	
-	public VehicleType getType () {
-		return type;
-	}
-	
-	public void setType (VehicleType type) {
-		this.type = type;
 	}
 	
 }

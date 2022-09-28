@@ -3,13 +3,16 @@ package be.kdg.sa.velo.domain.vehicles;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity(name = "VehicleLocations")
+@Entity (name = "VehicleLocations")
 public class VehicleLocation {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@Column (name = "VehicleLocationId", columnDefinition = "SMALLINT")
+	private int id;
+	@Column (nullable = false)
 	private LocalDateTime timestamp;
 	@ManyToOne
+	@JoinColumn (name = "VehicleId", foreignKey = @ForeignKey (name = "VehicleId"), columnDefinition = "SMALLINT")
 	private Vehicle vehicle;
 	private double latitude;
 	private double longitude;
@@ -18,7 +21,7 @@ public class VehicleLocation {
 	
 	}
 	
-	public VehicleLocation (long id, LocalDateTime timestamp, Vehicle vehicle, double latitude, double longitude) {
+	public VehicleLocation (int id, LocalDateTime timestamp, Vehicle vehicle, double latitude, double longitude) {
 		setId (id);
 		setTimestamp (timestamp);
 		setVehicle (vehicle);
@@ -26,11 +29,11 @@ public class VehicleLocation {
 		setLongitude (longitude);
 	}
 	
-	public long getId () {
+	public int getId () {
 		return id;
 	}
 	
-	public void setId (long id) {
+	public void setId (int id) {
 		this.id = id;
 	}
 	

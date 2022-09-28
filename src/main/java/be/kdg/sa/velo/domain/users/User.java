@@ -13,60 +13,25 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "UserId")
-	private long id;
-	private String firstName;
-	private String lastName;
+	private int id;
+	private String name;
 	private String email;
 	private String street;
 	private String streetNumber;
 	private String postalCode;
 	private String city;
 	private String country;
-	private String phoneNumber;
-	private boolean isBlocked;
-	private boolean isDeleted;
-	
-	public User (long id, String firstName, String lastName, String email, String street, String streetNumber, String postalCode, String city, String country, String phoneNumber, boolean isBlocked) {
-		setId(id);
-		setFirstName (firstName);
-		setLastName (lastName);
-		setEmail (email);
-		setStreet (street);
-		setStreetNumber (streetNumber);
-		setPostalCode (postalCode);
-		setCity (city);
-		setCountry (country);
-		setPhoneNumber (phoneNumber);
-		setBlocked (isBlocked);
-		isDeleted = false;
-	}
 	
 	public User () {
 	
 	}
 	
-	public long getId () {
+	public int getId () {
 		return id;
 	}
 	
-	public void setId (long id) {
+	public void setId (int id) {
 		this.id = id;
-	}
-	
-	public String getFirstName () {
-		return firstName;
-	}
-	
-	public void setFirstName (String firstName) {
-		this.firstName = firstName;
-	}
-	
-	public String getLastName () {
-		return lastName;
-	}
-	
-	public void setLastName (String lastName) {
-		this.lastName = lastName;
 	}
 	
 	public String getEmail () {
@@ -117,27 +82,4 @@ public class User {
 		this.country = country;
 	}
 	
-	public String getPhoneNumber () {
-		return phoneNumber;
-	}
-	
-	public void setPhoneNumber (String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-	
-	public boolean isBlocked () {
-		return isBlocked;
-	}
-	
-	public void setBlocked (boolean blocked) {
-		isBlocked = blocked;
-	}
-	
-	public boolean isDeleted () {
-		return isDeleted;
-	}
-	
-	public void setDeleted (boolean deleted) {
-		isDeleted = deleted;
-	}
 }

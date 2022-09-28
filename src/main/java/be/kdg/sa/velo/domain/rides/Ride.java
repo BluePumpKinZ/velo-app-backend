@@ -11,41 +11,36 @@ import javax.persistence.*;
  * @version 1.0 20/09/2022 12:44
  */
 
-@Entity(name = "Rides")
+@Entity (name = "Rides")
 public class Ride {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "RideId")
-	private long id;
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@Column (name = "RideId")
+	private int id;
 	@ManyToOne
+	@JoinColumn (name = "VehicleId", foreignKey = @ForeignKey (name = "VehicleId"))
 	private Vehicle vehicle;
 	@OneToOne (optional = true)
+	@JoinColumn (name = "StartLockId", foreignKey = @ForeignKey (name = "StartLockId"))
 	private Lock startPoint;
 	@OneToOne (optional = true)
+	@JoinColumn (name = "EndLockId", foreignKey = @ForeignKey (name = "EndLockId"))
 	private Lock endPoint;
 	private long startTime;
 	@Column (name = "EndTime", nullable = true)
 	private long endTime;
 	@ManyToOne (optional = false)
+	@JoinColumn (name = "SubscriptionId", foreignKey = @ForeignKey (name = "SubscriptionId"))
 	private Subscription subscription;
 	
 	public Ride () {
-	
 	}
 	
-	public Ride (long id, Vehicle vehicle, long startTime, long endTime, Subscription subscription) {
-		this.id = id;
-		setVehicle (vehicle);
-		setStartTime (startTime);
-		setEndTime (endTime);
-		setSubscription (subscription);
-	}
-	
-	public long getId () {
+	public int getId () {
 		return id;
 	}
 	
-	public void setId (long id) {
+	public void setId (int id) {
 		this.id = id;
 	}
 	

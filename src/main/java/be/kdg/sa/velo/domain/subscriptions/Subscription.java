@@ -1,10 +1,9 @@
 package be.kdg.sa.velo.domain.subscriptions;
 
-import be.kdg.sa.velo.domain.rides.Ride;
 import be.kdg.sa.velo.domain.users.User;
 
 import javax.persistence.*;
-import java.util.List;
+import java.time.LocalDate;
 
 /**
  * @author Maxim Derboven
@@ -15,33 +14,23 @@ public class Subscription {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column (name = "SubscriptionId")
-	private long id;
-	@OneToOne (optional = true)
+	private int id;
+	@OneToOne (optional = false)
+	@JoinColumn (name = "UserId", foreignKey = @ForeignKey (name = "UserId"))
 	private User user;
 	private SubscriptionType subscriptionType;
-	private long startDate;
-	private boolean isActive;
-	@OneToMany (mappedBy = "subscription")
-	private List<Ride> rides;
-	
-	public Subscription (long id, User user, SubscriptionType subscriptionType, long startDate, boolean isActive, List<Ride> rides) {
-		this.rides = rides;
-		setId (id);
-		setUser (user);
-		setSubscriptionType (subscriptionType);
-		setStartDate (startDate);
-		setActive (isActive);
-	}
+	@Column (name = "ValidFrom")
+	private LocalDate startDate;
 	
 	public Subscription () {
 	
 	}
 	
-	public long getId () {
+	public int getId () {
 		return id;
 	}
 	
-	public void setId (long id) {
+	public void setId (int id) {
 		this.id = id;
 	}
 	
@@ -61,20 +50,12 @@ public class Subscription {
 		this.subscriptionType = subscriptionType;
 	}
 	
-	public long getStartDate () {
+	public LocalDate getStartDate () {
 		return startDate;
 	}
 	
-	public void setStartDate (long startDate) {
+	public void setStartDate (LocalDate startDate) {
 		this.startDate = startDate;
-	}
-	
-	public boolean isActive () {
-		return isActive;
-	}
-	
-	public void setActive (boolean active) {
-		isActive = active;
 	}
 	
 }

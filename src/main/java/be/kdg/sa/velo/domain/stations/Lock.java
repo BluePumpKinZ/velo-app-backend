@@ -1,6 +1,6 @@
 package be.kdg.sa.velo.domain.stations;
 
-import be.kdg.sa.velo.domain.vehicles.DockedVehicle;
+import be.kdg.sa.velo.domain.vehicles.Vehicle;
 
 import javax.persistence.*;
 
@@ -13,23 +13,19 @@ public class Lock {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "LockId")
-	private long id;
+	private int id;
 	@OneToOne (optional = true)
-	private DockedVehicle vehicle;
+	@JoinColumn(name = "VehicleId", foreignKey = @ForeignKey(name = "VehicleId"))
+	private Vehicle vehicle;
 	private int stationLockNr;
-	@ManyToOne()
+	@ManyToOne
+	@JoinColumn(name = "StationId", foreignKey = @ForeignKey(name = "StationId"))
 	private Station station;
 	
 	public Lock () {
 	}
 	
-	public Lock (long id, int stationLockNr, Station station) {
-		setId(id);
-		setStationLockNr (stationLockNr);
-		setStation (station);
-	}
-	
-	public void setVehicle (DockedVehicle vehicle) {
+	public void setVehicle (Vehicle vehicle) {
 		this.vehicle = vehicle;
 	}
 	
@@ -37,15 +33,15 @@ public class Lock {
 		this.stationLockNr = stationLockNr;
 	}
 	
-	public long getId () {
+	public int getId () {
 		return id;
 	}
 	
-	public void setId (long id) {
+	public void setId (int id) {
 		this.id = id;
 	}
 	
-	public DockedVehicle getVehicle () {
+	public Vehicle getVehicle () {
 		return vehicle;
 	}
 	

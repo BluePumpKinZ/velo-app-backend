@@ -1,10 +1,9 @@
 package be.kdg.sa.velo.domain.stations;
 
+import org.locationtech.jts.geom.Point;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Maxim Derboven
@@ -15,50 +14,60 @@ public class Station {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "StationId")
-	private long id;
-	private String name;
+	private int id;
+	@Column(length=20, nullable = false)
+	private String objectId;
+	@Column(length=20, nullable = false)
+	private String stationNr;
+	@Column(length=20, nullable = false)
+	private String type;
+	@Column(length=100, nullable = false)
 	private String street;
+	@Column(length=10, nullable = false)
 	private String number;
-	private String postalCode;
-	private String city;
+	@Column(length=10, nullable = false)
+	private String zipCode;
+	@Column(length=100, nullable = false)
+	private String district;
+	@Column(name = "GPSCoord")
+	private Point gpsCoord;
 	@OneToMany(mappedBy = "station")
 	private List<Lock> locks;
-	private double latitude;
-	private double longitude;
-	
-	public Station (long id, String name, String street, String number, String postalCode, String city, int capacity, double latitude, double longitude) {
-		setId(id);
-		setName (name);
-		setStreet (street);
-		setNumber (number);
-		setPostalCode (postalCode);
-		setCity (city);
-		setLatitude (latitude);
-		setLongitude (longitude);
-	}
 	
 	public Station () {
 	
 	}
 	
-	public int getCapacity () {
-		return locks.size ();
-	}
-	
-	public long getId () {
+	public int getId () {
 		return id;
 	}
 	
-	private void setId (long id) {
+	public void setId (int id) {
 		this.id = id;
 	}
 	
-	public String getName () {
-		return name;
+	public String getObjectId () {
+		return objectId;
 	}
 	
-	public void setName (String name) {
-		this.name = name;
+	public void setObjectId (String objectId) {
+		this.objectId = objectId;
+	}
+	
+	public String getStationNr () {
+		return stationNr;
+	}
+	
+	public void setStationNr (String stationNr) {
+		this.stationNr = stationNr;
+	}
+	
+	public String getType () {
+		return type;
+	}
+	
+	public void setType (String type) {
+		this.type = type;
 	}
 	
 	public String getStreet () {
@@ -77,20 +86,28 @@ public class Station {
 		this.number = number;
 	}
 	
-	public String getPostalCode () {
-		return postalCode;
+	public String getZipCode () {
+		return zipCode;
 	}
 	
-	public void setPostalCode (String postalCode) {
-		this.postalCode = postalCode;
+	public void setZipCode (String zipCode) {
+		this.zipCode = zipCode;
 	}
 	
-	public String getCity () {
-		return city;
+	public String getDistrict () {
+		return district;
 	}
 	
-	public void setCity (String city) {
-		this.city = city;
+	public void setDistrict (String district) {
+		this.district = district;
+	}
+	
+	public Point getGpsCoord () {
+		return gpsCoord;
+	}
+	
+	public void setGpsCoord (Point gpsCoord) {
+		this.gpsCoord = gpsCoord;
 	}
 	
 	public List<Lock> getLocks () {
@@ -99,29 +116,5 @@ public class Station {
 	
 	public void setLocks (List<Lock> locks) {
 		this.locks = locks;
-	}
-	
-	public int getAvailableBikes () {
-		return (int)locks.stream ().filter((lock -> lock.getVehicle () != null)).count ();
-	}
-	
-	public int getAvailableLocks () {
-		return (int)locks.stream ().filter (Lock::isAvailable).count ();
-	}
-	
-	public double getLatitude () {
-		return latitude;
-	}
-	
-	public void setLatitude (double latitude) {
-		this.latitude = latitude;
-	}
-	
-	public double getLongitude () {
-		return longitude;
-	}
-	
-	public void setLongitude (double longitude) {
-		this.longitude = longitude;
 	}
 }
