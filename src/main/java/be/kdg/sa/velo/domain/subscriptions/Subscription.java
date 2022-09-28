@@ -15,7 +15,7 @@ public class Subscription {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column (name = "SubscriptionId")
 	private int id;
-	@OneToOne (optional = false)
+	@ManyToOne (optional = false)
 	@JoinColumn (name = "UserId", foreignKey = @ForeignKey (name = "UserId"))
 	private User user;
 	private SubscriptionType subscriptionType;

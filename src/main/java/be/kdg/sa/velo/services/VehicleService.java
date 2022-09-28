@@ -1,7 +1,7 @@
 package be.kdg.sa.velo.services;
 
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
-import be.kdg.sa.velo.repositories.VehicleRepository;
+import be.kdg.sa.velo.repositories.jpa.VehicleJpaRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,13 +15,13 @@ import java.util.List;
 @Transactional
 public class VehicleService {
 	
-	private final VehicleRepository vehicleRepository;
+	private final VehicleJpaRepository vehicleRepository;
 	
-	public VehicleService (VehicleRepository vehicleRepository) {
+	public VehicleService (VehicleJpaRepository vehicleRepository) {
 		this.vehicleRepository = vehicleRepository;
 	}
 	
-	public List<? extends Vehicle> getAllVehicles () {
+	public List<Vehicle> getAllVehicles () {
 		return vehicleRepository.findAll ();
 	}
 }
