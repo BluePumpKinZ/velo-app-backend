@@ -6,7 +6,7 @@ package be.kdg.sa.velo.events.vehicles.locks;
  */
 public class UnlockUndockedVehicleEvent extends UnlockVehicleEvent {
 	
-	public UnlockUndockedVehicleEvent (long vehicleId, long userId) {
+	public UnlockUndockedVehicleEvent (int vehicleId, int userId) {
 		super (vehicleId, userId);
 	}
 }

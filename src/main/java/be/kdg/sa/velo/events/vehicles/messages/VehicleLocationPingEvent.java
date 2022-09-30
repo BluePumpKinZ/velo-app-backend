@@ -12,7 +12,7 @@ public final class VehicleLocationPingEvent extends VehicleEvent {
 	private final double latitude;
 	private final double longitude;
 	
-	public VehicleLocationPingEvent (long timeStamp, long vehicleId, double latitude, double longitude) {
+	public VehicleLocationPingEvent (long timeStamp, int vehicleId, double latitude, double longitude) {
 		super (vehicleId);
 		this.timeStamp = timeStamp;
 		this.latitude = latitude;

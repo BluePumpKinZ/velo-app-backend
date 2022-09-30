@@ -21,9 +21,8 @@ public class VehicleLocation {
 	
 	}
 	
-	public VehicleLocation (int id, LocalDateTime timestamp, Vehicle vehicle, double latitude, double longitude) {
-		setId (id);
-		setTimestamp (timestamp);
+	public VehicleLocation (Vehicle vehicle, double latitude, double longitude) {
+		setTimestamp (LocalDateTime.now ());
 		setVehicle (vehicle);
 		setLatitude (latitude);
 		setLongitude (longitude);

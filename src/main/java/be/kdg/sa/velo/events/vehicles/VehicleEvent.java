@@ -6,13 +6,13 @@ package be.kdg.sa.velo.events.vehicles;
  */
 public abstract class VehicleEvent {
 	
-	private final long vehicleId;
+	private final int vehicleId;
 	
-	protected VehicleEvent (long vehicleId) {
+	protected VehicleEvent (int vehicleId) {
 		this.vehicleId = vehicleId;
 	}
 	
-	public long getVehicleId () {
+	public int getVehicleId () {
 		return vehicleId;
 	}
 }

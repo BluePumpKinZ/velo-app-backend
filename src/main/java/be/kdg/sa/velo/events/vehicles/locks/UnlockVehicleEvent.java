@@ -8,14 +8,14 @@ import be.kdg.sa.velo.events.vehicles.VehicleEvent;
  */
 public abstract class UnlockVehicleEvent extends VehicleEvent {
 	
-	private final long userId;
+	private final int userId;
 	
-	protected UnlockVehicleEvent (long vehicleId, long userId) {
+	protected UnlockVehicleEvent (int vehicleId, int userId) {
 		super (vehicleId);
 		this.userId = userId;
 	}
 	
-	public long getUserId () {
+	public int getUserId () {
 		return userId;
 	}
 }

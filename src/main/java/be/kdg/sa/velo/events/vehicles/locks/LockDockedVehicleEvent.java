@@ -6,20 +6,20 @@ package be.kdg.sa.velo.events.vehicles.locks;
  */
 public class LockDockedVehicleEvent extends LockVehicleEvent{
 	
-	private final long stationId;
-	private final long lockId;
+	private final int stationId;
+	private final int lockId;
 	
-	protected LockDockedVehicleEvent (long vehicleId, long userId, boolean defect, long stationId, long lockId) {
+	protected LockDockedVehicleEvent (int vehicleId, int userId, boolean defect, int stationId, int lockId) {
 		super (vehicleId, userId, defect);
 		this.stationId = stationId;
 		this.lockId = lockId;
 	}
 	
-	public long getStationId () {
+	public int getStationId () {
 		return stationId;
 	}
 	
-	public long getLockId () {
+	public int getLockId () {
 		return lockId;
 	}
 }
