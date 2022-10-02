@@ -20,12 +20,15 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
     implementation 'org.hibernate:hibernate-spatial:5.6.11.Final'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
     runtimeOnly 'com.h2database:h2'
     // runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
     runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc:11.2.1.jre17'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.amqp:spring-rabbit-test'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
 }
 
 tasks.named('test') {
