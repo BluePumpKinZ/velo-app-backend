@@ -49,11 +49,12 @@ public class VehicleTests {
 	@Test
 	void update () {
 		var vehicle = new Vehicle ();
-		vehicle.setSerialNumber ("123000789");
+		vehicle.setSerialNumber ("234567890");
+		vehicle.setLot (getRandomItemFromList (lots));
 		vehicle = vehicleService.addVehicle (vehicle);
+		vehicle.setSerialNumber ("123000789");
 		var updatedVehicle = vehicleService.updateVehicle (vehicle);
-		assertEquals ("987654321", updatedVehicle.getSerialNumber ());
-		
+		assertEquals ("123000789", updatedVehicle.getSerialNumber ());
 	}
 	
 }
