@@ -29,7 +29,7 @@ public class Ride {
 	private long startTime;
 	@Column (name = "EndTime", nullable = true)
 	private Long endTime;
-	@ManyToOne (optional = false)
+	@ManyToOne
 	@JoinColumn (name = "SubscriptionId", foreignKey = @ForeignKey (name = "SubscriptionId"))
 	private Subscription subscription;
 	
