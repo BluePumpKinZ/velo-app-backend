@@ -15,7 +15,7 @@ public class Vehicle {
 	private String serialNumber;
 	@ManyToOne (optional = false)
 	@JoinColumn(name = "BikeLotId", foreignKey = @ForeignKey(name = "BikeLotId"))
-	private VehicleLot type;
+	private VehicleLot lot;
 	
 	public Vehicle () {
 	}
@@ -36,4 +36,11 @@ public class Vehicle {
 		this.serialNumber = serialNumber;
 	}
 	
+	public VehicleLot getLot () {
+		return lot;
+	}
+	
+	public void setLot (VehicleLot type) {
+		this.lot = type;
+	}
 }

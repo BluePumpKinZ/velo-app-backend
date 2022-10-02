@@ -15,7 +15,7 @@ public class VehicleType {
 	@Column (name = "BikeTypeId")
 	private int id;
 	private String description;
-	@OneToMany (mappedBy = "type")
+	@OneToMany (mappedBy = "lot")
 	private List<Vehicle> vehicles;
 	
 	public VehicleType () {
