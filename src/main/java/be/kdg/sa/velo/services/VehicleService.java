@@ -4,7 +4,7 @@ import be.kdg.sa.velo.domain.vehicles.Vehicle;
 import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
 import be.kdg.sa.velo.events.vehicles.messages.VehicleLocationPingEvent;
 import be.kdg.sa.velo.repositories.VehicleLocationRepository;
-import be.kdg.sa.velo.repositories.jpa.VehicleJpaRepository;
+import be.kdg.sa.velo.repositories.VehicleRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,10 +18,10 @@ import java.util.List;
 @Transactional
 public class VehicleService {
 	
-	private final VehicleJpaRepository vehicleRepository;
+	private final VehicleRepository vehicleRepository;
 	private final VehicleLocationRepository vehicleLocationRepository;
 	
-	public VehicleService (VehicleJpaRepository vehicleRepository, VehicleLocationRepository vehicleLocationRepository) {
+	public VehicleService (VehicleRepository vehicleRepository, VehicleLocationRepository vehicleLocationRepository) {
 		this.vehicleRepository = vehicleRepository;
 		this.vehicleLocationRepository = vehicleLocationRepository;
 	}

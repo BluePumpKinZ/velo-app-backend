@@ -15,25 +15,32 @@ import javax.persistence.*;
 public class Ride {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	@Column (name = "RideId")
+	@Column (name = "RideId", columnDefinition = "SMALLINT", unique = true, nullable = false)
 	private int id;
 	@ManyToOne
 	@JoinColumn (name = "VehicleId", foreignKey = @ForeignKey (name = "VehicleId"))
 	private Vehicle vehicle;
 	@OneToOne (optional = true)
 	@JoinColumn (name = "StartLockId", foreignKey = @ForeignKey (name = "StartLockId"))
-	private Lock startPoint;
+	private Lock startLock;
 	@OneToOne (optional = true)
 	@JoinColumn (name = "EndLockId", foreignKey = @ForeignKey (name = "EndLockId"))
-	private Lock endPoint;
+	private Lock endLock;
 	private long startTime;
 	@Column (name = "EndTime", nullable = true)
-	private long endTime;
+	private Long endTime;
 	@ManyToOne (optional = false)
 	@JoinColumn (name = "SubscriptionId", foreignKey = @ForeignKey (name = "SubscriptionId"))
 	private Subscription subscription;
 	
 	public Ride () {
+	}
+	
+	public Ride (Vehicle vehicle, Lock startLock, Subscription subscription) {
+		this.vehicle = vehicle;
+		this.startLock = startLock;
+		startTime = System.currentTimeMillis ();
+		this.subscription = subscription;
 	}
 	
 	public int getId () {
@@ -52,20 +59,20 @@ public class Ride {
 		this.vehicle = vehicle;
 	}
 	
-	public Lock getStartPoint () {
-		return startPoint;
+	public Lock getStartLock () {
+		return startLock;
 	}
 	
-	public void setStartPoint (Lock startPoint) {
-		this.startPoint = startPoint;
+	public void setStartLock (Lock startPoint) {
+		this.startLock = startPoint;
 	}
 	
-	public Lock getEndPoint () {
-		return endPoint;
+	public Lock getEndLock () {
+		return endLock;
 	}
 	
-	public void setEndPoint (Lock endPoint) {
-		this.endPoint = endPoint;
+	public void setEndLock (Lock endPoint) {
+		this.endLock = endPoint;
 	}
 	
 	public long getStartTime () {
@@ -76,11 +83,11 @@ public class Ride {
 		this.startTime = startTime;
 	}
 	
-	public long getEndTime () {
+	public Long getEndTime () {
 		return endTime;
 	}
 	
-	public void setEndTime (long endTime) {
+	public void setEndTime (Long endTime) {
 		this.endTime = endTime;
 	}
 	
