@@ -16,13 +16,14 @@ import java.util.Random;
 @Service
 public class RideService {
 	
-	private final Random random = new Random ();
+	private final Random random;
 	private final RideRepository rideRepository;
 	private final StationService stationService;
 	private final SubscriptionRepository subscriptionRepository;
 	private final VehicleRepository vehicleRepository;
 	
-	public RideService (RideRepository rideRepository, StationService stationService, SubscriptionRepository subscriptionRepository, VehicleRepository vehicleService) {
+	public RideService (Random random, RideRepository rideRepository, StationService stationService, SubscriptionRepository subscriptionRepository, VehicleRepository vehicleService) {
+		this.random = random;
 		this.rideRepository = rideRepository;
 		this.stationService = stationService;
 		this.subscriptionRepository = subscriptionRepository;
