@@ -18,19 +18,19 @@ public class Ride {
 	@Column (name = "RideId", columnDefinition = "SMALLINT", unique = true, nullable = false)
 	private int id;
 	@ManyToOne
-	@JoinColumn (name = "VehicleId", foreignKey = @ForeignKey (name = "VehicleId"))
+	@JoinColumn (name = "VehicleId")
 	private Vehicle vehicle;
 	@OneToOne (optional = true)
-	@JoinColumn (name = "StartLockId", foreignKey = @ForeignKey (name = "StartLockId"))
+	@JoinColumn (name = "StartLockId")
 	private Lock startLock;
 	@OneToOne (optional = true)
-	@JoinColumn (name = "EndLockId", foreignKey = @ForeignKey (name = "EndLockId"))
+	@JoinColumn (name = "EndLockId")
 	private Lock endLock;
 	private long startTime;
 	@Column (name = "EndTime", nullable = true)
 	private Long endTime;
 	@ManyToOne
-	@JoinColumn (name = "SubscriptionId", foreignKey = @ForeignKey (name = "SubscriptionId"))
+	@JoinColumn (name = "SubscriptionId")
 	private Subscription subscription;
 	
 	public Ride () {

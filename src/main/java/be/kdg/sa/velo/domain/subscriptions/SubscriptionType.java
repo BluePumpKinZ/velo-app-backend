@@ -1,9 +1,36 @@
 package be.kdg.sa.velo.domain.subscriptions;
 
+import javax.persistence.*;
+
 /**
- * @author Maxim Derboven
- * @version 1.0 20/09/2022 12:50
+ * Jonas Leijzen
+ * 6/10/2022
  */
-public enum SubscriptionType {
-	ANNUAL, MONTHLY, WEEKLY, DAILY
+@Entity(name = "SubscriptionTypes")
+public class SubscriptionType {
+	@Id
+	@Column (name = "SubscriptionTypeId", columnDefinition = "TINYINT")
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	private int id;
+	@Column (name = "Description", columnDefinition = "VARCHAR(50)", nullable = false)
+	private String description;
+	
+	public SubscriptionType () {
+	}
+	
+	public int getId () {
+		return id;
+	}
+	
+	public void setId (int id) {
+		this.id = id;
+	}
+	
+	public String getDescription () {
+		return description;
+	}
+	
+	public void setDescription (String description) {
+		this.description = description;
+	}
 }

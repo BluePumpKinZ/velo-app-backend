@@ -12,9 +12,10 @@ public class Vehicle {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column (name = "VehicleId")
 	private int id;
+	@Column (name = "SerialNumber", columnDefinition = "NVARCHAR", length = 20)
 	private String serialNumber;
 	@ManyToOne (optional = false)
-	@JoinColumn(name = "BikeLotId", foreignKey = @ForeignKey(name = "BikeLotId"))
+	@JoinColumn(name = "BikeLotId")
 	private VehicleLot lot;
 	
 	public Vehicle () {

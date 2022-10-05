@@ -9,12 +9,14 @@ public class VehicleLocation {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column (name = "VehicleLocationId", columnDefinition = "SMALLINT")
 	private int id;
-	@Column (nullable = false)
+	@Column (nullable = false, name = "TimeStamp")
 	private LocalDateTime timestamp;
 	@ManyToOne
-	@JoinColumn (name = "VehicleId", foreignKey = @ForeignKey (name = "VehicleId"), columnDefinition = "SMALLINT")
+	@JoinColumn (name = "VehicleId", columnDefinition = "SMALLINT")
 	private Vehicle vehicle;
+	@Column (nullable = false, name = "Latitude")
 	private double latitude;
+	@Column (nullable = false, name = "Longitude")
 	private double longitude;
 	
 	public VehicleLocation () {
