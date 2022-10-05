@@ -20,10 +20,10 @@ We beperken ons eerst tot een paar issues en proberen deze volledig af te werken
 - Het mocken van tijd in de tests.
 ## Post Coaching
 ### Feedback
-Na aula les
+###### Na aula les
 - We hebben de structuur van het project en de packages aangepast. De messaging package is aangemaakt en de events en models mappen zijn samengevoegd.
 - Gebruik gemaakt van Beans voor Random en ObjectMapper in plaats van deze aan te maken met new ().
-Na persoonlijke feedback
+###### Na persoonlijke feedback
 - De setup van de meeste systemen in gebeurd (jpa, tests, messaging, ...)
 - De architechtuur van het project zit zeer goed in elkaar.
 - Voor de verbinding tussen de simulator en de server moeten we wat opzoekwerk doen ivm de queue te mocken.
