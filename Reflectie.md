@@ -15,7 +15,7 @@ We beperken ons eerst tot een paar issues en proberen deze volledig af te werken
 - Moeten we voor unit tests de controllers met rest aanspreken of rechtstreeks via de functie.
 - Is er een rede dat Rides geen PK heeft.
 - Hoe moet er gewerkt worden met layouts in html. (waar er een pagina wordt gebruikt als layout met daarin de echte content van de pagina)
-- Hoe rest requests versturen vanuit de het simulator project.
+- Hoe rest requests versturen vanuit het simulator project.
 - Is er een andere method in het jpa framework voor objecten te updaten.
 - Het mocken van tijd in de tests.
 ## Post Coaching
