@@ -14,9 +14,16 @@ We beperken ons eerst tot een paar issues en proberen deze volledig af te werken
 ### Vragen
 - Moeten we voor unit tests de controllers met rest aanspreken of rechtstreeks via de functie.
 - Is er een rede dat Rides geen PK heeft.
+- Hoe moet er gewerkt worden met layouts in html. (waar er een pagina wordt gebruikt als layout met daarin de echte content van de pagina)
+- Hoe rest requests versturen vanuit de het simulator project.
+- Is er een andere method in het jpa framework voor objecten te updaten.
+- Het mocken van tijd in de tests.
 ## Post Coaching
 ### Feedback
-
+Na aula les
+- We hebben de structuur van het project en de packages aangepast. De messaging package is aangemaakt en de events en models mappen zijn samengevoegd.
+- Gebruik gemaakt van Beans voor Random en ObjectMapper in plaats van deze aan te maken met new ().
+Na persoonlijke feedback
 
 # V2
 
