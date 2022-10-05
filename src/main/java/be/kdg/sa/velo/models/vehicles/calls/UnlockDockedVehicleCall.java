@@ -4,7 +4,7 @@ package be.kdg.sa.velo.models.vehicles.calls;
  * Jonas Leijzen
  * 21/09/2022
  */
-public class UnlockDockedVehicleCall extends UnlockVehicleCall {
+public final class UnlockDockedVehicleCall extends UnlockVehicleCall {
 	
 	private final int stationId;
 	

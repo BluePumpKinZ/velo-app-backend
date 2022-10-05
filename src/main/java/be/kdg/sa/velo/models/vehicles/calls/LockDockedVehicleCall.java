@@ -4,12 +4,12 @@ package be.kdg.sa.velo.models.vehicles.calls;
  * Jonas Leijzen
  * 21/09/2022
  */
-public class LockDockedVehicleCall extends LockVehicleCall {
+public final class LockDockedVehicleCall extends LockVehicleCall {
 	
 	private final int stationId;
 	private final int lockId;
 	
-	protected LockDockedVehicleCall (int vehicleId, int userId, boolean defect, int stationId, int lockId) {
+	public LockDockedVehicleCall (int vehicleId, int userId, boolean defect, int stationId, int lockId) {
 		super (vehicleId, userId, defect);
 		this.stationId = stationId;
 		this.lockId = lockId;
