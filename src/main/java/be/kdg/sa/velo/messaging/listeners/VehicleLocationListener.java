@@ -1,4 +1,4 @@
-package be.kdg.sa.velo.controllers.listeners;
+package be.kdg.sa.velo.messaging.listeners;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
