@@ -1,4 +1,4 @@
-package be.kdg.sa.velo.services;
+package be.kdg.sa.velo.controllers.listeners;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * 2/10/2022
  */
 @Component
-public class VehicleLocationReceiver {
+public class VehicleLocationListener {
 	@RabbitListener (queues = "${messaging.routingKey}")
 	void receive (String message) {
 		System.out.println ("Received: " + message);
