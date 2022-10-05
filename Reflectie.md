@@ -24,6 +24,18 @@ Na aula les
 - We hebben de structuur van het project en de packages aangepast. De messaging package is aangemaakt en de events en models mappen zijn samengevoegd.
 - Gebruik gemaakt van Beans voor Random en ObjectMapper in plaats van deze aan te maken met new ().
 Na persoonlijke feedback
+- De setup van de meeste systemen in gebeurd (jpa, tests, messaging, ...)
+- De architechtuur van het project zit zeer goed in elkaar.
+- Voor de verbinding tussen de simulator en de server moeten we wat opzoekwerk doen ivm de queue te mocken.
+- De 70% code coverage moet gehaald worden daar middel van tests in het velo project, niet met behulp van het simulator project.
+- Het project moet voorzien zijn op mogelijke verandering die de 'klant' kan vragen aangezien er binnenkort een vraag komt voor iets aan te passen.
+- Gebruik van strategy patroon bij prijsberekening.
+- Interfaces voor openride detectie, nu gebeurd deze op tijd en locatie. Later kan het perfect zijn dat er nog een andere criteria bijkomt.
+- Unit tests altijd op een service uitvoeren. Integratietests voolal met de controller door calls te mocken.
+- Repo tests moeten niet als het simpele queries zijn
+- Als we dit willen opzoeken hoe met timeleaf met layouts te werken in de webpaginas.
+- De prijsberekening kan best vroeger dan later worden uitgewerkt.
+- Het huidige tempo zit goed, we gaan er zo zeker graken. Wel soms gebruik maken van de 80/20 regel.
 
 # V2
 
