@@ -1,7 +1,7 @@
 package be.kdg.sa.velo.services;
 
 import be.kdg.sa.velo.domain.rides.Ride;
-import be.kdg.sa.velo.events.vehicles.locks.UnlockDockedVehicleEvent;
+import be.kdg.sa.velo.models.vehicles.calls.UnlockDockedVehicleCall;
 import be.kdg.sa.velo.repositories.RideRepository;
 import be.kdg.sa.velo.repositories.SubscriptionRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
@@ -30,7 +30,7 @@ public class RideService {
 		this.vehicleRepository = vehicleService;
 	}
 	
-	public int startDockedRide (UnlockDockedVehicleEvent event) {
+	public int startDockedRide (UnlockDockedVehicleCall event) {
 		var locks = stationService.getAvailableLocksForStation (event.getStationId ());
 		var lock = locks.get (random.nextInt (locks.size ()));
 		var vehicle = vehicleRepository.findById (event.getVehicleId ()).orElseThrow ();

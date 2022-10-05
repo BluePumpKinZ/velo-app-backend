@@ -3,7 +3,7 @@ package be.kdg.sa.velo.services;
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
 import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
 import be.kdg.sa.velo.domain.vehicles.VehicleLot;
-import be.kdg.sa.velo.events.vehicles.messages.VehicleLocationPingEvent;
+import be.kdg.sa.velo.models.vehicles.messages.VehicleLocationPingMessage;
 import be.kdg.sa.velo.repositories.VehicleLocationRepository;
 import be.kdg.sa.velo.repositories.VehicleLotRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
@@ -34,7 +34,7 @@ public class VehicleService {
 		return vehicleRepository.findAll ();
 	}
 	
-	public VehicleLocation vehicleLocationPing (VehicleLocationPingEvent vehicleLocationPingEvent) {
+	public VehicleLocation vehicleLocationPing (VehicleLocationPingMessage vehicleLocationPingEvent) {
 		var vehicle = vehicleRepository.findById (vehicleLocationPingEvent.getVehicleId ()).orElseThrow ();
 		var locationPing = new VehicleLocation (vehicle, vehicleLocationPingEvent.getLatitude (), vehicleLocationPingEvent.getLongitude ());
 		return vehicleLocationRepository.save (locationPing);

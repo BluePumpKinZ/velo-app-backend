@@ -1,15 +1,15 @@
-package be.kdg.sa.velo.events.vehicles.locks;
+package be.kdg.sa.velo.models.vehicles.calls;
 
 /**
  * Jonas Leijzen
  * 21/09/2022
  */
-public class LockDockedVehicleEvent extends LockVehicleEvent{
+public class LockDockedVehicleCall extends LockVehicleCall {
 	
 	private final int stationId;
 	private final int lockId;
 	
-	protected LockDockedVehicleEvent (int vehicleId, int userId, boolean defect, int stationId, int lockId) {
+	protected LockDockedVehicleCall (int vehicleId, int userId, boolean defect, int stationId, int lockId) {
 		super (vehicleId, userId, defect);
 		this.stationId = stationId;
 		this.lockId = lockId;

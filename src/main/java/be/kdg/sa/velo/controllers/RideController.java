@@ -1,6 +1,6 @@
 package be.kdg.sa.velo.controllers;
 
-import be.kdg.sa.velo.events.vehicles.locks.UnlockDockedVehicleEvent;
+import be.kdg.sa.velo.models.vehicles.calls.UnlockDockedVehicleCall;
 import be.kdg.sa.velo.services.RideService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +22,7 @@ public class RideController {
 	}
 	
 	@PostMapping (path = "/start/docked")
-	public int startDockedRide (@RequestBody UnlockDockedVehicleEvent event) {
+	public int startDockedRide (@RequestBody UnlockDockedVehicleCall event) {
 		return rideService.startDockedRide(event);
 	}
 

@@ -2,7 +2,7 @@ package be.kdg.sa.velo.controllers;
 
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
 import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
-import be.kdg.sa.velo.events.vehicles.messages.VehicleLocationPingEvent;
+import be.kdg.sa.velo.models.vehicles.messages.VehicleLocationPingMessage;
 import be.kdg.sa.velo.services.VehicleService;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +31,7 @@ public class VehicleController {
 	}
 	
 	@PostMapping (path="/location/new", produces = APPLICATION_JSON_VALUE)
-	public VehicleLocation vehicleLocationPing (@RequestBody VehicleLocationPingEvent vehicleLocationPingEvent) {
+	public VehicleLocation vehicleLocationPing (@RequestBody VehicleLocationPingMessage vehicleLocationPingEvent) {
 		return vehicleService.vehicleLocationPing(vehicleLocationPingEvent);
 	}
 	

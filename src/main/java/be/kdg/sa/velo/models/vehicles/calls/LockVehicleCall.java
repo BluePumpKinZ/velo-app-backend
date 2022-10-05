@@ -1,17 +1,17 @@
-package be.kdg.sa.velo.events.vehicles.locks;
+package be.kdg.sa.velo.models.vehicles.calls;
 
-import be.kdg.sa.velo.events.vehicles.VehicleEvent;
+import be.kdg.sa.velo.models.vehicles.VehicleCall;
 
 /**
  * Jonas Leijzen
  * 21/09/2022
  */
-public abstract class LockVehicleEvent extends VehicleEvent {
+public abstract class LockVehicleCall extends VehicleCall {
 	
 	private final int userId;
 	private final boolean defect;
 	
-	protected LockVehicleEvent (int vehicleId, int userId, boolean defect) {
+	protected LockVehicleCall (int vehicleId, int userId, boolean defect) {
 		super (vehicleId);
 		this.userId = userId;
 		this.defect = defect;
