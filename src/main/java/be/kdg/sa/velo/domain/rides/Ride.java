@@ -37,10 +37,14 @@ public class Ride {
 	}
 	
 	public Ride (Vehicle vehicle, Lock startLock, Subscription subscription) {
-		this.vehicle = vehicle;
+		this(vehicle, subscription);
 		this.startLock = startLock;
-		startTime = System.currentTimeMillis ();
+	}
+	
+	public Ride (Vehicle vehicle, Subscription subscription) {
+		this.vehicle = vehicle;
 		this.subscription = subscription;
+		startTime = System.currentTimeMillis ();
 	}
 	
 	public int getId () {

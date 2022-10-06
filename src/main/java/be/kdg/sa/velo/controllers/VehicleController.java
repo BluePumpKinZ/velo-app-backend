@@ -16,7 +16,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
  */
 
 @RestController
-@RequestMapping (path = "/api/v1/vehicles", produces = APPLICATION_JSON_VALUE)
+@RequestMapping (path = "/api/v1/vehicles", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
 public class VehicleController {
 	
 	private final VehicleService vehicleService;

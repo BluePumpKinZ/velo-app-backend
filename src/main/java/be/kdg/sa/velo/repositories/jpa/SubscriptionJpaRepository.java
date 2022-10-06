@@ -4,14 +4,16 @@ import be.kdg.sa.velo.domain.subscriptions.Subscription;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 /**
  * Jonas Leijzen
  * 2/10/2022
  */
 public interface SubscriptionJpaRepository extends JpaRepository<Subscription, Integer> {
 	
-	@Query (value = "SELECT * FROM subscriptions WHERE UserId = ?1 ORDER BY VALIDFROM DESC FETCH FIRST 1 ROW ONLY", nativeQuery = true)
-	Subscription getActiveSubscriptionByUserId (int userId);
+	@Query ("SELECT s FROM Subscriptions s left outer JOIN FETCH s.subscriptionType WHERE s.user.id = :userId")
+	List<Subscription> getActiveSubscriptionsByUserId (int userId);
 	
 }
 
