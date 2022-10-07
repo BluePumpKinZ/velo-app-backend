@@ -38,6 +38,7 @@ public class SubscriptionService {
 			case "DAG" -> subscription.getStartDate ().plusDays (1);
 			case "MAAND" -> subscription.getStartDate ().plusMonths (1);
 			case "JAAR" -> subscription.getStartDate ().plusYears (1);
+			default -> throw new IllegalStateException ("Unexpected value: " + subscription.getSubscriptionType ().getDescription ());
 		};
 	}
 	

@@ -4,6 +4,7 @@ import be.kdg.sa.velo.domain.rides.Ride;
 import be.kdg.sa.velo.models.vehicles.calls.UnlockDockedVehicleCall;
 import be.kdg.sa.velo.models.vehicles.calls.UnlockUndockedVehicleCall;
 import be.kdg.sa.velo.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -22,6 +23,7 @@ public class RideService {
 	private final VehicleRepository vehicleRepository;
 	private final LockRepository lockRepository;
 	
+	@Autowired
 	public RideService (Random random, StationService stationService, SubscriptionService subscriptionService, RideRepository rideRepository, VehicleRepository vehicleRepository, LockRepository lockRepository) {
 		this.random = random;
 		this.stationService = stationService;
@@ -32,9 +34,9 @@ public class RideService {
 	}
 	
 	public int startDockedRide (UnlockDockedVehicleCall event) {
-		var locks = stationService.getAvailableLocksForStation (event.getStationId ());
+		var locks = stationService.getFilledLocksForStation (event.getStationId ());
 		var lock = locks.get (random.nextInt (locks.size ()));
-		var vehicle = vehicleRepository.findById (event.getVehicleId ()).orElseThrow ();
+		var vehicle = lock.getVehicle ();
 		var subscription = subscriptionService.getCurrentUserSubscription (event.getUserId ());
 		var ride = new Ride (vehicle, lock, subscription);
 		rideRepository.save (ride);

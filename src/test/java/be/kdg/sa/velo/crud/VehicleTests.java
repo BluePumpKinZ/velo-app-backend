@@ -1,13 +1,12 @@
 package be.kdg.sa.velo.crud;
 
+import be.kdg.sa.velo.VeloApplicationTests;
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
 import be.kdg.sa.velo.domain.vehicles.VehicleLot;
 import be.kdg.sa.velo.services.VehicleService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Jonas Leijzen
  * 2/10/2022
  */
-@SpringBootTest
-@TestInstance (TestInstance.Lifecycle.PER_CLASS)
-public class VehicleTests {
+public class VehicleTests extends VeloApplicationTests {
 	@Autowired
 	private VehicleService vehicleService;
 	private final List<VehicleLot> lots = new ArrayList<> ();
