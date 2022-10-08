@@ -1,7 +1,7 @@
 package be.kdg.sa.velo.messaging.senders;
 
 import be.kdg.sa.velo.configuration.MessagingProperties;
-import be.kdg.sa.velo.models.Invoice;
+import be.kdg.sa.velo.models.invoices.Invoice;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
