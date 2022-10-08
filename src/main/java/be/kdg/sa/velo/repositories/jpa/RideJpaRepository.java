@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Jonas Leijzen
@@ -23,4 +24,9 @@ public interface RideJpaRepository extends JpaRepository<Ride, Integer> {
 			"ORDER BY VL.TIMESTAMP", nativeQuery = true)
 	List<VehicleLocation> getVehicleLocationsForRide (int rideId);
 	
+	@Query (value = "SELECT TOP(1) * FROM RIDES " +
+			"WHERE ENDTIME IS NULL " +
+			"AND VEHICLEID = ?1 " +
+			"ORDER BY STARTTIME DESC", nativeQuery = true)
+	Optional<Ride> getLastRideForVehicle (int vehicleId);
 }

@@ -23,7 +23,7 @@ public abstract class Sender<BaseType, QueueConfig extends SenderQueueConfig> {
 		this.logger = logger;
 	}
 	
-	void send (BaseType messageObject) {
+	public void send (BaseType messageObject) {
 		try {
 			var messageStr = serialize (messageObject);
 			send(messageStr);

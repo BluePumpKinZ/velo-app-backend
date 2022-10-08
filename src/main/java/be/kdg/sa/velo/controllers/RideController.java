@@ -1,6 +1,7 @@
 package be.kdg.sa.velo.controllers;
 
 import be.kdg.sa.velo.models.vehicles.calls.LockDockedVehicleCall;
+import be.kdg.sa.velo.models.vehicles.calls.LockUndockedVehicleCall;
 import be.kdg.sa.velo.models.vehicles.calls.UnlockDockedVehicleCall;
 import be.kdg.sa.velo.models.vehicles.calls.UnlockUndockedVehicleCall;
 import be.kdg.sa.velo.services.RideService;
@@ -37,12 +38,12 @@ public class RideController {
 	
 	@PostMapping (path = "end/docked")
 	public void endDockedRide (@RequestBody LockDockedVehicleCall event) {
-	
+		rideService.endDockedRide(event);
 	}
 	
 	@PostMapping (path = "end/undocked")
-	public void endUndockedRide () {
-	
+	public void endUndockedRide (@RequestBody LockUndockedVehicleCall event) {
+		rideService.endUndockedRide(event);
 	}
 	
 }
