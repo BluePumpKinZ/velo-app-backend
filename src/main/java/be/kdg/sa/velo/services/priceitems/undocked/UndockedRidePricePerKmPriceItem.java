@@ -1,11 +1,12 @@
-package be.kdg.sa.velo.services.prices.priceitems.undocked;
+package be.kdg.sa.velo.services.priceitems.undocked;
 
 import be.kdg.sa.velo.domain.rides.Ride;
+import be.kdg.sa.velo.domain.rides.RideType;
 import be.kdg.sa.velo.domain.subscriptions.SubscriptionTypeEnum;
-import be.kdg.sa.velo.services.RideService;
-import be.kdg.sa.velo.services.prices.priceitems.PriceItem;
+import be.kdg.sa.velo.services.RideDistanceCalculator;
+import be.kdg.sa.velo.services.priceitems.PriceItem;
+import be.kdg.sa.velo.utils.RideUtils;
 import be.kdg.sa.velo.utils.SubscriptionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -18,9 +19,6 @@ import java.util.Map;
 @Component
 public final class UndockedRidePricePerKmPriceItem extends PriceItem {
 	
-	@Autowired
-	private RideService rideService;
-	
 	private static final Map<SubscriptionTypeEnum, Double> prices = new HashMap<> () {{
 		put (SubscriptionTypeEnum.DAY, 0.30);
 		put (SubscriptionTypeEnum.MONTH, 0.22);
@@ -32,9 +30,14 @@ public final class UndockedRidePricePerKmPriceItem extends PriceItem {
 	}
 	
 	@Override
-	protected double getPrice (Ride ride) {
+	public boolean doesApply (Ride ride) {
+		return RideUtils.getRideType (ride) == RideType.UNDOCKED;
+	}
+	
+	@Override
+	protected double getPrice (Ride ride, RideDistanceCalculator rideDistanceCalculator) {
 		var subscriptionType = SubscriptionUtils.getSubscriptionTypeEnum (ride.getSubscription ());
-		var distance = rideService.getRideDistance (ride);
+		var distance = rideDistanceCalculator.getRideDistance (ride);
 		return prices.get (subscriptionType) * distance;
 	}
 }

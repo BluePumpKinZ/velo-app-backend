@@ -8,14 +8,12 @@ import be.kdg.sa.velo.models.vehicles.calls.*;
 import be.kdg.sa.velo.repositories.LockRepository;
 import be.kdg.sa.velo.repositories.RideRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
-import be.kdg.sa.velo.services.prices.DockedRidePriceCalculator;
-import be.kdg.sa.velo.services.prices.RidePriceCalculator;
-import be.kdg.sa.velo.services.prices.UndockedRidePriceCalculator;
-import be.kdg.sa.velo.utils.RideUtils;
+import be.kdg.sa.velo.services.priceitems.PriceItem;
 import be.kdg.sa.velo.utils.VehicleLocationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
@@ -24,7 +22,7 @@ import java.util.Random;
  * 2/10/2022
  */
 @Service
-public class RideService {
+public class RideService implements RideDistanceCalculator {
 	
 	private final Random random;
 	private final StationService stationService;
@@ -33,9 +31,10 @@ public class RideService {
 	private final VehicleRepository vehicleRepository;
 	private final LockRepository lockRepository;
 	private final InvoiceXmlSender invoiceXmlSender;
+	private final Collection<PriceItem> priceItems;
 	
 	@Autowired
-	public RideService (Random random, StationService stationService, SubscriptionService subscriptionService, RideRepository rideRepository, VehicleRepository vehicleRepository, LockRepository lockRepository, InvoiceXmlSender invoiceXmlSender) {
+	public RideService (Random random, StationService stationService, SubscriptionService subscriptionService, RideRepository rideRepository, VehicleRepository vehicleRepository, LockRepository lockRepository, InvoiceXmlSender invoiceXmlSender, Collection<PriceItem> priceItems) {
 		this.random = random;
 		this.stationService = stationService;
 		this.subscriptionService = subscriptionService;
@@ -43,10 +42,11 @@ public class RideService {
 		this.vehicleRepository = vehicleRepository;
 		this.lockRepository = lockRepository;
 		this.invoiceXmlSender = invoiceXmlSender;
+		this.priceItems = priceItems;
 	}
 	
-	
 	// Returns the distance of a ride in kilometers
+	@Override
 	public double getRideDistance (Ride ride) {
 		List<VehicleLocation> vehicleLocations = rideRepository.getVehicleLocationsForRide (ride.getId ());
 		double totalDistance = 0;
@@ -101,27 +101,18 @@ public class RideService {
 			return;
 		
 		var invoice = getRideInvoice (ride);
-		if (invoice == null)
-			throw new RuntimeException ("Could not create invoice for ride");
+		if (invoice.getLineItems ().size () == 0)
+			return;
 		invoiceXmlSender.send (invoice);
 	}
 	
 	private Invoice getRideInvoice (Ride ride) {
-		var priceCalculator = getPriceRideCalculator (ride);
-		if (priceCalculator == null)
-			return null;
-		var invoiceLineItems = priceCalculator.getInvoiceLineItems (ride);
 		var invoice = new Invoice ();
-		invoiceLineItems.forEach (invoice::addLineItem);
+		priceItems.stream ()
+				.filter (priceItem -> priceItem.doesApply (ride))
+				.map(priceItem -> priceItem.getInvoiceLineItem (ride, this))
+				.forEach (invoice::addLineItem);
 		return invoice;
-	}
-	
-	private RidePriceCalculator getPriceRideCalculator (Ride ride) {
-		return switch (RideUtils.getRideType (ride)) {
-			case DOCKED -> new DockedRidePriceCalculator ();
-			case UNDOCKED -> new UndockedRidePriceCalculator ();
-			case MAINTENANCE -> null;
-		};
 	}
 	
 }
