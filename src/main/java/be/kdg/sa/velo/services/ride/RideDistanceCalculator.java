@@ -1,4 +1,4 @@
-package be.kdg.sa.velo.services;
+package be.kdg.sa.velo.services.ride;
 
 import be.kdg.sa.velo.domain.rides.Ride;
 

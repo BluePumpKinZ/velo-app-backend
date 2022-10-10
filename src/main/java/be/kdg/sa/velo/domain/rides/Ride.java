@@ -41,10 +41,26 @@ public class Ride {
 		this.startLock = startLock;
 	}
 	
+	public Ride (Vehicle vehicle, Lock startLock, Lock endLock, long startTime, Long endTime, Subscription subscription) {
+		this.vehicle = vehicle;
+		this.startLock = startLock;
+		this.endLock = endLock;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.subscription = subscription;
+	}
+	
 	public Ride (Vehicle vehicle, Subscription subscription) {
 		this.vehicle = vehicle;
 		this.subscription = subscription;
 		startTime = System.currentTimeMillis ();
+	}
+	
+	public Ride (Vehicle vehicle, long startTime, Long endTime, Subscription subscription) {
+		this.vehicle = vehicle;
+		this.subscription = subscription;
+		this.startTime = startTime;
+		this.endTime = endTime;
 	}
 	
 	public int getId () {

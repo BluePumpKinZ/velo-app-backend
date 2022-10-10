@@ -3,7 +3,6 @@ package be.kdg.sa.velo.services.priceitems.undocked;
 import be.kdg.sa.velo.domain.rides.Ride;
 import be.kdg.sa.velo.domain.rides.RideType;
 import be.kdg.sa.velo.domain.subscriptions.SubscriptionTypeEnum;
-import be.kdg.sa.velo.services.RideDistanceCalculator;
 import be.kdg.sa.velo.services.priceitems.PriceItem;
 import be.kdg.sa.velo.utils.RideUtils;
 import be.kdg.sa.velo.utils.SubscriptionUtils;
@@ -35,7 +34,7 @@ public final class UndockedRideUnlockFeePriceItem extends PriceItem {
 	}
 	
 	@Override
-	protected double getPrice (Ride ride, RideDistanceCalculator rideDistanceCalculator) {
+	protected double getPrice (Ride ride) {
 		return prices.get (SubscriptionUtils.getSubscriptionTypeEnum (ride.getSubscription ()));
 	}
 }

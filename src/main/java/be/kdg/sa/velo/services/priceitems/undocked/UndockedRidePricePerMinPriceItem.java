@@ -3,8 +3,8 @@ package be.kdg.sa.velo.services.priceitems.undocked;
 import be.kdg.sa.velo.domain.rides.Ride;
 import be.kdg.sa.velo.domain.rides.RideType;
 import be.kdg.sa.velo.domain.subscriptions.SubscriptionTypeEnum;
-import be.kdg.sa.velo.services.RideDistanceCalculator;
 import be.kdg.sa.velo.services.priceitems.PriceItem;
+import be.kdg.sa.velo.services.ride.RideTimeCalculator;
 import be.kdg.sa.velo.utils.RideUtils;
 import be.kdg.sa.velo.utils.SubscriptionUtils;
 import org.springframework.stereotype.Component;
@@ -25,8 +25,11 @@ public final class UndockedRidePricePerMinPriceItem extends PriceItem {
 		put (SubscriptionTypeEnum.YEAR, 0.08);
 	}};
 	
-	private UndockedRidePricePerMinPriceItem () {
+	private final RideTimeCalculator rideTimeCalculator;
+	
+	private UndockedRidePricePerMinPriceItem (RideTimeCalculator rideTimeCalculator) {
 		super ("Duration");
+		this.rideTimeCalculator = rideTimeCalculator;
 	}
 	
 	@Override
@@ -35,8 +38,8 @@ public final class UndockedRidePricePerMinPriceItem extends PriceItem {
 	}
 	
 	@Override
-	protected double getPrice (Ride ride, RideDistanceCalculator rideDistanceCalculator) {
-		var minutes = RideUtils.getRideDuration (ride).toMinutes ();
+	protected double getPrice (Ride ride) {
+		var minutes = rideTimeCalculator.getRideDuration (ride).toMinutes ();
 		var subscriptionType = SubscriptionUtils.getSubscriptionTypeEnum (ride.getSubscription ());
 		return prices.get(subscriptionType) * minutes;
 	}

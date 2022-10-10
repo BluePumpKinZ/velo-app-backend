@@ -2,7 +2,6 @@ package be.kdg.sa.velo.services.priceitems;
 
 import be.kdg.sa.velo.domain.rides.Ride;
 import be.kdg.sa.velo.models.invoices.InvoiceLineItem;
-import be.kdg.sa.velo.services.RideDistanceCalculator;
 
 /**
  * Jonas Leijzen
@@ -12,7 +11,7 @@ public abstract class PriceItem {
 	
 	private final String description;
 	
-	protected abstract double getPrice (Ride ride, RideDistanceCalculator rideDistanceCalculator);
+	protected abstract double getPrice (Ride ride);
 	
 	public abstract boolean doesApply (Ride ride);
 	
@@ -20,7 +19,7 @@ public abstract class PriceItem {
 		this.description = description;
 	}
 	
-	public InvoiceLineItem getInvoiceLineItem (Ride ride, RideDistanceCalculator rideDistanceCalculator) {
-		return new InvoiceLineItem(description, getPrice (ride, rideDistanceCalculator));
+	public InvoiceLineItem getInvoiceLineItem (Ride ride) {
+		return new InvoiceLineItem(description, getPrice (ride));
 	}
 }

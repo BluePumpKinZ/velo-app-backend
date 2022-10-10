@@ -18,6 +18,10 @@ public class SubscriptionType {
 	public SubscriptionType () {
 	}
 	
+	public SubscriptionType (String description) {
+		this.description = description;
+	}
+	
 	public int getId () {
 		return id;
 	}
