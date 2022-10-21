@@ -1,6 +1,7 @@
 package be.kdg.sa.velo.services;
 
 import be.kdg.sa.velo.domain.subscriptions.Subscription;
+import be.kdg.sa.velo.exceptions.SubscriptionNotFoundException;
 import be.kdg.sa.velo.repositories.SubscriptionRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class SubscriptionService {
 		return subscriptions.stream ()
 				.filter (this::isSubscriptionValid)
 				.max (Comparator.comparing (Subscription::getStartDate))
-				.orElseThrow ();
+				.orElseThrow (() -> new SubscriptionNotFoundException (0));
 	}
 	
 	private boolean isSubscriptionValid (Subscription subscription) {

@@ -1,7 +1,9 @@
 package be.kdg.sa.velo.repositories.jpa;
 
 import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
+import org.locationtech.jts.geom.Point;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,5 +12,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface VehicleLocationJpaRepository extends JpaRepository<VehicleLocation, Integer> {
-
+	
+	@Query (value = "SELECT * FROM VEHICLELOCATIONS WHERE VEHICLEID = ?1" +
+			"ORDER BY TIME", nativeQuery = true)
+	Point findLatestLocationByVehicleId (int vehicleId);
 }

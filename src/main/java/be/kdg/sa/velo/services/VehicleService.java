@@ -3,10 +3,13 @@ package be.kdg.sa.velo.services;
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
 import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
 import be.kdg.sa.velo.domain.vehicles.VehicleLot;
+import be.kdg.sa.velo.models.vehicles.ClosestVehicle;
 import be.kdg.sa.velo.models.vehicles.messages.VehicleLocationPingMessage;
 import be.kdg.sa.velo.repositories.VehicleLocationRepository;
 import be.kdg.sa.velo.repositories.VehicleLotRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
+import be.kdg.sa.velo.utils.PointFactory;
+import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -36,7 +39,7 @@ public class VehicleService {
 	
 	public VehicleLocation vehicleLocationPing (VehicleLocationPingMessage vehicleLocationPingEvent) {
 		var vehicle = vehicleRepository.findById (vehicleLocationPingEvent.getVehicleId ()).orElseThrow ();
-		var locationPing = new VehicleLocation (vehicle, vehicleLocationPingEvent.getLatitude (), vehicleLocationPingEvent.getLongitude ());
+		var locationPing = new VehicleLocation (vehicle, PointFactory.createPoint (vehicleLocationPingEvent.getLatitude (), vehicleLocationPingEvent.getLongitude ()));
 		return vehicleLocationRepository.save (locationPing);
 	}
 	
@@ -74,5 +77,18 @@ public class VehicleService {
 	
 	public void deleteVehicleLot (int vehicleLotId) {
 		vehicleLotRepository.deleteById (vehicleLotId);
+	}
+	
+	public ClosestVehicle getClosestVehicle (Point point) {
+		Vehicle closestVehicle = vehicleRepository.findClosestVehicle (point);
+		var vehicleLocation = getVehicleLocation (closestVehicle.getId ());
+		return new ClosestVehicle (closestVehicle.getId (),
+				closestVehicle.getSerialNumber (),
+				vehicleLocation.getX (),
+				vehicleLocation.getY ());
+	}
+	
+	private Point getVehicleLocation (int vehicleId) {
+		return vehicleLocationRepository.findLatestLocationByVehicleId (vehicleId);
 	}
 }

@@ -3,6 +3,7 @@ package be.kdg.sa.velo.domain.rides;
 import be.kdg.sa.velo.domain.stations.Lock;
 import be.kdg.sa.velo.domain.subscriptions.Subscription;
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
 
@@ -17,9 +18,13 @@ public class Ride {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column (name = "RideId", columnDefinition = "SMALLINT", unique = true, nullable = false)
 	private int id;
-	@ManyToOne
+	@ManyToOne (optional = false)
 	@JoinColumn (name = "VehicleId")
 	private Vehicle vehicle;
+	@JoinColumn (name = "StartPoint", nullable = false)
+	private Point startPoint;
+	@JoinColumn (name = "EndPoint")
+	private Point endPoint;
 	@OneToOne (optional = true)
 	@JoinColumn (name = "StartLockId")
 	private Lock startLock;
@@ -36,8 +41,8 @@ public class Ride {
 	public Ride () {
 	}
 	
-	public Ride (Vehicle vehicle, Lock startLock, Subscription subscription) {
-		this(vehicle, subscription);
+	public Ride (Vehicle vehicle, Point startPoint, Lock startLock, Subscription subscription) {
+		this(vehicle, startPoint, subscription);
 		this.startLock = startLock;
 	}
 	
@@ -50,8 +55,9 @@ public class Ride {
 		this.subscription = subscription;
 	}
 	
-	public Ride (Vehicle vehicle, Subscription subscription) {
+	public Ride (Vehicle vehicle, Point startPoint, Subscription subscription) {
 		this.vehicle = vehicle;
+		this.startPoint = startPoint;
 		this.subscription = subscription;
 		startTime = System.currentTimeMillis ();
 	}
@@ -77,6 +83,22 @@ public class Ride {
 	
 	public void setVehicle (Vehicle vehicle) {
 		this.vehicle = vehicle;
+	}
+	
+	public Point getStartPoint () {
+		return startPoint;
+	}
+	
+	public void setStartPoint (Point startPoint) {
+		this.startPoint = startPoint;
+	}
+	
+	public Point getEndPoint () {
+		return endPoint;
+	}
+	
+	public void setEndPoint (Point endPoint) {
+		this.endPoint = endPoint;
 	}
 	
 	public Lock getStartLock () {

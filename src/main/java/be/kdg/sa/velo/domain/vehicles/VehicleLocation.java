@@ -1,5 +1,7 @@
 package be.kdg.sa.velo.domain.vehicles;
 
+import org.locationtech.jts.geom.Point;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -14,20 +16,17 @@ public class VehicleLocation {
 	@ManyToOne
 	@JoinColumn (name = "VehicleId", columnDefinition = "SMALLINT")
 	private Vehicle vehicle;
-	@Column (nullable = false, name = "Latitude")
-	private double latitude;
-	@Column (nullable = false, name = "Longitude")
-	private double longitude;
+	@Column (nullable = false, name = "Location")
+	private Point location;
 	
 	public VehicleLocation () {
 	
 	}
 	
-	public VehicleLocation (Vehicle vehicle, double latitude, double longitude) {
+	public VehicleLocation (Vehicle vehicle, Point point) {
 		setTimestamp (LocalDateTime.now ());
 		setVehicle (vehicle);
-		setLatitude (latitude);
-		setLongitude (longitude);
+		setLocation (point);
 	}
 	
 	public int getId () {
@@ -54,19 +53,11 @@ public class VehicleLocation {
 		this.vehicle = vehicle;
 	}
 	
-	public double getLatitude () {
-		return latitude;
+	public Point getLocation () {
+		return location;
 	}
 	
-	public void setLatitude (double latitude) {
-		this.latitude = latitude;
-	}
-	
-	public double getLongitude () {
-		return longitude;
-	}
-	
-	public void setLongitude (double longitude) {
-		this.longitude = longitude;
+	public void setLocation (Point location) {
+		this.location = location;
 	}
 }

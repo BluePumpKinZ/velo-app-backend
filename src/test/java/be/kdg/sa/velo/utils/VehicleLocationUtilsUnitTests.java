@@ -20,8 +20,8 @@ public class VehicleLocationUtilsUnitTests extends VeloApplicationTests {
 	@MethodSource ("getDistanceBetweenLocationsTestCases")
 	public void TestDistanceBetweenLocations (double latitude1, double longitude1, double latitude2, double longitude2, double expectedDistance) {
 		
-		var location1 = new VehicleLocation (null, latitude1, longitude1);
-		var location2 = new VehicleLocation (null, latitude2, longitude2);
+		var location1 = new VehicleLocation (null, PointFactory.createPoint (latitude1, longitude1));
+		var location2 = new VehicleLocation (null, PointFactory.createPoint (latitude2, longitude2));
 		
 		var distance = VehicleLocationUtils.getDistanceBetweenLocations (location1, location2);
 		Assertions.assertEquals (expectedDistance, distance, expectedDistance * 0.005); // Half a % error margin

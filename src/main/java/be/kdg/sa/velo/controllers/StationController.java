@@ -2,6 +2,7 @@ package be.kdg.sa.velo.controllers;
 
 import be.kdg.sa.velo.models.stations.AvailableLocks;
 import be.kdg.sa.velo.services.StationService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
  * Jonas Leijzen
  * 28/09/2022
  */
+@Validated
 @RestController
 @RequestMapping (path = "/api/v1/stations", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
 public class StationController {

@@ -139,7 +139,7 @@ public class RideServiceUnitTests extends VeloApplicationTests {
 	@Test
 	void startUndockedRide () {
 		
-		var event = new UnlockUndockedVehicleCall (1, 2);
+		var event = new UnlockUndockedVehicleCall (1, 2, 51.219, 4.402);
 		rideService.startUndockedRide (event);
 		
 		ArgumentCaptor<Ride> rideArgumentCaptor = ArgumentCaptor.forClass (Ride.class);

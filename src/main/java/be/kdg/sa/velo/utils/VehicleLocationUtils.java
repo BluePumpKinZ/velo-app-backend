@@ -2,6 +2,10 @@ package be.kdg.sa.velo.utils;
 
 import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
 
+import static be.kdg.sa.velo.utils.ExtraMath.dotProduct;
+import static java.lang.Math.*;
+import static java.lang.Math.toRadians;
+
 /**
  * Jonas Leijzen
  * 8/10/2022
@@ -11,14 +15,17 @@ public class VehicleLocationUtils {
 	// Returns the physical distance between two vehiclelocations.
 	// It is possible that there is a function to do this, but we couldn't find it.
 	public static double getDistanceBetweenLocations (VehicleLocation location1, VehicleLocation location2) {
-		double x1, x2, y1, y2, z1, z2;
-		x1 = Math.cos (Math.toRadians (location1.getLatitude ())) * Math.cos (Math.toRadians (location1.getLongitude ()));
-		y1 = Math.cos (Math.toRadians (location1.getLatitude ())) * Math.sin (Math.toRadians (location1.getLongitude ()));
-		z1 = Math.sin (Math.toRadians (location1.getLatitude ()));
-		x2 = Math.cos (Math.toRadians (location2.getLatitude ())) * Math.cos (Math.toRadians (location2.getLongitude ()));
-		y2 = Math.cos (Math.toRadians (location2.getLatitude ())) * Math.sin (Math.toRadians (location2.getLongitude ()));
-		z2 = Math.sin (Math.toRadians (location2.getLatitude ()));
-		return Math.acos (x1 * x2 + y1 * y2 + z1 * z2) * 6371;
+		var coordinate1 = getCartesianCoordinates (location1);
+		var coordinate2 = getCartesianCoordinates (location2);
+		return acos (dotProduct(coordinate1, coordinate2)) * 6371;
+	}
+	
+	private static double[] getCartesianCoordinates (VehicleLocation location) {
+		double x, y, z;
+		x = cos (toRadians (location.getLocation ().getX ())) * cos (toRadians (location.getLocation ().getY ()));
+		y = cos (toRadians (location.getLocation ().getX ())) * sin (toRadians (location.getLocation ().getY ()));
+		z = sin (toRadians (location.getLocation ().getX ()));
+		return new double[] {x, y, z};
 	}
 	
 }

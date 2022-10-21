@@ -1,6 +1,9 @@
 package be.kdg.sa.velo.services;
 
 import be.kdg.sa.velo.domain.rides.Ride;
+import be.kdg.sa.velo.exceptions.LockNotFoundException;
+import be.kdg.sa.velo.exceptions.RideNotFoundException;
+import be.kdg.sa.velo.exceptions.VehicleNotFoundException;
 import be.kdg.sa.velo.messaging.senders.InvoiceXmlSender;
 import be.kdg.sa.velo.models.invoices.Invoice;
 import be.kdg.sa.velo.models.vehicles.calls.*;
@@ -8,6 +11,7 @@ import be.kdg.sa.velo.repositories.LockRepository;
 import be.kdg.sa.velo.repositories.RideRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
 import be.kdg.sa.velo.services.priceitems.PriceItem;
+import be.kdg.sa.velo.utils.PointFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -45,7 +49,7 @@ public class RideService {
 		var lock = locks.get (random.nextInt (locks.size ()));
 		var vehicle = lock.getVehicle ();
 		var subscription = subscriptionService.getCurrentUserSubscription (event.getUserId ());
-		var ride = new Ride (vehicle, lock, subscription);
+		var ride = new Ride (vehicle, lock.getStation ().getGpsCoord (), lock, subscription);
 		rideRepository.save (ride);
 		lock.setVehicle (null);
 		lockRepository.save (lock);
@@ -53,18 +57,20 @@ public class RideService {
 	}
 	
 	public void startUndockedRide (UnlockUndockedVehicleCall event) {
-		var vehicle = vehicleRepository.findById (event.getVehicleId ()).orElseThrow ();
+		var vehicle = vehicleRepository.findById (event.getVehicleId ()).orElseThrow (() -> new VehicleNotFoundException (event.getVehicleId ()));
 		var subscription = subscriptionService.getCurrentUserSubscription (event.getUserId ());
-		var ride = new Ride (vehicle, subscription);
+		var startPoint = PointFactory.createPoint (event.getLatitude (), event.getLongitude ());
+		var ride = new Ride (vehicle, startPoint, subscription);
 		rideRepository.save (ride);
 	}
 	
 	public void endDockedRide (LockDockedVehicleCall event) {
-		var lock = lockRepository.findById (event.getLockId ()).orElseThrow ();
-		var vehicle = vehicleRepository.findById (event.getVehicleId ()).orElseThrow ();
-		var ride = rideRepository.getLastRideForVehicle (vehicle.getId ()).orElseThrow ();
+		var lock = lockRepository.findById (event.getLockId ()).orElseThrow (() -> new LockNotFoundException (event.getLockId ()));
+		var vehicle = vehicleRepository.findById (event.getVehicleId ()).orElseThrow (() -> new VehicleNotFoundException (event.getVehicleId ()));
+		var ride = rideRepository.getLastRideForVehicle (vehicle.getId ()).orElseThrow (() -> new RideNotFoundException (0));
 		ride.setEndTime (System.currentTimeMillis ());
 		ride.setEndLock (lock);
+		ride.setEndPoint (lock.getStation ().getGpsCoord ());
 		rideRepository.save (ride);
 		lock.setVehicle (vehicle);
 		lockRepository.save (lock);
@@ -72,9 +78,11 @@ public class RideService {
 	}
 	
 	public void endUndockedRide (LockUndockedVehicleCall event) {
-		var vehicle = vehicleRepository.findById (event.getVehicleId ()).orElseThrow ();
-		var ride = rideRepository.getLastRideForVehicle (vehicle.getId ()).orElseThrow ();
+		var vehicle = vehicleRepository.findById (event.getVehicleId ()).orElseThrow (() -> new VehicleNotFoundException (event.getVehicleId ()));
+		var ride = rideRepository.getLastRideForVehicle (vehicle.getId ()).orElseThrow (() -> new RideNotFoundException (0));
+		var endPoint = PointFactory.createPoint (event.getLatitude (), event.getLongitude ());
 		ride.setEndTime (System.currentTimeMillis ());
+		ride.setEndPoint (endPoint);
 		rideRepository.save (ride);
 		HandlePayment (ride, event);
 	}
@@ -94,7 +102,7 @@ public class RideService {
 		var invoice = new Invoice ();
 		priceItems.stream ()
 				.filter (priceItem -> priceItem.doesApply (ride))
-				.map(priceItem -> priceItem.getInvoiceLineItem (ride))
+				.map (priceItem -> priceItem.getInvoiceLineItem (ride))
 				.forEach (invoice::addLineItem);
 		return invoice;
 	}

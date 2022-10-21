@@ -28,6 +28,7 @@ dependencies {
     implementation 'org.hibernate:hibernate-spatial:5.6.11.Final'
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
     implementation 'org.projectlombok:lombok'
+    implementation 'org.springframework:spring-test'
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
     runtimeOnly 'com.h2database:h2'
