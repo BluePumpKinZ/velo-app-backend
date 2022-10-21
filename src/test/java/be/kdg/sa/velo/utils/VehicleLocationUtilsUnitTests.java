@@ -1,7 +1,6 @@
 package be.kdg.sa.velo.utils;
 
 import be.kdg.sa.velo.VeloApplicationTests;
-import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -20,10 +19,10 @@ public class VehicleLocationUtilsUnitTests extends VeloApplicationTests {
 	@MethodSource ("getDistanceBetweenLocationsTestCases")
 	public void TestDistanceBetweenLocations (double latitude1, double longitude1, double latitude2, double longitude2, double expectedDistance) {
 		
-		var location1 = new VehicleLocation (null, PointFactory.createPoint (latitude1, longitude1));
-		var location2 = new VehicleLocation (null, PointFactory.createPoint (latitude2, longitude2));
+		var location1 = PointUtils.createPoint (latitude1, longitude1);
+		var location2 = PointUtils.createPoint (latitude2, longitude2);
 		
-		var distance = VehicleLocationUtils.getDistanceBetweenLocations (location1, location2);
+		var distance = PointUtils.getDistanceBetweenPoints (location1, location2);
 		Assertions.assertEquals (expectedDistance, distance, expectedDistance * 0.005); // Half a % error margin
 		System.out.println (distance);
 		

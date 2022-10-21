@@ -1,5 +1,7 @@
 package be.kdg.sa.velo.domain.vehicles;
 
+import org.locationtech.jts.geom.Point;
+
 import javax.persistence.*;
 
 /**
@@ -17,6 +19,8 @@ public class Vehicle {
 	@ManyToOne (optional = false)
 	@JoinColumn(name = "BikeLotId")
 	private VehicleLot lot;
+	@Column (name = "Point", columnDefinition = "GEOMETRY")
+	private Point location;
 	
 	public Vehicle () {
 	}
@@ -43,5 +47,13 @@ public class Vehicle {
 	
 	public void setLot (VehicleLot type) {
 		this.lot = type;
+	}
+	
+	public Point getLocation () {
+		return location;
+	}
+	
+	public void setLocation (Point location) {
+		this.location = location;
 	}
 }

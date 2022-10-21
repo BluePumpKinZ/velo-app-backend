@@ -1,11 +1,10 @@
 package be.kdg.sa.velo.controllers;
 
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
-import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
 import be.kdg.sa.velo.models.vehicles.ClosestVehicle;
 import be.kdg.sa.velo.models.vehicles.messages.VehicleLocationPingMessage;
 import be.kdg.sa.velo.services.VehicleService;
-import be.kdg.sa.velo.utils.PointFactory;
+import be.kdg.sa.velo.utils.PointUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,13 +33,13 @@ public class VehicleController {
 	}
 	
 	@PostMapping (path="/location/new")
-	public VehicleLocation vehicleLocationPing (@RequestBody VehicleLocationPingMessage vehicleLocationPingEvent) {
-		return vehicleService.vehicleLocationPing(vehicleLocationPingEvent);
+	public void vehicleLocationPing (@RequestBody VehicleLocationPingMessage vehicleLocationPingEvent) {
+		vehicleService.vehicleLocationPing(vehicleLocationPingEvent);
 	}
 	
 	@GetMapping (path="/closest")
 	public ClosestVehicle getClosestVehicle (@RequestParam double latitude, @RequestParam double longitude) {
-		return vehicleService.getClosestVehicle(PointFactory.createPoint (latitude, longitude));
+		return vehicleService.getClosestVehicle(PointUtils.createPoint (latitude, longitude));
 	}
 	
 }

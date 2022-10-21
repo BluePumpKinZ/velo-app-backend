@@ -17,7 +17,7 @@ import be.kdg.sa.velo.models.vehicles.calls.UnlockUndockedVehicleCall;
 import be.kdg.sa.velo.repositories.LockRepository;
 import be.kdg.sa.velo.repositories.RideRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
-import be.kdg.sa.velo.utils.PointFactory;
+import be.kdg.sa.velo.utils.PointUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -60,7 +60,7 @@ public class RideServiceUnitTests extends VeloApplicationTests {
 	void setUp () {
 		Station station = new Station ();
 		station.setId (5);
-		station.setGpsCoord (PointFactory.createPoint (51.219, 4.402));
+		station.setGpsCoord (PointUtils.createPoint (51.219, 4.402));
 		
 		Vehicle vehicle1 = new Vehicle ();
 		vehicle1.setId (4);

@@ -1,14 +1,12 @@
 package be.kdg.sa.velo.services;
 
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
-import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
 import be.kdg.sa.velo.domain.vehicles.VehicleLot;
 import be.kdg.sa.velo.models.vehicles.ClosestVehicle;
 import be.kdg.sa.velo.models.vehicles.messages.VehicleLocationPingMessage;
-import be.kdg.sa.velo.repositories.VehicleLocationRepository;
 import be.kdg.sa.velo.repositories.VehicleLotRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
-import be.kdg.sa.velo.utils.PointFactory;
+import be.kdg.sa.velo.utils.PointUtils;
 import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +22,10 @@ import java.util.List;
 public class VehicleService {
 	
 	private final VehicleRepository vehicleRepository;
-	private final VehicleLocationRepository vehicleLocationRepository;
 	private final VehicleLotRepository vehicleLotRepository;
 	
-	public VehicleService (VehicleRepository vehicleRepository, VehicleLocationRepository vehicleLocationRepository, VehicleLotRepository vehicleLotRepository) {
+	public VehicleService (VehicleRepository vehicleRepository, VehicleLotRepository vehicleLotRepository) {
 		this.vehicleRepository = vehicleRepository;
-		this.vehicleLocationRepository = vehicleLocationRepository;
 		this.vehicleLotRepository = vehicleLotRepository;
 	}
 	
@@ -37,10 +33,10 @@ public class VehicleService {
 		return vehicleRepository.findAll ();
 	}
 	
-	public VehicleLocation vehicleLocationPing (VehicleLocationPingMessage vehicleLocationPingEvent) {
+	public void vehicleLocationPing (VehicleLocationPingMessage vehicleLocationPingEvent) {
 		var vehicle = vehicleRepository.findById (vehicleLocationPingEvent.getVehicleId ()).orElseThrow ();
-		var locationPing = new VehicleLocation (vehicle, PointFactory.createPoint (vehicleLocationPingEvent.getLatitude (), vehicleLocationPingEvent.getLongitude ()));
-		return vehicleLocationRepository.save (locationPing);
+		vehicle.setLocation (PointUtils.createPoint (vehicleLocationPingEvent.getLatitude (), vehicleLocationPingEvent.getLongitude ()));
+		vehicleRepository.save (vehicle);
 	}
 	
 	public Vehicle addVehicle (Vehicle vehicle) {
@@ -63,32 +59,11 @@ public class VehicleService {
 		return vehicleLotRepository.findAll ();
 	}
 	
-	public VehicleLot addVehicleLot (VehicleLot vehicleLot) {
-		return vehicleLotRepository.save (vehicleLot);
-	}
-	
-	public VehicleLot getVehicleLotById (int vehicleLotId) {
-		return vehicleLotRepository.findById (vehicleLotId).orElseThrow ();
-	}
-	
-	public VehicleLot updateVehicleLot (VehicleLot vehicleLot) {
-		return vehicleLotRepository.save (vehicleLot);
-	}
-	
-	public void deleteVehicleLot (int vehicleLotId) {
-		vehicleLotRepository.deleteById (vehicleLotId);
-	}
-	
 	public ClosestVehicle getClosestVehicle (Point point) {
-		Vehicle closestVehicle = vehicleRepository.findClosestVehicle (point);
-		var vehicleLocation = getVehicleLocation (closestVehicle.getId ());
+		var closestVehicle = vehicleRepository.findClosestVehicle (point.getX (), point.getY ());
 		return new ClosestVehicle (closestVehicle.getId (),
 				closestVehicle.getSerialNumber (),
-				vehicleLocation.getX (),
-				vehicleLocation.getY ());
-	}
-	
-	private Point getVehicleLocation (int vehicleId) {
-		return vehicleLocationRepository.findLatestLocationByVehicleId (vehicleId);
+				closestVehicle.getLocation().getX (),
+				closestVehicle.getLocation ().getY ());
 	}
 }

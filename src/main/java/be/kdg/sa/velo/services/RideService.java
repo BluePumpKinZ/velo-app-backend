@@ -11,7 +11,7 @@ import be.kdg.sa.velo.repositories.LockRepository;
 import be.kdg.sa.velo.repositories.RideRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
 import be.kdg.sa.velo.services.priceitems.PriceItem;
-import be.kdg.sa.velo.utils.PointFactory;
+import be.kdg.sa.velo.utils.PointUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -59,7 +59,7 @@ public class RideService {
 	public void startUndockedRide (UnlockUndockedVehicleCall event) {
 		var vehicle = vehicleRepository.findById (event.getVehicleId ()).orElseThrow (() -> new VehicleNotFoundException (event.getVehicleId ()));
 		var subscription = subscriptionService.getCurrentUserSubscription (event.getUserId ());
-		var startPoint = PointFactory.createPoint (event.getLatitude (), event.getLongitude ());
+		var startPoint = PointUtils.createPoint (event.getLatitude (), event.getLongitude ());
 		var ride = new Ride (vehicle, startPoint, subscription);
 		rideRepository.save (ride);
 	}
@@ -80,7 +80,7 @@ public class RideService {
 	public void endUndockedRide (LockUndockedVehicleCall event) {
 		var vehicle = vehicleRepository.findById (event.getVehicleId ()).orElseThrow (() -> new VehicleNotFoundException (event.getVehicleId ()));
 		var ride = rideRepository.getLastRideForVehicle (vehicle.getId ()).orElseThrow (() -> new RideNotFoundException (0));
-		var endPoint = PointFactory.createPoint (event.getLatitude (), event.getLongitude ());
+		var endPoint = PointUtils.createPoint (event.getLatitude (), event.getLongitude ());
 		ride.setEndTime (System.currentTimeMillis ());
 		ride.setEndPoint (endPoint);
 		rideRepository.save (ride);
