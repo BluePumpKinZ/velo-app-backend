@@ -111,12 +111,15 @@ public class RideServiceUnitTests extends VeloApplicationTests {
 		ride1.setVehicle (vehicle3);
 		ride1.setStartTime (System.currentTimeMillis () - 5 * 60000); // 5 minutes ago
 		ride1.setStartLock (lock1);
+		ride1.setStartPoint (PointUtils.createPoint (51.219, 4.402));
 		given (rideRepository.getLastRideForVehicle (6)).willReturn (Optional.of (ride1));
 		
 		Ride ride2 = new Ride ();
 		ride2.setId (2);
 		ride2.setSubscription (subscription);
 		ride2.setVehicle (vehicle4);
+		ride2.setStartTime (System.currentTimeMillis () - 5 * 60000); // 5 minutes ago
+		ride2.setStartLock (lock1);
 		given (rideRepository.getLastRideForVehicle (7)).willReturn (Optional.of (ride2));
 	}
 	
