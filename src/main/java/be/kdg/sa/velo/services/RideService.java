@@ -5,6 +5,7 @@ import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
 import be.kdg.sa.velo.exceptions.LockNotFoundException;
 import be.kdg.sa.velo.exceptions.RideNotFoundException;
 import be.kdg.sa.velo.exceptions.VehicleNotFoundException;
+import be.kdg.sa.velo.maintenance.qualifiers.MaintenanceQualifyContext;
 import be.kdg.sa.velo.messaging.senders.InvoiceXmlSender;
 import be.kdg.sa.velo.models.invoices.Invoice;
 import be.kdg.sa.velo.models.vehicles.calls.*;
@@ -33,10 +34,11 @@ public class RideService {
 	private final VehicleRepository vehicleRepository;
 	private final LockRepository lockRepository;
 	private final InvoiceXmlSender invoiceXmlSender;
+	private final MaintenanceService maintenanceService;
 	private final VehicleLocationRepository vehicleLocationRepository;
 	private final Collection<PriceItem> priceItems;
 	
-	public RideService (Random random, StationService stationService, SubscriptionService subscriptionService, RideRepository rideRepository, VehicleRepository vehicleRepository, LockRepository lockRepository, InvoiceXmlSender invoiceXmlSender, VehicleLocationRepository vehicleLocationRepository, Collection<PriceItem> priceItems) {
+	public RideService (Random random, StationService stationService, SubscriptionService subscriptionService, RideRepository rideRepository, VehicleRepository vehicleRepository, LockRepository lockRepository, InvoiceXmlSender invoiceXmlSender, MaintenanceService maintenanceService, VehicleLocationRepository vehicleLocationRepository, Collection<PriceItem> priceItems) {
 		this.random = random;
 		this.stationService = stationService;
 		this.subscriptionService = subscriptionService;
@@ -44,6 +46,7 @@ public class RideService {
 		this.vehicleRepository = vehicleRepository;
 		this.lockRepository = lockRepository;
 		this.invoiceXmlSender = invoiceXmlSender;
+		this.maintenanceService = maintenanceService;
 		this.vehicleLocationRepository = vehicleLocationRepository;
 		this.priceItems = priceItems;
 	}
@@ -90,6 +93,14 @@ public class RideService {
 		lock.setVehicle (vehicle);
 		lockRepository.save (lock);
 		HandlePayment (ride, event);
+		maintenanceService.addVehicleToMaintenanceIfRequired (new MaintenanceQualifyContext () {
+			@Override public int getVehicleId () {
+				return vehicle.getId ();
+			}
+			@Override public LockVehicleCall getEvent () {
+				return event;
+			}
+		});
 	}
 	
 	public void endUndockedRide (LockUndockedVehicleCall event) {
@@ -103,11 +114,18 @@ public class RideService {
 		ride.setEndPoint (endPoint);
 		rideRepository.save (ride);
 		HandlePayment (ride, event);
+		maintenanceService.addVehicleToMaintenanceIfRequired (new MaintenanceQualifyContext () {
+			@Override public int getVehicleId () {
+				return vehicle.getId ();
+			}
+			@Override public LockVehicleCall getEvent () {
+				return event;
+			}
+		});
 	}
 	
 	public void HandlePayment (Ride ride, LockVehicleCall event) {
 		if (event.isDefect ())
-			// TODO add vehicle to maintenance
 			return;
 		
 		var invoice = getRideInvoice (ride);

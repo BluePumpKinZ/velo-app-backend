@@ -3,6 +3,7 @@ package be.kdg.sa.velo.domain.vehicles;
 import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * @author Maxim Derboven
@@ -19,6 +20,8 @@ public class Vehicle {
 	@ManyToOne (optional = false)
 	@JoinColumn(name = "BikeLotId")
 	private VehicleLot lot;
+	@Column (name = "LastMaintenanceDateOn")
+	private LocalDateTime lastMaintenanceDate;
 	@Column (name = "Point", columnDefinition = "GEOMETRY")
 	private Point location;
 	
@@ -47,6 +50,14 @@ public class Vehicle {
 	
 	public void setLot (VehicleLot type) {
 		this.lot = type;
+	}
+	
+	public LocalDateTime getLastMaintenanceDate () {
+		return lastMaintenanceDate;
+	}
+	
+	public void setLastMaintenanceDate (LocalDateTime lastMaintenanceDate) {
+		this.lastMaintenanceDate = lastMaintenanceDate;
 	}
 	
 	public Point getLocation () {
