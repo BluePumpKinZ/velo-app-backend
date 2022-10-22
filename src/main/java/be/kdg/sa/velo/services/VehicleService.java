@@ -1,9 +1,11 @@
 package be.kdg.sa.velo.services;
 
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
+import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
 import be.kdg.sa.velo.domain.vehicles.VehicleLot;
 import be.kdg.sa.velo.models.vehicles.ClosestVehicle;
 import be.kdg.sa.velo.models.vehicles.messages.VehicleLocationPingMessage;
+import be.kdg.sa.velo.repositories.VehicleLocationRepository;
 import be.kdg.sa.velo.repositories.VehicleLotRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
 import be.kdg.sa.velo.utils.PointUtils;
@@ -23,10 +25,12 @@ public class VehicleService {
 	
 	private final VehicleRepository vehicleRepository;
 	private final VehicleLotRepository vehicleLotRepository;
+	private final VehicleLocationRepository vehicleLocationRepository;
 	
-	public VehicleService (VehicleRepository vehicleRepository, VehicleLotRepository vehicleLotRepository) {
+	public VehicleService (VehicleRepository vehicleRepository, VehicleLotRepository vehicleLotRepository, VehicleLocationRepository vehicleLocationRepository) {
 		this.vehicleRepository = vehicleRepository;
 		this.vehicleLotRepository = vehicleLotRepository;
+		this.vehicleLocationRepository = vehicleLocationRepository;
 	}
 	
 	public List<Vehicle> getAllVehicles () {
@@ -35,8 +39,11 @@ public class VehicleService {
 	
 	public void vehicleLocationPing (VehicleLocationPingMessage vehicleLocationPingEvent) {
 		var vehicle = vehicleRepository.findById (vehicleLocationPingEvent.getVehicleId ()).orElseThrow ();
-		vehicle.setLocation (PointUtils.createPoint (vehicleLocationPingEvent.getLatitude (), vehicleLocationPingEvent.getLongitude ()));
+		var location = PointUtils.createPoint (vehicleLocationPingEvent.getLatitude (), vehicleLocationPingEvent.getLongitude ());
+		vehicle.setLocation (location);
 		vehicleRepository.save (vehicle);
+		var vehicleLocation = new VehicleLocation (vehicle, location);
+		vehicleLocationRepository.save (vehicleLocation);
 	}
 	
 	public Vehicle addVehicle (Vehicle vehicle) {

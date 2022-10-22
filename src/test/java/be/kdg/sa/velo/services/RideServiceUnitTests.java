@@ -8,6 +8,7 @@ import be.kdg.sa.velo.domain.subscriptions.Subscription;
 import be.kdg.sa.velo.domain.subscriptions.SubscriptionType;
 import be.kdg.sa.velo.domain.users.User;
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
+import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
 import be.kdg.sa.velo.messaging.senders.InvoiceXmlSender;
 import be.kdg.sa.velo.models.invoices.Invoice;
 import be.kdg.sa.velo.models.vehicles.calls.LockDockedVehicleCall;
@@ -16,6 +17,7 @@ import be.kdg.sa.velo.models.vehicles.calls.UnlockDockedVehicleCall;
 import be.kdg.sa.velo.models.vehicles.calls.UnlockUndockedVehicleCall;
 import be.kdg.sa.velo.repositories.LockRepository;
 import be.kdg.sa.velo.repositories.RideRepository;
+import be.kdg.sa.velo.repositories.VehicleLocationRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
 import be.kdg.sa.velo.utils.PointUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,6 +54,8 @@ public class RideServiceUnitTests extends VeloApplicationTests {
 	private VehicleRepository vehicleRepository;
 	@MockBean
 	private LockRepository lockRepository;
+	@MockBean
+	private VehicleLocationRepository vehicleLocationRepository;
 	
 	@MockBean
 	private InvoiceXmlSender invoiceXmlSender;
@@ -132,11 +136,26 @@ public class RideServiceUnitTests extends VeloApplicationTests {
 		
 		ArgumentCaptor<Ride> rideArgumentCaptor = ArgumentCaptor.forClass (Ride.class);
 		verify (rideRepository, times (1)).save (rideArgumentCaptor.capture ());
+		
 		Ride createdRide = rideArgumentCaptor.getValue ();
 		assertEquals (3, createdRide.getSubscription ().getId ());
 		assertEquals (10, createdRide.getStartLock ().getId ());
 		assertNull (createdRide.getEndLock ());
 		assertEquals(4, createdRide.getVehicle ().getId ());
+		
+		ArgumentCaptor<VehicleLocation> vehicleLocationArgumentCaptor = ArgumentCaptor.forClass (VehicleLocation.class);
+		verify (vehicleLocationRepository, times (1)).save (vehicleLocationArgumentCaptor.capture ());
+		
+		VehicleLocation createdVehicleLocation = vehicleLocationArgumentCaptor.getValue ();
+		assertEquals (4, createdVehicleLocation.getVehicle ().getId ());
+		assertNotNull (createdVehicleLocation.getLocation ());
+		
+		ArgumentCaptor<Vehicle> vehicleArgumentCaptor = ArgumentCaptor.forClass (Vehicle.class);
+		verify (vehicleRepository, times (1)).save (vehicleArgumentCaptor.capture ());
+		
+		Vehicle updatedVehicle = vehicleArgumentCaptor.getValue ();
+		assertEquals (4, updatedVehicle.getId ());
+		assertNotNull (updatedVehicle.getLocation ());
 	}
 	
 	@Test
@@ -153,6 +172,19 @@ public class RideServiceUnitTests extends VeloApplicationTests {
 		assertNull (createdRide.getEndLock ());
 		assertEquals(1, createdRide.getVehicle ().getId ());
 		assertEquals(3, createdRide.getSubscription ().getId ());
+		
+		ArgumentCaptor<VehicleLocation> vehicleLocationArgumentCaptor = ArgumentCaptor.forClass (VehicleLocation.class);
+		verify (vehicleLocationRepository, times (1)).save (vehicleLocationArgumentCaptor.capture ());
+		
+		VehicleLocation createdVehicleLocation = vehicleLocationArgumentCaptor.getValue ();
+		assertEquals (1, createdVehicleLocation.getVehicle ().getId ());
+		assertNotNull (createdVehicleLocation.getLocation ());
+		
+		ArgumentCaptor<Vehicle> vehicleArgumentCaptor = ArgumentCaptor.forClass (Vehicle.class);
+		verify (vehicleRepository, times (1)).save (vehicleArgumentCaptor.capture ());
+		
+		Vehicle updatedVehicle = vehicleArgumentCaptor.getValue ();
+		assertEquals (1, updatedVehicle.getId ());
 	}
 	
 	@Test
@@ -176,6 +208,19 @@ public class RideServiceUnitTests extends VeloApplicationTests {
 		Invoice invoice = invoiceArgumentCaptor.getValue ();
 		assertNotNull (invoice);
 		assertNotEquals (0, invoice.getTotalPrice ());
+		
+		ArgumentCaptor<VehicleLocation> vehicleLocationArgumentCaptor = ArgumentCaptor.forClass (VehicleLocation.class);
+		verify (vehicleLocationRepository, times (1)).save (vehicleLocationArgumentCaptor.capture ());
+		
+		VehicleLocation createdVehicleLocation = vehicleLocationArgumentCaptor.getValue ();
+		assertEquals (6, createdVehicleLocation.getVehicle ().getId ());
+		assertNotNull (createdVehicleLocation.getLocation ());
+		
+		ArgumentCaptor<Vehicle> vehicleArgumentCaptor = ArgumentCaptor.forClass (Vehicle.class);
+		verify (vehicleRepository, times (1)).save (vehicleArgumentCaptor.capture ());
+		
+		Vehicle updatedVehicle = vehicleArgumentCaptor.getValue ();
+		assertEquals (6, updatedVehicle.getId ());
 	}
 	
 	@Test
@@ -197,6 +242,18 @@ public class RideServiceUnitTests extends VeloApplicationTests {
 		Invoice invoice = invoiceArgumentCaptor.getValue ();
 		assertNotNull (invoice);
 		assertNotEquals (0, invoice.getTotalPrice ());
+		
+		ArgumentCaptor<VehicleLocation> vehicleLocationArgumentCaptor = ArgumentCaptor.forClass (VehicleLocation.class);
+		verify (vehicleLocationRepository, times (1)).save (vehicleLocationArgumentCaptor.capture ());
+		
+		VehicleLocation createdVehicleLocation = vehicleLocationArgumentCaptor.getValue ();
+		assertEquals (7, createdVehicleLocation.getVehicle ().getId ());
+		
+		ArgumentCaptor<Vehicle> vehicleArgumentCaptor = ArgumentCaptor.forClass (Vehicle.class);
+		verify (vehicleRepository, times (1)).save (vehicleArgumentCaptor.capture ());
+		
+		Vehicle updatedVehicle = vehicleArgumentCaptor.getValue ();
+		assertEquals (7, updatedVehicle.getId ());
 	}
 	
 }
