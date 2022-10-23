@@ -2,6 +2,7 @@ package be.kdg.sa.velo.services;
 
 import be.kdg.sa.velo.domain.rides.Ride;
 import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
+import be.kdg.sa.velo.domain.vehicles.VehicleTypeEnum;
 import be.kdg.sa.velo.exceptions.LockNotFoundException;
 import be.kdg.sa.velo.exceptions.RideNotFoundException;
 import be.kdg.sa.velo.exceptions.VehicleNotFoundException;
@@ -15,6 +16,7 @@ import be.kdg.sa.velo.repositories.VehicleLocationRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
 import be.kdg.sa.velo.services.priceitems.PriceItem;
 import be.kdg.sa.velo.utils.PointUtils;
+import be.kdg.sa.velo.utils.VehicleTypeUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -100,6 +102,7 @@ public class RideService {
 			@Override public LockVehicleCall getEvent () {
 				return event;
 			}
+			@Override public VehicleTypeEnum getVehicleTypeEnum () { return VehicleTypeUtils.getVehicleTypeEnum (vehicleRepository.getVehicleType ( vehicle.getId ())); }
 		});
 	}
 	
@@ -121,6 +124,7 @@ public class RideService {
 			@Override public LockVehicleCall getEvent () {
 				return event;
 			}
+			@Override public VehicleTypeEnum getVehicleTypeEnum () { return VehicleTypeUtils.getVehicleTypeEnum (vehicleRepository.getVehicleType ( vehicle.getId ())); }
 		});
 	}
 	

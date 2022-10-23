@@ -9,6 +9,7 @@ import be.kdg.sa.velo.repositories.VehicleLocationRepository;
 import be.kdg.sa.velo.repositories.VehicleLotRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
 import be.kdg.sa.velo.utils.PointUtils;
+import be.kdg.sa.velo.utils.VehicleTypeUtils;
 import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
 
@@ -72,5 +73,10 @@ public class VehicleService {
 				closestVehicle.getSerialNumber (),
 				closestVehicle.getLocation().getX (),
 				closestVehicle.getLocation ().getY ());
+	}
+	
+	public boolean isVehicleDocked (int vehicleId) {
+		var vehicleType = vehicleRepository.getVehicleType (vehicleId);
+		return VehicleTypeUtils.getVehicleTypeEnum (vehicleType).isDocked ();
 	}
 }
