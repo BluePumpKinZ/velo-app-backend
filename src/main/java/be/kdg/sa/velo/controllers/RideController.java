@@ -1,10 +1,10 @@
 package be.kdg.sa.velo.controllers;
 
 import be.kdg.sa.velo.exceptions.DomainObjectNotFoundException;
-import be.kdg.sa.velo.models.vehicles.calls.LockDockedVehicleCall;
-import be.kdg.sa.velo.models.vehicles.calls.LockUndockedVehicleCall;
-import be.kdg.sa.velo.models.vehicles.calls.UnlockDockedVehicleCall;
-import be.kdg.sa.velo.models.vehicles.calls.UnlockUndockedVehicleCall;
+import be.kdg.sa.velo.dto.vehicles.calls.LockDockedVehicleCall;
+import be.kdg.sa.velo.dto.vehicles.calls.LockUndockedVehicleCall;
+import be.kdg.sa.velo.dto.vehicles.calls.UnlockDockedVehicleCall;
+import be.kdg.sa.velo.dto.vehicles.calls.UnlockUndockedVehicleCall;
 import be.kdg.sa.velo.services.RideService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

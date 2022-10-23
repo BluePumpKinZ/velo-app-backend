@@ -1,6 +1,6 @@
 package be.kdg.sa.velo.messaging.receivers;
 
-import be.kdg.sa.velo.models.vehicles.messages.VehicleLocationPingMessage;
+import be.kdg.sa.velo.dto.vehicles.messages.VehicleLocationPingMessage;
 import be.kdg.sa.velo.services.VehicleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.LoggerFactory;

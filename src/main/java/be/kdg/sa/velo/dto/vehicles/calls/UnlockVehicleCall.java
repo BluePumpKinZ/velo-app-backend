@@ -1,6 +1,6 @@
-package be.kdg.sa.velo.models.vehicles.calls;
+package be.kdg.sa.velo.dto.vehicles.calls;
 
-import be.kdg.sa.velo.models.vehicles.VehicleCall;
+import be.kdg.sa.velo.dto.vehicles.VehicleCall;
 
 /**
  * Jonas Leijzen

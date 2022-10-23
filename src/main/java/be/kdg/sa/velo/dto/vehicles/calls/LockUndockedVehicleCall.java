@@ -1,4 +1,4 @@
-package be.kdg.sa.velo.models.vehicles.calls;
+package be.kdg.sa.velo.dto.vehicles.calls;
 
 /**
  * Jonas Leijzen

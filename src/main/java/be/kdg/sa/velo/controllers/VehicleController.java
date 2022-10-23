@@ -1,8 +1,8 @@
 package be.kdg.sa.velo.controllers;
 
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
-import be.kdg.sa.velo.models.vehicles.ClosestVehicle;
-import be.kdg.sa.velo.models.vehicles.messages.VehicleLocationPingMessage;
+import be.kdg.sa.velo.dto.vehicles.ClosestVehicle;
+import be.kdg.sa.velo.dto.vehicles.messages.VehicleLocationPingMessage;
 import be.kdg.sa.velo.services.VehicleService;
 import be.kdg.sa.velo.utils.PointUtils;
 import org.springframework.validation.annotation.Validated;

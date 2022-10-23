@@ -8,7 +8,7 @@ import be.kdg.sa.velo.domain.subscriptions.SubscriptionType;
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
 import be.kdg.sa.velo.messaging.senders.InvoiceXmlSender;
 import be.kdg.sa.velo.models.invoices.Invoice;
-import be.kdg.sa.velo.models.vehicles.calls.LockVehicleCall;
+import be.kdg.sa.velo.dto.vehicles.calls.LockVehicleCall;
 import be.kdg.sa.velo.services.ride.RideDistanceCalculator;
 import be.kdg.sa.velo.services.ride.RideTimeCalculator;
 import org.junit.jupiter.params.ParameterizedTest;
