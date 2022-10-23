@@ -41,10 +41,26 @@ We beperken ons eerst tot een paar issues en proberen deze volledig af te werken
 
 ---
 ## Pre Coaching
-### Geschatte Progress ()
+### Geschatte Progress (71%)
 ### Status
+Sinds de vorige evaluatie is er niet zoveel gebeurd als we zouden willen. Dit komt vooral door de aankondiging van andere projecten en het feit dat Maxim een week in budapest zat.
+Natuurlijk is er sinds de vorige evaluatie een hele boel gebeurd:
+- De prijsberekening is volledig uitgewerkt. We hebben hiervoor een strategy patroon gebruikt.
+- De maintenance detectie op het einde van een ride is bijna volledig klaar, enkel de afstandscheck is nog niet geïmplementeerd.
+- De packagestructuur is een beetje uitgebreid (dto, maintenance).
+- Tests worden nu uitgevoerd op een echte databank en niet op de H2 databank.
+- De messaging is nu volledig geïmplementeerd en werkt.
+- Het versturen van 'Invoices' met een xml queue met uitgebreide prijsinformatie is ook geïmplementeerd.
+- De crud operaties zijn nu volledig geïmplementeerd.
 ### Stories
+We hebben 1st geprobeerd om met testcontainers te werken zoals we in de gastspreker les hebben gezien, dit hebben we jammer genoeg niet werkend gekregen. Als alternatief hierop hebben we de normale databank gekopieerd en leeggemaakt voor onze testen op uit te voeren.
+Het is een paar keer voorgevallen dat er circulaire references waren met de dependency injection. Dit hebben we opgelost door gebruik te maken van interfaces en contexts.
+Bij gebruik @Validated op controllers kunnen sommige requests niet worden uitgevoerd omdat ze niet de juiste content type hebben. De oplossing voor dit probleem heeft relatief lang geduurd om te achterhalen.
 ### Vragen
+- Hoe kunnen we de testcontainers gebruiken met een ms sql databank.
+- Hoe moeten de onderhoudsacties eruit zien.
+- Wat te doen met de points en stations wanneer een vehicle in onderhoud gaat.
+- Mogen we het verloop van de simulatie vanuit de frontend doen zodat er niet met websockets gewerkt moet worden om feedback terug naar de gebruiker te krijgen bij het uitvoeren van een simulatie. 
 ## Post Coaching
 ### Feedback
 # Eindoplevering
