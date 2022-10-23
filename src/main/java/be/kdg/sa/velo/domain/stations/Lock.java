@@ -26,6 +26,10 @@ public class Lock {
 	public Lock () {
 	}
 	
+	public Lock (int stationLockNr) {
+		this.stationLockNr = stationLockNr;
+	}
+	
 	public void setVehicle (Vehicle vehicle) {
 		this.vehicle = vehicle;
 	}

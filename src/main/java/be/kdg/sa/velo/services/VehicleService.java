@@ -3,11 +3,15 @@ package be.kdg.sa.velo.services;
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
 import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
 import be.kdg.sa.velo.domain.vehicles.VehicleLot;
+import be.kdg.sa.velo.dto.stations.AddVehicleDTO;
 import be.kdg.sa.velo.dto.vehicles.ClosestVehicle;
 import be.kdg.sa.velo.dto.vehicles.messages.VehicleLocationPingMessage;
+import be.kdg.sa.velo.exceptions.VehicleLotNotFoundException;
+import be.kdg.sa.velo.exceptions.VehicleNotFoundException;
 import be.kdg.sa.velo.repositories.VehicleLocationRepository;
 import be.kdg.sa.velo.repositories.VehicleLotRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
+import be.kdg.sa.velo.utils.LocalDateTimeUtils;
 import be.kdg.sa.velo.utils.PointUtils;
 import be.kdg.sa.velo.utils.VehicleTypeUtils;
 import org.locationtech.jts.geom.Point;
@@ -47,15 +51,21 @@ public class VehicleService {
 		vehicleLocationRepository.save (vehicleLocation);
 	}
 	
-	public Vehicle addVehicle (Vehicle vehicle) {
+	public Vehicle addVehicle (AddVehicleDTO vehicleDTO) {
+		var vehicle = vehicleDTO.toVehicle ();
+		vehicle.setLot (vehicleLotRepository.findById (vehicleDTO.vehicleLotId).orElseThrow (() -> new VehicleLotNotFoundException (vehicleDTO.vehicleLotId)));
 		return vehicleRepository.save (vehicle);
 	}
 	
-	public Vehicle getVehicleById (int vehicleId) {
-		return vehicleRepository.findById (vehicleId).orElseThrow ();
+	public Vehicle getVehicle (int vehicleId) {
+		return vehicleRepository.findById (vehicleId).orElseThrow (() -> new VehicleNotFoundException (vehicleId));
 	}
 	
-	public Vehicle updateVehicle (Vehicle vehicle) {
+	public Vehicle updateVehicle (int vehicleId, AddVehicleDTO vehicleDTO) {
+		var vehicle = vehicleRepository.findById (vehicleId).orElseThrow (() -> new VehicleLotNotFoundException (vehicleId));
+		vehicle.setSerialNumber (vehicleDTO.serialNumber);
+		vehicle.setLastMaintenanceDate (LocalDateTimeUtils.fromUTCMillis (vehicleDTO.lastMaintenanceOn));
+		vehicle.setLocation (PointUtils.createPoint (vehicleDTO.latitude, vehicleDTO.longitude));
 		return vehicleRepository.save (vehicle);
 	}
 	

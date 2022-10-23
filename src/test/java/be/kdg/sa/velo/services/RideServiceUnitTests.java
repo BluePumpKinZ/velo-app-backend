@@ -9,12 +9,14 @@ import be.kdg.sa.velo.domain.subscriptions.SubscriptionType;
 import be.kdg.sa.velo.domain.users.User;
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
 import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
-import be.kdg.sa.velo.messaging.senders.InvoiceXmlSender;
-import be.kdg.sa.velo.models.invoices.Invoice;
+import be.kdg.sa.velo.domain.vehicles.VehicleLot;
+import be.kdg.sa.velo.domain.vehicles.VehicleType;
 import be.kdg.sa.velo.dto.vehicles.calls.LockDockedVehicleCall;
 import be.kdg.sa.velo.dto.vehicles.calls.LockUndockedVehicleCall;
 import be.kdg.sa.velo.dto.vehicles.calls.UnlockDockedVehicleCall;
 import be.kdg.sa.velo.dto.vehicles.calls.UnlockUndockedVehicleCall;
+import be.kdg.sa.velo.messaging.senders.InvoiceXmlSender;
+import be.kdg.sa.velo.models.invoices.Invoice;
 import be.kdg.sa.velo.repositories.LockRepository;
 import be.kdg.sa.velo.repositories.RideRepository;
 import be.kdg.sa.velo.repositories.VehicleLocationRepository;
@@ -27,6 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,12 +69,29 @@ public class RideServiceUnitTests extends VeloApplicationTests {
 		station.setId (5);
 		station.setGpsCoord (PointUtils.createPoint (51.219, 4.402));
 		
+		VehicleType vehicleType = new VehicleType ();
+		vehicleType.setId (1);
+		vehicleType.setDescription ("Velo Bike");
+		
+		given (vehicleRepository.getVehicleType (1)).willReturn (vehicleType);
+		given (vehicleRepository.getVehicleType (4)).willReturn (vehicleType);
+		given (vehicleRepository.getVehicleType (6)).willReturn (vehicleType);
+		given (vehicleRepository.getVehicleType (7)).willReturn (vehicleType);
+		
+		VehicleLot vehicleLot = new VehicleLot ();
+		vehicleLot.setId (1);
+		vehicleLot.setType (vehicleType);
+		
 		Vehicle vehicle1 = new Vehicle ();
 		vehicle1.setId (4);
+		vehicle1.setLot (vehicleLot);
+		vehicle1.setLastMaintenanceDate (LocalDateTime.now ().minusDays (1));
 		given (vehicleRepository.findById (4)).willReturn (Optional.of (vehicle1));
 		
 		Vehicle vehicle2 = new Vehicle ();
 		vehicle2.setId (1);
+		vehicle2.setLot (vehicleLot);
+		vehicle2.setLastMaintenanceDate (LocalDateTime.now ().minusDays (1));
 		given (vehicleRepository.findById (1)).willReturn (Optional.of (vehicle2));
 		
 		Lock lock1 = new Lock ();
@@ -103,10 +123,14 @@ public class RideServiceUnitTests extends VeloApplicationTests {
 		
 		Vehicle vehicle3 = new Vehicle ();
 		vehicle3.setId (6);
+		vehicle3.setLot (vehicleLot);
+		vehicle3.setLastMaintenanceDate (LocalDateTime.now ().minusDays (1));
 		given (vehicleRepository.findById (6)).willReturn (Optional.of (vehicle3));
 		
 		Vehicle vehicle4 = new Vehicle ();
 		vehicle4.setId (7);
+		vehicle4.setLot (vehicleLot);
+		vehicle4.setLastMaintenanceDate (LocalDateTime.now ().minusDays (1));
 		given (vehicleRepository.findById (7)).willReturn (Optional.of (vehicle4));
 		
 		Ride ride1 = new Ride ();

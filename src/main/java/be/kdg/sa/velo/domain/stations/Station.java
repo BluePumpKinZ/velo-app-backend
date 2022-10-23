@@ -31,11 +31,25 @@ public class Station {
 	private String district;
 	@Column(name = "GPSCoord")
 	private Point gpsCoord;
+	@Column(name = "AdditionalInfo", length=100)
+	private String additionalInfo;
 	@OneToMany(mappedBy = "station")
 	private List<Lock> locks;
 	
 	public Station () {
 	
+	}
+	
+	public Station (String objectId, String stationNr, String type, String street, String number, String zipCode, String district, Point gpsCoord, String additionalInfo) {
+		this.objectId = objectId;
+		this.stationNr = stationNr;
+		this.type = type;
+		this.street = street;
+		this.number = number;
+		this.zipCode = zipCode;
+		this.district = district;
+		this.gpsCoord = gpsCoord;
+		this.additionalInfo = additionalInfo;
 	}
 	
 	public int getId () {
@@ -108,6 +122,14 @@ public class Station {
 	
 	public void setGpsCoord (Point gpsCoord) {
 		this.gpsCoord = gpsCoord;
+	}
+	
+	public String getAdditionalInfo () {
+		return additionalInfo;
+	}
+	
+	public void setAdditionalInfo (String additionalInfo) {
+		this.additionalInfo = additionalInfo;
 	}
 	
 	public List<Lock> getLocks () {

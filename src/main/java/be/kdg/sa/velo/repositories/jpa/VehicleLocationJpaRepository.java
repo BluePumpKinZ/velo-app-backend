@@ -3,6 +3,7 @@ package be.kdg.sa.velo.repositories.jpa;
 import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * Jonas Leijzen
  * 22/10/2022
  */
+@Repository
 public interface VehicleLocationJpaRepository extends JpaRepository<VehicleLocation, Integer> {
 	
 	List<VehicleLocation> findAllByVehicleId(int vehicleId);
