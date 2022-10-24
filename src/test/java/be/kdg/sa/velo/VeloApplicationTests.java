@@ -1,13 +1,10 @@
 package be.kdg.sa.velo;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class VeloApplicationTests {
-	
-	@Test
-	void contextLoads () {
-	}
+@TestInstance (TestInstance.Lifecycle.PER_CLASS)
+public class VeloApplicationTests {
 	
 }

@@ -3,6 +3,7 @@ package be.kdg.sa.velo.domain.rides;
 import be.kdg.sa.velo.domain.stations.Lock;
 import be.kdg.sa.velo.domain.subscriptions.Subscription;
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
 
@@ -17,30 +18,55 @@ public class Ride {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column (name = "RideId", columnDefinition = "SMALLINT", unique = true, nullable = false)
 	private int id;
-	@ManyToOne
-	@JoinColumn (name = "VehicleId", foreignKey = @ForeignKey (name = "VehicleId"))
+	@ManyToOne (optional = false)
+	@JoinColumn (name = "VehicleId")
 	private Vehicle vehicle;
+	@JoinColumn (name = "StartPoint", nullable = false)
+	private Point startPoint;
+	@JoinColumn (name = "EndPoint")
+	private Point endPoint;
 	@OneToOne (optional = true)
-	@JoinColumn (name = "StartLockId", foreignKey = @ForeignKey (name = "StartLockId"))
+	@JoinColumn (name = "StartLockId")
 	private Lock startLock;
 	@OneToOne (optional = true)
-	@JoinColumn (name = "EndLockId", foreignKey = @ForeignKey (name = "EndLockId"))
+	@JoinColumn (name = "EndLockId")
 	private Lock endLock;
 	private long startTime;
 	@Column (name = "EndTime", nullable = true)
 	private Long endTime;
 	@ManyToOne
-	@JoinColumn (name = "SubscriptionId", foreignKey = @ForeignKey (name = "SubscriptionId"))
+	@JoinColumn (name = "SubscriptionId")
 	private Subscription subscription;
 	
 	public Ride () {
 	}
 	
-	public Ride (Vehicle vehicle, Lock startLock, Subscription subscription) {
+	public Ride (Vehicle vehicle, Point startPoint, Lock startLock, Subscription subscription) {
+		this(vehicle, startPoint, subscription);
+		this.startLock = startLock;
+	}
+	
+	public Ride (Vehicle vehicle, Lock startLock, Lock endLock, long startTime, Long endTime, Subscription subscription) {
 		this.vehicle = vehicle;
 		this.startLock = startLock;
-		startTime = System.currentTimeMillis ();
+		this.endLock = endLock;
+		this.startTime = startTime;
+		this.endTime = endTime;
 		this.subscription = subscription;
+	}
+	
+	public Ride (Vehicle vehicle, Point startPoint, Subscription subscription) {
+		this.vehicle = vehicle;
+		this.startPoint = startPoint;
+		this.subscription = subscription;
+		startTime = System.currentTimeMillis ();
+	}
+	
+	public Ride (Vehicle vehicle, long startTime, Long endTime, Subscription subscription) {
+		this.vehicle = vehicle;
+		this.subscription = subscription;
+		this.startTime = startTime;
+		this.endTime = endTime;
 	}
 	
 	public int getId () {
@@ -57,6 +83,22 @@ public class Ride {
 	
 	public void setVehicle (Vehicle vehicle) {
 		this.vehicle = vehicle;
+	}
+	
+	public Point getStartPoint () {
+		return startPoint;
+	}
+	
+	public void setStartPoint (Point startPoint) {
+		this.startPoint = startPoint;
+	}
+	
+	public Point getEndPoint () {
+		return endPoint;
+	}
+	
+	public void setEndPoint (Point endPoint) {
+		this.endPoint = endPoint;
 	}
 	
 	public Lock getStartLock () {

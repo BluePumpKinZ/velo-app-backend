@@ -10,11 +10,13 @@ import java.time.LocalDate;
 @Entity(name = "Bikelots")
 public class VehicleLot {
 	@Id
-	@Column(name = "BikeLotId")
+	@Column(name = "BikeLotId", columnDefinition = "SMALLINT")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column (name = "DeliveryDate")
 	private LocalDate deliveryDate;
 	@ManyToOne (optional = false)
-	@JoinColumn(name = "BikeTypeId", foreignKey = @ForeignKey(name = "BikeTypeId"))
+	@JoinColumn(name = "BikeTypeId")
 	private VehicleType type;
 	
 	public VehicleLot () {

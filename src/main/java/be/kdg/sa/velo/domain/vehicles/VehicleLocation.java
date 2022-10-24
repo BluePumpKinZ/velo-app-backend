@@ -1,31 +1,35 @@
 package be.kdg.sa.velo.domain.vehicles;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import org.locationtech.jts.geom.Point;
 
-@Entity (name = "VehicleLocations")
+import javax.persistence.*;
+
+/**
+ * Jonas Leijzen
+ * 22/10/2022
+ */
+@Entity (name="VehicleLocations")
 public class VehicleLocation {
+	
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	@Column (name = "VehicleLocationId", columnDefinition = "SMALLINT")
+	@Column (name = "VehicleLocationId")
 	private int id;
-	@Column (nullable = false)
-	private LocalDateTime timestamp;
-	@ManyToOne
-	@JoinColumn (name = "VehicleId", foreignKey = @ForeignKey (name = "VehicleId"), columnDefinition = "SMALLINT")
+	@ManyToOne (optional = false)
+	@JoinColumn (name = "VehicleId", columnDefinition = "SMALLINT")
 	private Vehicle vehicle;
-	private double latitude;
-	private double longitude;
+	@Column (name = "Location", nullable = false, columnDefinition = "GEOMETRY")
+	private Point location;
+	@Column (name = "Timestamp", nullable = false)
+	private long timestamp;
 	
-	public VehicleLocation () {
-	
+	public VehicleLocation() {
 	}
 	
-	public VehicleLocation (Vehicle vehicle, double latitude, double longitude) {
-		setTimestamp (LocalDateTime.now ());
-		setVehicle (vehicle);
-		setLatitude (latitude);
-		setLongitude (longitude);
+	public VehicleLocation(Vehicle vehicle, Point location) {
+		this.vehicle = vehicle;
+		this.location = location;
+		this.timestamp = System.currentTimeMillis ();
 	}
 	
 	public int getId () {
@@ -36,14 +40,6 @@ public class VehicleLocation {
 		this.id = id;
 	}
 	
-	public LocalDateTime getTimestamp () {
-		return timestamp;
-	}
-	
-	public void setTimestamp (LocalDateTime timestamp) {
-		this.timestamp = timestamp;
-	}
-	
 	public Vehicle getVehicle () {
 		return vehicle;
 	}
@@ -52,19 +48,19 @@ public class VehicleLocation {
 		this.vehicle = vehicle;
 	}
 	
-	public double getLatitude () {
-		return latitude;
+	public Point getLocation () {
+		return location;
 	}
 	
-	public void setLatitude (double latitude) {
-		this.latitude = latitude;
+	public void setLocation (Point location) {
+		this.location = location;
 	}
 	
-	public double getLongitude () {
-		return longitude;
+	public long getTimestamp () {
+		return timestamp;
 	}
 	
-	public void setLongitude (double longitude) {
-		this.longitude = longitude;
+	public void setTimestamp (long timestamp) {
+		this.timestamp = timestamp;
 	}
 }

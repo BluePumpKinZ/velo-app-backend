@@ -13,11 +13,13 @@ import java.time.LocalDate;
 public class Subscription {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	@Column (name = "SubscriptionId")
+	@Column (name = "SubscriptionId", columnDefinition = "INT")
 	private int id;
 	@ManyToOne (optional = false)
-	@JoinColumn (name = "UserId", foreignKey = @ForeignKey (name = "UserId"))
+	@JoinColumn (name = "UserId")
 	private User user;
+	@ManyToOne (optional = false)
+	@JoinColumn (name = "SubscriptionTypeId")
 	private SubscriptionType subscriptionType;
 	@Column (name = "ValidFrom")
 	private LocalDate startDate;

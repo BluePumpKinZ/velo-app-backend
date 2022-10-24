@@ -3,10 +3,18 @@ package be.kdg.sa.velo.services;
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
 import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
 import be.kdg.sa.velo.domain.vehicles.VehicleLot;
-import be.kdg.sa.velo.models.vehicles.messages.VehicleLocationPingMessage;
+import be.kdg.sa.velo.dto.stations.AddVehicleDTO;
+import be.kdg.sa.velo.dto.vehicles.ClosestVehicle;
+import be.kdg.sa.velo.dto.vehicles.messages.VehicleLocationPingMessage;
+import be.kdg.sa.velo.exceptions.VehicleLotNotFoundException;
+import be.kdg.sa.velo.exceptions.VehicleNotFoundException;
 import be.kdg.sa.velo.repositories.VehicleLocationRepository;
 import be.kdg.sa.velo.repositories.VehicleLotRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
+import be.kdg.sa.velo.utils.LocalDateTimeUtils;
+import be.kdg.sa.velo.utils.PointUtils;
+import be.kdg.sa.velo.utils.VehicleTypeUtils;
+import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,34 +29,43 @@ import java.util.List;
 public class VehicleService {
 	
 	private final VehicleRepository vehicleRepository;
-	private final VehicleLocationRepository vehicleLocationRepository;
 	private final VehicleLotRepository vehicleLotRepository;
+	private final VehicleLocationRepository vehicleLocationRepository;
 	
-	public VehicleService (VehicleRepository vehicleRepository, VehicleLocationRepository vehicleLocationRepository, VehicleLotRepository vehicleLotRepository) {
+	public VehicleService (VehicleRepository vehicleRepository, VehicleLotRepository vehicleLotRepository, VehicleLocationRepository vehicleLocationRepository) {
 		this.vehicleRepository = vehicleRepository;
-		this.vehicleLocationRepository = vehicleLocationRepository;
 		this.vehicleLotRepository = vehicleLotRepository;
+		this.vehicleLocationRepository = vehicleLocationRepository;
 	}
 	
 	public List<Vehicle> getAllVehicles () {
 		return vehicleRepository.findAll ();
 	}
 	
-	public VehicleLocation vehicleLocationPing (VehicleLocationPingMessage vehicleLocationPingEvent) {
+	public void vehicleLocationPing (VehicleLocationPingMessage vehicleLocationPingEvent) {
 		var vehicle = vehicleRepository.findById (vehicleLocationPingEvent.getVehicleId ()).orElseThrow ();
-		var locationPing = new VehicleLocation (vehicle, vehicleLocationPingEvent.getLatitude (), vehicleLocationPingEvent.getLongitude ());
-		return vehicleLocationRepository.save (locationPing);
+		var location = PointUtils.createPoint (vehicleLocationPingEvent.getLatitude (), vehicleLocationPingEvent.getLongitude ());
+		vehicle.setLocation (location);
+		vehicleRepository.save (vehicle);
+		var vehicleLocation = new VehicleLocation (vehicle, location);
+		vehicleLocationRepository.save (vehicleLocation);
 	}
 	
-	public Vehicle addVehicle (Vehicle vehicle) {
+	public Vehicle addVehicle (AddVehicleDTO vehicleDTO) {
+		var vehicle = vehicleDTO.toVehicle ();
+		vehicle.setLot (vehicleLotRepository.findById (vehicleDTO.vehicleLotId).orElseThrow (() -> new VehicleLotNotFoundException (vehicleDTO.vehicleLotId)));
 		return vehicleRepository.save (vehicle);
 	}
 	
-	public Vehicle getVehicleById (int vehicleId) {
-		return vehicleRepository.findById (vehicleId).orElseThrow ();
+	public Vehicle getVehicle (int vehicleId) {
+		return vehicleRepository.findById (vehicleId).orElseThrow (() -> new VehicleNotFoundException (vehicleId));
 	}
 	
-	public Vehicle updateVehicle (Vehicle vehicle) {
+	public Vehicle updateVehicle (int vehicleId, AddVehicleDTO vehicleDTO) {
+		var vehicle = vehicleRepository.findById (vehicleId).orElseThrow (() -> new VehicleLotNotFoundException (vehicleId));
+		vehicle.setSerialNumber (vehicleDTO.serialNumber);
+		vehicle.setLastMaintenanceDate (LocalDateTimeUtils.fromUTCMillis (vehicleDTO.lastMaintenanceOn));
+		vehicle.setLocation (PointUtils.createPoint (vehicleDTO.latitude, vehicleDTO.longitude));
 		return vehicleRepository.save (vehicle);
 	}
 	
@@ -60,19 +77,16 @@ public class VehicleService {
 		return vehicleLotRepository.findAll ();
 	}
 	
-	public VehicleLot addVehicleLot (VehicleLot vehicleLot) {
-		return vehicleLotRepository.save (vehicleLot);
+	public ClosestVehicle getClosestVehicle (Point point) {
+		var closestVehicle = vehicleRepository.findClosestVehicle (point.getX (), point.getY ());
+		return new ClosestVehicle (closestVehicle.getId (),
+				closestVehicle.getSerialNumber (),
+				closestVehicle.getLocation().getX (),
+				closestVehicle.getLocation ().getY ());
 	}
 	
-	public VehicleLot getVehicleLotById (int vehicleLotId) {
-		return vehicleLotRepository.findById (vehicleLotId).orElseThrow ();
-	}
-	
-	public VehicleLot updateVehicleLot (VehicleLot vehicleLot) {
-		return vehicleLotRepository.save (vehicleLot);
-	}
-	
-	public void deleteVehicleLot (int vehicleLotId) {
-		vehicleLotRepository.deleteById (vehicleLotId);
+	public boolean isVehicleDocked (int vehicleId) {
+		var vehicleType = vehicleRepository.getVehicleType (vehicleId);
+		return VehicleTypeUtils.getVehicleTypeEnum (vehicleType).isDocked ();
 	}
 }

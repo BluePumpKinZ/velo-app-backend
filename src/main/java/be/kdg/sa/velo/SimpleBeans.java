@@ -15,12 +15,12 @@ import java.util.Random;
 @Configuration
 public class SimpleBeans {
 	
-	@Value ("${messaging.routingKey}")
-	private final String vehicleLocationqQueueName = "";
+	@Value ("${messaging.vehicle-location-queue}")
+	private final String vehicleLocationQueueName = "";
 	
 	@Bean
 	public Queue vehicleLocationQueue () {
-		return new Queue (vehicleLocationqQueueName, false);
+		return new Queue (vehicleLocationQueueName, false);
 	}
 	
 	@Bean

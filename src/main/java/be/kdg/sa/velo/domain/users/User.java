@@ -14,12 +14,19 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "UserId")
 	private int id;
+	@Column (name = "Name")
 	private String name;
+	@Column (name = "Email")
 	private String email;
+	@Column (name = "Street")
 	private String street;
+	@Column (name = "StreetNumber")
 	private String streetNumber;
+	@Column (name = "PostalCode")
 	private String postalCode;
+	@Column (name = "City")
 	private String city;
+	@Column (name = "Country")
 	private String country;
 	
 	public User () {

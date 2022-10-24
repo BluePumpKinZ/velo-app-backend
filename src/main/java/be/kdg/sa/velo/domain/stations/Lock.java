@@ -15,14 +15,19 @@ public class Lock {
 	@Column(name = "LockId")
 	private int id;
 	@OneToOne (optional = true)
-	@JoinColumn(name = "VehicleId", foreignKey = @ForeignKey(name = "VehicleId"))
+	@JoinColumn(name = "VehicleId")
 	private Vehicle vehicle;
+	@Column(name = "StationLockNr")
 	private int stationLockNr;
 	@ManyToOne
-	@JoinColumn(name = "StationId", foreignKey = @ForeignKey(name = "StationId"))
+	@JoinColumn(name = "StationId")
 	private Station station;
 	
 	public Lock () {
+	}
+	
+	public Lock (int stationLockNr) {
+		this.stationLockNr = stationLockNr;
 	}
 	
 	public void setVehicle (Vehicle vehicle) {

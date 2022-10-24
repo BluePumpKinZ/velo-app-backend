@@ -14,6 +14,7 @@ public class VehicleType {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column (name = "BikeTypeId")
 	private int id;
+	@Column (name = "BikeTypeDescription", nullable = false)
 	private String description;
 	@OneToMany (mappedBy = "lot")
 	private List<Vehicle> vehicles;

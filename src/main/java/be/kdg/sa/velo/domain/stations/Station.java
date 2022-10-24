@@ -15,27 +15,41 @@ public class Station {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "StationId")
 	private int id;
-	@Column(length=20, nullable = false)
+	@Column(name = "ObjectId", length=20, nullable = false)
 	private String objectId;
-	@Column(length=20, nullable = false)
+	@Column(name = "StationNr", length=20, nullable = false)
 	private String stationNr;
-	@Column(length=20, nullable = false)
+	@Column(name = "Type", length=20, nullable = false)
 	private String type;
-	@Column(length=100, nullable = false)
+	@Column(name = "Street", length=100, nullable = false)
 	private String street;
-	@Column(length=10, nullable = false)
+	@Column(name = "Number", length=10)
 	private String number;
-	@Column(length=10, nullable = false)
+	@Column(name = "ZipCode", length=10, nullable = false)
 	private String zipCode;
-	@Column(length=100, nullable = false)
+	@Column(name = "District", length=100, nullable = false)
 	private String district;
 	@Column(name = "GPSCoord")
 	private Point gpsCoord;
+	@Column(name = "AdditionalInfo", length=100)
+	private String additionalInfo;
 	@OneToMany(mappedBy = "station")
 	private List<Lock> locks;
 	
 	public Station () {
 	
+	}
+	
+	public Station (String objectId, String stationNr, String type, String street, String number, String zipCode, String district, Point gpsCoord, String additionalInfo) {
+		this.objectId = objectId;
+		this.stationNr = stationNr;
+		this.type = type;
+		this.street = street;
+		this.number = number;
+		this.zipCode = zipCode;
+		this.district = district;
+		this.gpsCoord = gpsCoord;
+		this.additionalInfo = additionalInfo;
 	}
 	
 	public int getId () {
@@ -108,6 +122,14 @@ public class Station {
 	
 	public void setGpsCoord (Point gpsCoord) {
 		this.gpsCoord = gpsCoord;
+	}
+	
+	public String getAdditionalInfo () {
+		return additionalInfo;
+	}
+	
+	public void setAdditionalInfo (String additionalInfo) {
+		this.additionalInfo = additionalInfo;
 	}
 	
 	public List<Lock> getLocks () {
