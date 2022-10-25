@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -39,6 +40,7 @@ public class VehicleCrudTests extends VeloApplicationTests {
 	void testCrud () {
 		var vehicle = new AddVehicleDTO ();
 		vehicle.serialNumber = "123456789";
+		vehicle.lastMaintenanceOn = LocalDateTimeUtils.toUTCMillis (LocalDateTime.now());
 		vehicle.vehicleLotId = getRandomItemFromList (lots).getId ();
 		int vehicleId = vehicleService.addVehicle (vehicle).getId ();
 		var addedVehicle = vehicleService.getVehicle (vehicleId);

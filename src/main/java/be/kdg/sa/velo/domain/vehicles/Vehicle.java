@@ -20,7 +20,7 @@ public class Vehicle {
 	@ManyToOne (optional = false)
 	@JoinColumn(name = "BikeLotId")
 	private VehicleLot lot;
-	@Column (name = "LastMaintenanceDateOn")
+	@Column (name = "LastMaintenanceOn")
 	private LocalDateTime lastMaintenanceDate;
 	@Column (name = "Point", columnDefinition = "GEOMETRY")
 	private Point location;
@@ -67,4 +67,5 @@ public class Vehicle {
 	public void setLocation (Point location) {
 		this.location = location;
 	}
+	
 }

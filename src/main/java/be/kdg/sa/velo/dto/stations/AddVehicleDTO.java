@@ -13,7 +13,6 @@ public class AddVehicleDTO {
 	public String serialNumber;
 	public int vehicleLotId;
 	public long lastMaintenanceOn;
-	public int lockId;
 	public double latitude;
 	public double longitude;
 	
