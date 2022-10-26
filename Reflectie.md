@@ -63,4 +63,8 @@ Bij gebruik @Validated op controllers kunnen sommige requests niet worden uitgev
 - Mogen we het verloop van de simulatie vanuit de frontend doen zodat er niet met websockets gewerkt moet worden om feedback terug naar de gebruiker te krijgen bij het uitvoeren van een simulatie. 
 ## Post Coaching
 ### Feedback
+- Als we de testing willen doen met een echte databank kunnen we best de docker container dupliceren en daarop te tests uitvoeren. Als dit niet praktisch is kunnen we ook de databank zelf dupliceren
+- Bij de onderhoudsactie moeten we een beschrijving van de actie meegeven. Hier zal dus zowel een backend als frontend aanpassing voor nodig zijn.
+- De points en stations van een maintenanceride moeten ingesteld worden als volgt: (voor docked rides gwn 2x hetzelfde punt, voor undocked rides als startpoint de laatst gekende locatie nemen en als endpoint het dichtsbijzijnste station)
+- De simulatie moet vanuit te backend worden uitgevoerd voor feedback naar de gebruiker kunnen we best gewoon 1 antwoord terugsturen ipv met websockets te moeten werken. Deze zijn buiten de scope van het project.
 # Eindoplevering
