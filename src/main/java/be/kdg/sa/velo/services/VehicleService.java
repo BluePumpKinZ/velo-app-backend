@@ -20,10 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
-/**
- * Jonas Leijzen
- * 23/09/2022
- */
+
 @Service
 @Transactional
 public class VehicleService {

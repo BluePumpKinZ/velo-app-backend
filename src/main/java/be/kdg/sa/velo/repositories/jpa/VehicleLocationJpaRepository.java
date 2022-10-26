@@ -7,10 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Jonas Leijzen
- * 22/10/2022
- */
+
 @Repository
 public interface VehicleLocationJpaRepository extends JpaRepository<VehicleLocation, Integer> {
 	

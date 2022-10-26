@@ -3,10 +3,7 @@ package be.kdg.sa.velo.models.stations;
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
 import be.kdg.sa.velo.utils.LocalDateTimeUtils;
 
-/**
- * Jonas Leijzen
- * 23/10/2022
- */
+
 public class VehicleModel {
 	
 	public int id;

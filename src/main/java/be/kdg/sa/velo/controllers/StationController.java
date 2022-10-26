@@ -13,10 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Jonas Leijzen
- * 28/09/2022
- */
+
 @Validated
 @RestController
 @RequestMapping (path = "/api/v1/stations")

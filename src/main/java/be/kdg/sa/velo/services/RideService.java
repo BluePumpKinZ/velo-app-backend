@@ -22,10 +22,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.Random;
 
-/**
- * Jonas Leijzen
- * 2/10/2022
- */
+
 @Service
 public class RideService {
 	

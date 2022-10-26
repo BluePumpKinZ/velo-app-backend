@@ -6,10 +6,7 @@ import org.hibernate.validator.constraints.Range;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 
-/**
- * Jonas Leijzen
- * 23/10/2022
- */
+
 public class AddStationDTO {
 	
 	@NotEmpty

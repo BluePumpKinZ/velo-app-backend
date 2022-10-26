@@ -1,9 +1,6 @@
 package be.kdg.sa.velo.domain.vehicles;
 
-/**
- * Jonas Leijzen
- * 23/10/2022
- */
+
 public enum VehicleTypeEnum {
 	VELO_BIKE (true),
 	VELO_EBIKE (true),

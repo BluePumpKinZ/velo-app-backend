@@ -9,10 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Jonas Leijzen
- * 2/10/2022
- */
+
 @Repository
 public interface RideJpaRepository extends JpaRepository<Ride, Integer> {
 	

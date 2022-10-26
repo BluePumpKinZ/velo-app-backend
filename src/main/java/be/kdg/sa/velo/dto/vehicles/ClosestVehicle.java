@@ -1,9 +1,6 @@
 package be.kdg.sa.velo.dto.vehicles;
 
-/**
- * Jonas Leijzen
- * 21/10/2022
- */
+
 public class ClosestVehicle {
 	
 	public int vehicleId;

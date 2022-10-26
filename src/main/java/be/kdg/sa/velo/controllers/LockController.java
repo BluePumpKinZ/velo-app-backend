@@ -12,10 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Jonas Leijzen
- * 23/10/2022
- */
+
 @Validated
 @RestController
 @RequestMapping(value = "/api/v1/locks")

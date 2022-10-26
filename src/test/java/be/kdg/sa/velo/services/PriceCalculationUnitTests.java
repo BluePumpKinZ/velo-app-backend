@@ -26,10 +26,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-/**
- * Jonas Leijzen
- * 10/10/2022
- */
+
 public class PriceCalculationUnitTests extends VeloApplicationTests {
 	
 	@Autowired

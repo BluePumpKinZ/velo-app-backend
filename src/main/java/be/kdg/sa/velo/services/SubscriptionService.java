@@ -8,10 +8,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Comparator;
 
-/**
- * Jonas Leijzen
- * 2/10/2022
- */
+
 @Service
 public class SubscriptionService {
 	

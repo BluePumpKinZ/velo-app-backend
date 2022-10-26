@@ -3,10 +3,7 @@ package be.kdg.sa.velo.domain.vehicles;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * @author Maxim Derboven
- * @version 1.0 20/09/2022 12:31
- */
+
 @Entity(name = "BikeTypes")
 public class VehicleType {
 

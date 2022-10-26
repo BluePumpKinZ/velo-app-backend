@@ -6,10 +6,7 @@ import org.locationtech.jts.geom.Point;
 import static be.kdg.sa.velo.utils.ExtraMath.dotProduct;
 import static java.lang.Math.*;
 
-/**
- * Jonas Leijzen
- * 6/10/2022
- */
+
 public class PointUtils {
 	
 	public static Point createPoint (double latitude, double longitude) {

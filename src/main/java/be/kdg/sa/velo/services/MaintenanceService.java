@@ -16,10 +16,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Jonas Leijzen
- * 22/10/2022
- */
+
 @Component
 public class MaintenanceService {
 

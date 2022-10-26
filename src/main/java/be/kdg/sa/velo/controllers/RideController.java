@@ -18,10 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-/**
- * Jonas Leijzen
- * 2/10/2022
- */
+
 @Validated
 @RestController
 @RequestMapping (path = "/api/v1/rides", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)

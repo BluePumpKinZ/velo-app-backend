@@ -4,10 +4,7 @@ import be.kdg.sa.velo.domain.subscriptions.Subscription;
 import be.kdg.sa.velo.domain.subscriptions.SubscriptionType;
 import be.kdg.sa.velo.domain.subscriptions.SubscriptionTypeEnum;
 
-/**
- * Jonas Leijzen
- * 8/10/2022
- */
+
 public class SubscriptionUtils {
 	
 	public static SubscriptionTypeEnum getTypeEnum (SubscriptionType subscriptionType) {

@@ -3,10 +3,7 @@ package be.kdg.sa.velo.domain.vehicles;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-/**
- * Jonas Leijzen
- * 27/09/2022
- */
+
 @Entity(name = "Bikelots")
 public class VehicleLot {
 	@Id

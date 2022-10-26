@@ -1,9 +1,6 @@
 package be.kdg.sa.velo.utils;
 
-/**
- * Jonas Leijzen
- * 21/10/2022
- */
+
 public class ExtraMath {
 	
 	public static double dotProduct (double[] a, double[] b) {

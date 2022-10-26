@@ -5,10 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 
-/**
- * Jonas Leijzen
- * 5/10/2022
- */
+
 public abstract class Receiver<BaseType> {
 	
 	private final ObjectMapper objectMapper;

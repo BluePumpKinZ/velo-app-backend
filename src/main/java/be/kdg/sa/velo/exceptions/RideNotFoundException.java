@@ -1,9 +1,6 @@
 package be.kdg.sa.velo.exceptions;
 
-/**
- * Jonas Leijzen
- * 10/10/2022
- */
+
 public class RideNotFoundException extends DomainObjectNotFoundException {
 	
 	public RideNotFoundException (int id) {

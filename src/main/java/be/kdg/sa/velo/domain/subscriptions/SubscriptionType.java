@@ -2,10 +2,7 @@ package be.kdg.sa.velo.domain.subscriptions;
 
 import javax.persistence.*;
 
-/**
- * Jonas Leijzen
- * 6/10/2022
- */
+
 @Entity(name = "SubscriptionTypes")
 public class SubscriptionType {
 	@Id

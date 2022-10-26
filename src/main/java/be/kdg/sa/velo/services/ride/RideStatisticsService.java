@@ -10,10 +10,7 @@ import org.springframework.stereotype.Component;
 import java.time.Duration;
 import java.util.stream.Stream;
 
-/**
- * Jonas Leijzen
- * 10/10/2022
- */
+
 @Component
 public class RideStatisticsService implements RideDistanceCalculator, RideTimeCalculator {
 	

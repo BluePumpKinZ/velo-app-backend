@@ -2,10 +2,7 @@ package be.kdg.sa.velo.models.stations;
 
 import be.kdg.sa.velo.domain.stations.Lock;
 
-/**
- * Jonas Leijzen
- * 23/10/2022
- */
+
 public class LockModel {
 	
 	public int lockId;

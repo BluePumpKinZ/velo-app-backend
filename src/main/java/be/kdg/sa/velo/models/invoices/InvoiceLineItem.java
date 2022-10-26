@@ -1,9 +1,6 @@
 package be.kdg.sa.velo.models.invoices;
 
-/**
- * Jonas Leijzen
- * 8/10/2022
- */
+
 public final class InvoiceLineItem {
 	
 	private final String description;

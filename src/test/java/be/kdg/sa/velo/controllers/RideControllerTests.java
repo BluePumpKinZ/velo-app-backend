@@ -9,10 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * Jonas Leijzen
- * 10/10/2022
- */
+
 public class RideControllerTests extends VeloApplicationMvcTests {
 	
 	@Autowired

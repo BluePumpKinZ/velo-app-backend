@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Jonas Leijzen
- * 23/09/2022
- */
+
 @Validated
 @RestController
 @RequestMapping (path = "/api/v1/vehicles")

@@ -9,10 +9,7 @@ import be.kdg.sa.velo.repositories.StationRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
 import org.springframework.stereotype.Service;
 
-/**
- * Jonas Leijzen
- * 23/10/2022
- */
+
 @Service
 public class LockService {
 	

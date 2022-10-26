@@ -11,10 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Jonas Leijzen
- * 28/09/2022
- */
+
 @Service
 public class StationService {
 	

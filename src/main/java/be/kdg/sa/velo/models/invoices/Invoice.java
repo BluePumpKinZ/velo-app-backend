@@ -3,10 +3,7 @@ package be.kdg.sa.velo.models.invoices;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Jonas Leijzen
- * 5/10/2022
- */
+
 public class Invoice {
 	
 	private final List<InvoiceLineItem> lineItems = new ArrayList<> ();

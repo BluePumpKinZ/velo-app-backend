@@ -7,10 +7,7 @@ import org.locationtech.jts.geom.Point;
 import java.time.Duration;
 import java.util.stream.Stream;
 
-/**
- * Jonas Leijzen
- * 8/10/2022
- */
+
 public class RideUtils {
 	
 	public static RideType getRideType (Ride ride) {

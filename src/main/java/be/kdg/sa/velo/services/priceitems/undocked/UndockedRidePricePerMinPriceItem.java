@@ -12,10 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Jonas Leijzen
- * 8/10/2022
- */
+
 @Component
 public final class UndockedRidePricePerMinPriceItem extends PriceItem {
 	

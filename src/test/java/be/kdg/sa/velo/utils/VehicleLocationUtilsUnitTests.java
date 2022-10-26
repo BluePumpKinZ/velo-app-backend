@@ -8,10 +8,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-/**
- * Jonas Leijzen
- * 8/10/2022
- */
+
 
 public class VehicleLocationUtilsUnitTests extends VeloApplicationTests {
 	

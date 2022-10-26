@@ -4,10 +4,7 @@ import be.kdg.sa.velo.domain.stations.Lock;
 
 import java.util.List;
 
-/**
- * Jonas Leijzen
- * 28/09/2022
- */
+
 public class AvailableLocksModel {
 	
 	public List<AvailableLock> locks;

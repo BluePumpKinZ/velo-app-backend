@@ -7,10 +7,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.stereotype.Component;
 
-/**
- * Jonas Leijzen
- * 5/10/2022
- */
+
 @Component
 public class InvoiceXmlSender extends XmlSender<Invoice, MessagingProperties> {
 	

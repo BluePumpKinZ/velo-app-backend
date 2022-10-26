@@ -1,9 +1,6 @@
 package be.kdg.sa.velo.dto.vehicles.calls;
 
-/**
- * Jonas Leijzen
- * 21/09/2022
- */
+
 public final class LockUndockedVehicleCall extends LockVehicleCall {
 	
 	private final double latitude;

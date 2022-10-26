@@ -5,10 +5,7 @@ import org.locationtech.jts.geom.Point;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-/**
- * @author Maxim Derboven
- * @version 1.0 20/09/2022 12:38
- */
+
 @Entity(name = "Vehicles")
 public class Vehicle {
 	@Id

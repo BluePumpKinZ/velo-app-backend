@@ -8,10 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Random;
 
-/**
- * Jonas Leijzen
- * 2/10/2022
- */
+
 @Configuration
 public class SimpleBeans {
 	

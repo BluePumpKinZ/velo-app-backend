@@ -7,10 +7,7 @@ import org.springframework.stereotype.Component;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-/**
- * Jonas Leijzen
- * 23/10/2022
- */
+
 @Component
 public class TimeMaintenanceQualifier implements MaintenanceQualifier {
 	

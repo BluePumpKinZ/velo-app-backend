@@ -4,10 +4,7 @@ import be.kdg.sa.velo.domain.vehicles.Vehicle;
 
 import javax.persistence.*;
 
-/**
- * @author Maxim Derboven
- * @version 1.0 20/09/2022 12:41
- */
+
 @Entity(name = "Locks")
 public class Lock {
 	@Id

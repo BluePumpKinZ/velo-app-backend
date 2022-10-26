@@ -5,10 +5,7 @@ import org.locationtech.jts.geom.Point;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * @author Maxim Derboven
- * @version 1.0 20/09/2022 12:42
- */
+
 @Entity(name = "Stations")
 public class Station {
 	@Id

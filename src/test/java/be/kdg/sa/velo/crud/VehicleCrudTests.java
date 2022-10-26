@@ -17,10 +17,7 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Jonas Leijzen
- * 2/10/2022
- */
+
 public class VehicleCrudTests extends VeloApplicationTests {
 	@Autowired
 	private VehicleService vehicleService;

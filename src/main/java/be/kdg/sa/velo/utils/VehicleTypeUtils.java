@@ -3,10 +3,7 @@ package be.kdg.sa.velo.utils;
 import be.kdg.sa.velo.domain.vehicles.VehicleType;
 import be.kdg.sa.velo.domain.vehicles.VehicleTypeEnum;
 
-/**
- * Jonas Leijzen
- * 23/10/2022
- */
+
 public class VehicleTypeUtils {
 	
 	public static VehicleTypeEnum getVehicleTypeEnum (VehicleType vehicleType) {

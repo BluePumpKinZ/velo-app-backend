@@ -2,10 +2,7 @@ package be.kdg.sa.velo.exceptions;
 
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
 
-/**
- * Jonas Leijzen
- * 10/10/2022
- */
+
 public class VehicleNotFoundException extends DomainObjectNotFoundException {
 	
 	public VehicleNotFoundException (int id) {

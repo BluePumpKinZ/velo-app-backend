@@ -5,10 +5,7 @@ import be.kdg.sa.velo.domain.users.User;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-/**
- * @author Maxim Derboven
- * @version 1.0 20/09/2022 12:48
- */
+
 @Entity (name = "Subscriptions")
 public class Subscription {
 	@Id

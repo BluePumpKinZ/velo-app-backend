@@ -7,10 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
-/**
- * Jonas Leijzen
- * 5/10/2022
- */
+
 @Component
 public class VehicleLocationReceiver extends JsonReceiver<VehicleLocationPingMessage> {
 	private final VehicleService vehicleService;

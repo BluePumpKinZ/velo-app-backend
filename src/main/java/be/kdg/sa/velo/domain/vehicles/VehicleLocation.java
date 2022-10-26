@@ -4,10 +4,7 @@ import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
 
-/**
- * Jonas Leijzen
- * 22/10/2022
- */
+
 @Entity (name="VehicleLocations")
 public class VehicleLocation {
 	
