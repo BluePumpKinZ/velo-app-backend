@@ -6,11 +6,12 @@ import be.kdg.sa.velo.domain.stations.Lock;
 import be.kdg.sa.velo.domain.subscriptions.Subscription;
 import be.kdg.sa.velo.domain.subscriptions.SubscriptionType;
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
+import be.kdg.sa.velo.dto.vehicles.calls.LockVehicleCall;
 import be.kdg.sa.velo.messaging.senders.InvoiceXmlSender;
 import be.kdg.sa.velo.models.invoices.Invoice;
-import be.kdg.sa.velo.dto.vehicles.calls.LockVehicleCall;
 import be.kdg.sa.velo.services.ride.RideDistanceCalculator;
 import be.kdg.sa.velo.services.ride.RideTimeCalculator;
+import be.kdg.sa.velo.utils.LocalDateTimeUtils;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -78,16 +79,17 @@ public class PriceCalculationUnitTests extends VeloApplicationTests {
 		subscriptionMaand.setSubscriptionType (subscriptionTypeMaand);
 		subscriptionJaar.setSubscriptionType (subscriptionTypeJaar);
 		
+		var timeZero = LocalDateTimeUtils.fromUTCMillis (0);
 		var dockedRides = Stream.of (
-				Arguments.of (new Ride (vehicle, startLock, endLock, 0L, 0L, subscriptionDag), Duration.ofMinutes (2), 0.550, 0.30),
-				Arguments.of (new Ride (vehicle, startLock, endLock, 0L, 0L, subscriptionMaand), Duration.ofMinutes (5), 1.400, 0.50),
-				Arguments.of (new Ride (vehicle, startLock, endLock, 0L, 0L, subscriptionJaar), Duration.ofMinutes (17), 5.600, 1.36)
+				Arguments.of (new Ride (vehicle, startLock, endLock, timeZero, timeZero, subscriptionDag), Duration.ofMinutes (2), 0.550, 0.30),
+				Arguments.of (new Ride (vehicle, startLock, endLock, timeZero, timeZero, subscriptionMaand), Duration.ofMinutes (5), 1.400, 0.50),
+				Arguments.of (new Ride (vehicle, startLock, endLock, timeZero, timeZero, subscriptionJaar), Duration.ofMinutes (17), 5.600, 1.36)
 		);
 		
 		var undockedRides = Stream.of (
-				Arguments.of (new Ride (vehicle, null, null, 0L, 0L, subscriptionDag), Duration.ofMinutes (2), 0.550, 2.065),
-				Arguments.of (new Ride (vehicle, null, null, 0L, 0L, subscriptionMaand), Duration.ofMinutes (5), 1.400, 1.908),
-				Arguments.of (new Ride (vehicle, null, null, 0L, 0L, subscriptionJaar), Duration.ofMinutes (17), 5.600, 3.032)
+				Arguments.of (new Ride (vehicle, null, null, timeZero, timeZero, subscriptionDag), Duration.ofMinutes (2), 0.550, 2.065),
+				Arguments.of (new Ride (vehicle, null, null, timeZero, timeZero, subscriptionMaand), Duration.ofMinutes (5), 1.400, 1.908),
+				Arguments.of (new Ride (vehicle, null, null, timeZero, timeZero, subscriptionJaar), Duration.ofMinutes (17), 5.600, 3.032)
 		);
 		
 		return Stream.concat (dockedRides, undockedRides);

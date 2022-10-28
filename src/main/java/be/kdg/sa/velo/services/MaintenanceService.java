@@ -54,7 +54,7 @@ public class MaintenanceService {
 		var ride = rideRepository.getLastRideForVehicle (vehicleId).orElseThrow (() -> new RideNotFoundException (0));
 		ride.setEndLock (ride.getStartLock ());
 		ride.setEndPoint (ride.getStartPoint ());
-		ride.setEndTime (System.currentTimeMillis ());
+		ride.setEndTime (LocalDateTime.now ());
 		rideRepository.save (ride);
 	}
 	

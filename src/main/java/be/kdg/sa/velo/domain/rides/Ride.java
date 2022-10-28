@@ -6,7 +6,7 @@ import be.kdg.sa.velo.domain.vehicles.Vehicle;
 import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
-
+import java.time.LocalDateTime;
 
 
 @Entity (name = "Rides")
@@ -28,9 +28,9 @@ public class Ride {
 	@OneToOne (optional = true)
 	@JoinColumn (name = "EndLockId")
 	private Lock endLock;
-	private long startTime;
+	private LocalDateTime startTime;
 	@Column (name = "EndTime", nullable = true)
-	private Long endTime;
+	private LocalDateTime endTime;
 	@ManyToOne
 	@JoinColumn (name = "SubscriptionId")
 	private Subscription subscription;
@@ -43,7 +43,7 @@ public class Ride {
 		this.startLock = startLock;
 	}
 	
-	public Ride (Vehicle vehicle, Lock startLock, Lock endLock, long startTime, Long endTime, Subscription subscription) {
+	public Ride (Vehicle vehicle, Lock startLock, Lock endLock, LocalDateTime startTime, LocalDateTime endTime, Subscription subscription) {
 		this.vehicle = vehicle;
 		this.startLock = startLock;
 		this.endLock = endLock;
@@ -56,10 +56,10 @@ public class Ride {
 		this.vehicle = vehicle;
 		this.startPoint = startPoint;
 		this.subscription = subscription;
-		startTime = System.currentTimeMillis ();
+		startTime = LocalDateTime.now ();
 	}
 	
-	public Ride (Vehicle vehicle, long startTime, Long endTime, Subscription subscription) {
+	public Ride (Vehicle vehicle, LocalDateTime startTime, LocalDateTime endTime, Subscription subscription) {
 		this.vehicle = vehicle;
 		this.subscription = subscription;
 		this.startTime = startTime;
@@ -114,19 +114,19 @@ public class Ride {
 		this.endLock = endPoint;
 	}
 	
-	public long getStartTime () {
+	public LocalDateTime getStartTime () {
 		return startTime;
 	}
 	
-	public void setStartTime (long startTime) {
+	public void setStartTime (LocalDateTime startTime) {
 		this.startTime = startTime;
 	}
 	
-	public Long getEndTime () {
+	public LocalDateTime getEndTime () {
 		return endTime;
 	}
 	
-	public void setEndTime (Long endTime) {
+	public void setEndTime (LocalDateTime endTime) {
 		this.endTime = endTime;
 	}
 	

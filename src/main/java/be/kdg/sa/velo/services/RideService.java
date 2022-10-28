@@ -19,6 +19,7 @@ import be.kdg.sa.velo.utils.PointUtils;
 import be.kdg.sa.velo.utils.VehicleTypeUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Random;
 
@@ -85,7 +86,7 @@ public class RideService {
 		vehicleLocationRepository.save (new VehicleLocation (vehicle, location));
 		vehicle.setLocation (location);
 		vehicleRepository.save (vehicle);
-		ride.setEndTime (System.currentTimeMillis ());
+		ride.setEndTime (LocalDateTime.now ());
 		ride.setEndLock (lock);
 		ride.setEndPoint (location);
 		rideRepository.save (ride);
@@ -110,7 +111,7 @@ public class RideService {
 		vehicleLocationRepository.save (new VehicleLocation (vehicle, endPoint));
 		vehicle.setLocation (endPoint);
 		vehicleRepository.save (vehicle);
-		ride.setEndTime (System.currentTimeMillis ());
+		ride.setEndTime (LocalDateTime.now ());
 		ride.setEndPoint (endPoint);
 		rideRepository.save (ride);
 		HandlePayment (ride, event);

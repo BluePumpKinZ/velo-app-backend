@@ -19,7 +19,7 @@ public class RideUtils {
 	}
 	
 	public static Duration getRideDuration (Ride ride) {
-		return Duration.ofMillis (ride.getEndTime () - ride.getStartTime ());
+		return Duration.between (ride.getStartTime (), ride.getEndTime ());
 	}
 	
 	public static double getRideDistance (Stream<Point> pointStream) {

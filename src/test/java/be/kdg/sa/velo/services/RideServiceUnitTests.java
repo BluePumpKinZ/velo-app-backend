@@ -21,6 +21,7 @@ import be.kdg.sa.velo.repositories.LockRepository;
 import be.kdg.sa.velo.repositories.RideRepository;
 import be.kdg.sa.velo.repositories.VehicleLocationRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
+import be.kdg.sa.velo.utils.LocalDateTimeUtils;
 import be.kdg.sa.velo.utils.PointUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -134,7 +135,7 @@ public class RideServiceUnitTests extends VeloApplicationTests {
 		ride1.setId (1);
 		ride1.setSubscription (subscription);
 		ride1.setVehicle (vehicle3);
-		ride1.setStartTime (System.currentTimeMillis () - 5 * 60000); // 5 minutes ago
+		ride1.setStartTime (LocalDateTime.now ().minusMinutes (5));
 		ride1.setStartLock (lock1);
 		ride1.setStartPoint (PointUtils.createPoint (51.219, 4.402));
 		given (rideRepository.getLastRideForVehicle (6)).willReturn (Optional.of (ride1));
@@ -143,7 +144,7 @@ public class RideServiceUnitTests extends VeloApplicationTests {
 		ride2.setId (2);
 		ride2.setSubscription (subscription);
 		ride2.setVehicle (vehicle4);
-		ride2.setStartTime (System.currentTimeMillis () - 5 * 60000); // 5 minutes ago
+		ride2.setStartTime (LocalDateTime.now ().minusMinutes (5)); // 5 minutes ago
 		ride2.setStartLock (lock1);
 		given (rideRepository.getLastRideForVehicle (7)).willReturn (Optional.of (ride2));
 	}
@@ -221,7 +222,7 @@ public class RideServiceUnitTests extends VeloApplicationTests {
 		assertEquals (6, lock.getVehicle().getId ());
 		Ride ride = rideRepository.getLastRideForVehicle (6).orElseThrow ();
 		assertEquals (lock.getId (), ride.getEndLock ().getId ());
-		assertEquals (System.currentTimeMillis (), ride.getEndTime (), 1000); // within 1 second
+		assertEquals (LocalDateTimeUtils.toUTCMillis (LocalDateTime.now ()), LocalDateTimeUtils.toUTCMillis (ride.getEndTime ()), 1000); // within 1 second
 		
 		ArgumentCaptor<Invoice> invoiceArgumentCaptor = ArgumentCaptor.forClass (Invoice.class);
 		verify (invoiceXmlSender, times (1)).send (invoiceArgumentCaptor.capture ());
@@ -255,7 +256,7 @@ public class RideServiceUnitTests extends VeloApplicationTests {
 		
 		Ride ride = rideArgumentCaptor.getValue ();
 		assertEquals (7, ride.getVehicle ().getId ());
-		assertEquals (System.currentTimeMillis (), ride.getEndTime (), 1000); // within 1 second
+		assertEquals (LocalDateTimeUtils.toUTCMillis (LocalDateTime.now ()), LocalDateTimeUtils.toUTCMillis (ride.getEndTime ()), 1000); // within 1 second
 		
 		ArgumentCaptor<Invoice> invoiceArgumentCaptor = ArgumentCaptor.forClass (Invoice.class);
 		verify (invoiceXmlSender, times (1)).send (invoiceArgumentCaptor.capture ());
