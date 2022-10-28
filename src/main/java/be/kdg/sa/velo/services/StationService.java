@@ -28,7 +28,7 @@ public class StationService {
 	}
 	
 	public List<Lock> getFilledLocksForStation (int stationId) {
-		return lockRepository.getLocksByStationIdAndVehicleIsNotNull (stationId);
+		return lockRepository.getFilledLocksForStation (stationId);
 	}
 	
 	public Station addStation (AddStationDTO stationDTO) {

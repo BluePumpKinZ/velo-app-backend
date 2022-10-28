@@ -4,7 +4,7 @@ import be.kdg.sa.velo.domain.vehicles.Vehicle;
 import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
 import be.kdg.sa.velo.domain.vehicles.VehicleLot;
 import be.kdg.sa.velo.dto.stations.AddVehicleDTO;
-import be.kdg.sa.velo.dto.vehicles.ClosestVehicle;
+import be.kdg.sa.velo.models.vehicles.ClosestVehicle;
 import be.kdg.sa.velo.dto.vehicles.messages.VehicleLocationPingMessage;
 import be.kdg.sa.velo.exceptions.VehicleLotNotFoundException;
 import be.kdg.sa.velo.exceptions.VehicleNotFoundException;

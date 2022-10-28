@@ -5,8 +5,8 @@ import be.kdg.sa.velo.dto.vehicles.VehicleCall;
 
 public abstract class LockVehicleCall extends VehicleCall {
 	
-	private final int userId;
-	private final boolean defect;
+	private int userId;
+	private boolean defect;
 	
 	protected LockVehicleCall (int vehicleId, int userId, boolean defect) {
 		super (vehicleId);
@@ -14,11 +14,23 @@ public abstract class LockVehicleCall extends VehicleCall {
 		this.defect = defect;
 	}
 	
+	public LockVehicleCall () {
+	}
+	
 	public int getUserId () {
 		return userId;
+	}
+	
+	public void setUserId (int userId) {
+		this.userId = userId;
 	}
 	
 	public boolean isDefect () {
 		return defect;
 	}
+	
+	public void setDefect (boolean defect) {
+		this.defect = defect;
+	}
+	
 }

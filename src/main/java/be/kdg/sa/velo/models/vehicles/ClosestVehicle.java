@@ -1,4 +1,4 @@
-package be.kdg.sa.velo.dto.vehicles;
+package be.kdg.sa.velo.models.vehicles;
 
 
 public class ClosestVehicle {

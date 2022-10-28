@@ -14,7 +14,9 @@ public interface LockJpaRepository extends JpaRepository<Lock, Integer> {
 	
 	List<Lock> getLocksByStationIdAndVehicleIsNull (int stationId);
 	
-	List<Lock> getLocksByStationIdAndVehicleIsNotNull (int stationId);
+	@Query (value = "SELECT L.LOCKID, L.STATIONLOCKNR, L.STATIONID, L.VEHICLEID FROM Locks L\n" +
+			"WHERE STATIONID = ?1 AND VEHICLEID IS NOT NULL", nativeQuery = true)
+	List<Lock> getFilledLocksForStation (int stationId);
 	
 	@Query(value = "SELECT TOP(1) L.LOCKID, L.STATIONLOCKNR, L.STATIONID, L.VEHICLEID FROM LOCKS L\n" +
 			"JOIN STATIONS S ON L.STATIONID = S.STATIONID\n" +

@@ -2,7 +2,7 @@ package be.kdg.sa.velo.controllers;
 
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
 import be.kdg.sa.velo.dto.stations.AddVehicleDTO;
-import be.kdg.sa.velo.dto.vehicles.ClosestVehicle;
+import be.kdg.sa.velo.models.vehicles.ClosestVehicle;
 import be.kdg.sa.velo.dto.vehicles.messages.VehicleLocationPingMessage;
 import be.kdg.sa.velo.exceptions.DomainObjectNotFoundException;
 import be.kdg.sa.velo.models.stations.VehicleModel;
