@@ -3,6 +3,7 @@ package be.kdg.sa.velo.domain.vehicles;
 import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 
 @Entity (name="VehicleLocations")
@@ -18,7 +19,7 @@ public class VehicleLocation {
 	@Column (name = "Location", nullable = false, columnDefinition = "GEOMETRY")
 	private Point location;
 	@Column (name = "Timestamp", nullable = false)
-	private long timestamp;
+	private LocalDateTime timestamp;
 	
 	public VehicleLocation() {
 	}
@@ -26,7 +27,7 @@ public class VehicleLocation {
 	public VehicleLocation(Vehicle vehicle, Point location) {
 		this.vehicle = vehicle;
 		this.location = location;
-		this.timestamp = System.currentTimeMillis ();
+		this.timestamp = LocalDateTime.now ();
 	}
 	
 	public int getId () {
@@ -53,11 +54,11 @@ public class VehicleLocation {
 		this.location = location;
 	}
 	
-	public long getTimestamp () {
+	public LocalDateTime getTimestamp () {
 		return timestamp;
 	}
 	
-	public void setTimestamp (long timestamp) {
+	public void setTimestamp (LocalDateTime timestamp) {
 		this.timestamp = timestamp;
 	}
 }
