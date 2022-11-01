@@ -4,27 +4,31 @@ import be.kdg.sa.velo.dto.vehicles.VehicleCall;
 
 
 public final class VehicleLocationPingMessage extends VehicleCall {
+	private double latitude;
+	private double longitude;
 	
-	private final long timeStamp;
-	private final double latitude;
-	private final double longitude;
-	
-	public VehicleLocationPingMessage (long timeStamp, int vehicleId, double latitude, double longitude) {
-		super (vehicleId);
-		this.timeStamp = timeStamp;
-		this.latitude = latitude;
-		this.longitude = longitude;
+	public VehicleLocationPingMessage () {
 	}
 	
-	public long getTimeStamp () {
-		return timeStamp;
+	public VehicleLocationPingMessage (int vehicleId, double latitude, double longitude) {
+		super (vehicleId);
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 	
 	public double getLatitude () {
 		return latitude;
 	}
 	
+	public void setLatitude (double latitude) {
+		this.latitude = latitude;
+	}
+	
 	public double getLongitude () {
 		return longitude;
+	}
+	
+	public void setLongitude (double longitude) {
+		this.longitude = longitude;
 	}
 }
