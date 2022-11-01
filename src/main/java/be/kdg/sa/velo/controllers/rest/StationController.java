@@ -1,4 +1,4 @@
-package be.kdg.sa.velo.controllers;
+package be.kdg.sa.velo.controllers.rest;
 
 import be.kdg.sa.velo.dto.stations.AddStationDTO;
 import be.kdg.sa.velo.exceptions.DomainObjectNotFoundException;

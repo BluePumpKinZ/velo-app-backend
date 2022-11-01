@@ -1,4 +1,4 @@
-package be.kdg.sa.velo.controllers;
+package be.kdg.sa.velo.controllers.rest;
 
 import be.kdg.sa.velo.exceptions.DomainObjectNotFoundException;
 import be.kdg.sa.velo.dto.vehicles.calls.LockDockedVehicleCall;

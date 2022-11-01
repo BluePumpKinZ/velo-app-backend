@@ -1,4 +1,4 @@
-package be.kdg.sa.velo.controllers;
+package be.kdg.sa.velo.controllers.rest;
 
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
 import be.kdg.sa.velo.dto.stations.AddVehicleDTO;
