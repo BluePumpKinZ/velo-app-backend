@@ -86,4 +86,8 @@ public class VehicleService {
 		var vehicleType = vehicleRepository.getVehicleType (vehicleId);
 		return VehicleTypeUtils.getVehicleTypeEnum (vehicleType).isDocked ();
 	}
+	
+	public List<Integer> getValidSimulatorIds () {
+		return vehicleRepository.getValidSimulatorVehicleIds ();
+	}
 }

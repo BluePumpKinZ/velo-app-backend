@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 public interface VehicleJpaRepository extends JpaRepository<Vehicle, Integer> {
@@ -26,4 +28,11 @@ public interface VehicleJpaRepository extends JpaRepository<Vehicle, Integer> {
 			"JOIN VEHICLES V ON BL.BIKELOTID = V.BIKELOTID\n" +
 			"WHERE V.VEHICLEID = ?1", nativeQuery = true)
 	VehicleType getVehicleType (int vehicleId);
+	
+	@Query (value = """
+			SELECT V.VEHICLEID, V.SERIALNUMBER, V.BIKELOTID, V.LASTMAINTENANCEON, V.LOCKID, V.POINT FROM VEHICLES V
+			JOIN BIKELOTS B ON B.BIKELOTID = V.BIKELOTID
+			WHERE B.BIKETYPEID IN (3, 4)
+			""", nativeQuery = true)
+	List<Integer> getValidSimulatorVehicleIds ();
 }
