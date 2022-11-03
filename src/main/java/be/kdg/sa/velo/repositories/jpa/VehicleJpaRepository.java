@@ -23,16 +23,19 @@ public interface VehicleJpaRepository extends JpaRepository<Vehicle, Integer> {
 	@Query (value = findClosestVehicleQuery, nativeQuery = true)
 	Vehicle findClosestVehicle (double latitude, double longitude);
 	
-	@Query (value = "SELECT BK.BIKETYPEDESCRIPTION FROM BIKETYPES BK\n" +
-			"JOIN BIKELOTS BL ON BK.BIKETYPEID = BL.BIKETYPEID\n" +
-			"JOIN VEHICLES V ON BL.BIKELOTID = V.BIKELOTID\n" +
-			"WHERE V.VEHICLEID = ?1", nativeQuery = true)
+	@Query (value = """
+			SELECT BT FROM BikeTypes BT
+			JOIN Bikelots BL on BT = BL.type
+			JOIN Vehicles V on V.lot = BL
+			WHERE V.id = :vehicleId
+			""")
 	VehicleType getVehicleType (int vehicleId);
 	
 	@Query (value = """
-			SELECT V.VEHICLEID, V.SERIALNUMBER, V.BIKELOTID, V.LASTMAINTENANCEON, V.LOCKID, V.POINT FROM VEHICLES V
+			SELECT V.VEHICLEID FROM VEHICLES V
 			JOIN BIKELOTS B ON B.BIKELOTID = V.BIKELOTID
 			WHERE B.BIKETYPEID IN (3, 4)
+			ORDER BY V.VEHICLEID
 			""", nativeQuery = true)
 	List<Integer> getValidSimulatorVehicleIds ();
 }
