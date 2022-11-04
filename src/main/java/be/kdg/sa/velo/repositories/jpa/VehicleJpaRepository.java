@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 public interface VehicleJpaRepository extends JpaRepository<Vehicle, Integer> {
@@ -17,13 +19,23 @@ public interface VehicleJpaRepository extends JpaRepository<Vehicle, Integer> {
 			ORDER BY Geography\\:\\:STGeomFromText(V.Point.MakeValid().STAsText(),4326)
 			.STDistance(Geography\\:\\:STGeomFromText(Geometry\\:\\:Point(?1,?2,4326).MakeValid().STAsText(),4326))
 			""";
-	
+
 	@Query (value = findClosestVehicleQuery, nativeQuery = true)
 	Vehicle findClosestVehicle (double latitude, double longitude);
-	
-	@Query (value = "SELECT BK.BIKETYPEDESCRIPTION FROM BIKETYPES BK\n" +
-			"JOIN BIKELOTS BL ON BK.BIKETYPEID = BL.BIKETYPEID\n" +
-			"JOIN VEHICLES V ON BL.BIKELOTID = V.BIKELOTID\n" +
-			"WHERE V.VEHICLEID = ?1", nativeQuery = true)
+
+	@Query (value = """
+			SELECT BT FROM BikeTypes BT
+			JOIN Bikelots BL on BT = BL.type
+			JOIN Vehicles V on V.lot = BL
+			WHERE V.id = :vehicleId
+			""")
 	VehicleType getVehicleType (int vehicleId);
+
+	@Query (value = """
+			SELECT V.VEHICLEID FROM VEHICLES V
+			JOIN BIKELOTS B ON B.BIKELOTID = V.BIKELOTID
+			WHERE B.BIKETYPEID IN (3, 4)
+			ORDER BY V.VEHICLEID
+			""", nativeQuery = true)
+	List<Integer> getValidSimulatorVehicleIds ();
 }

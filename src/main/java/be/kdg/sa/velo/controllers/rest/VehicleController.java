@@ -98,4 +98,9 @@ public class VehicleController {
 		}
 	}
 	
+	@GetMapping (path="/validSimulatorIds", produces = "application/json")
+	public ResponseEntity<List<Integer>> getValidSimulatorIds () {
+		return new ResponseEntity<> (vehicleService.getValidSimulatorIds (), HttpStatus.OK);
+	}
+	
 }
