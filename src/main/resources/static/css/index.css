@@ -34,3 +34,18 @@ footer {
         height: auto;
     }
 }
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body main {
+    width: 100%;
+}
+
+footer {
+    width: 100%;
+    margin-top: auto;
+}

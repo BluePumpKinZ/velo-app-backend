@@ -2,8 +2,8 @@ package be.kdg.sa.velo.controllers.mvc;
 
 import be.kdg.sa.velo.services.MaintenanceService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 
 @Controller
 @RequestMapping("/maintenance")
@@ -15,6 +15,9 @@ public class MaintenanceMvcController {
 		this.maintenanceService = maintenanceService;
 	}
 	
-	
+	@GetMapping
+	public String maintenance() {
+		return "maintenance";
+	}
 	
 }
