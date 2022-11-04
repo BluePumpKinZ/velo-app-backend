@@ -13,7 +13,7 @@ public class MaintenanceFlagging {
 	@Column (name = "MaintenanceFlaggingId")
 	private int id;
 	@ManyToOne
-	@JoinColumn (name = "VehicleId")
+	@JoinColumn (name = "VehicleId", columnDefinition = "SMALLINT")
 	private Vehicle vehicle;
 	private LocalDateTime timestamp;
 	private String reason;
