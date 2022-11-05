@@ -41,9 +41,10 @@ public interface VehicleJpaRepository extends JpaRepository<Vehicle, Integer> {
 	List<Integer> getValidSimulatorVehicleIds ();
 	
 	@Query (value = """
-			SELECT new be.kdg.sa.velo.models.maintenance.MaintenanceVehicle (V.id, V.serialNumber, BT.description) FROM Vehicles V
+			SELECT new be.kdg.sa.velo.models.maintenance.MaintenanceVehicle (V.id, V.serialNumber, BT.description, MF.reason) FROM Vehicles V
 			JOIN Bikelots BL ON V.lot = BL
 			JOIN BikeTypes BT ON BL.type = BT
+			JOIN MaintenanceFlaggings MF on V.id = MF.vehicle.id
 			WHERE V.id IN
 			(SELECT MF.vehicle.id FROM MaintenanceFlaggings MF
 			WHERE MF.id NOT IN (SELECT MA.flagging.id FROM MaintenanceActions MA))
