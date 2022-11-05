@@ -25,6 +25,7 @@ public interface RideJpaRepository extends JpaRepository<Ride, Integer> {
 			SELECT * FROM RIDES
 			WHERE ENDTIME IS NULL
 			AND STARTTIME < DATEADD (SECOND, -?1, GETDATE ())
+			AND SUBSCRIPTIONID IS NULL
 			""", nativeQuery = true)
 	List<Ride> getOpenRidesWithMinLength (int maxRideDurationSeconds);
 }
