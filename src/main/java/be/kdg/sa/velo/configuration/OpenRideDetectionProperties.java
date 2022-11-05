@@ -21,4 +21,16 @@ public class OpenRideDetectionProperties {
 	private Duration maxNotMovingDuration;
 	@Value ("${openride.max-not-moving-distance}")
 	private double maxNotMovingDistance;
+
+	public Duration getMaxRideDuration() {
+		return maxRideDuration;
+	}
+
+	public Duration getMaxNotMovingDuration() {
+		return maxNotMovingDuration;
+	}
+
+	public double getMaxNotMovingDistance() {
+		return maxNotMovingDistance;
+	}
 }
