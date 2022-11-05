@@ -37,16 +37,16 @@
       <hr>
       <h3>Een Onderhoudsactie doen op volgende vehicles:</h3>
 
-      <form th:action="@{/maintenance}" method="post" >
+      <form th:object="${maintenanceActionDTO}" th:action="@{/maintenance/add}" method="post" >
         <div class="form-check">
-          <div class="form-check" th:each="vehicle : ${vehicles}" >
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1" th:text="${vehicle.getInformation()}">
+          <div class="form-check" th:each="flag : ${flags}" >
+            <input th:field="*{flaggingId}" th:value="${flag.getMaintenanceFlagId()}" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+            <label class="form-check-label" for="flexRadioDefault1" th:text="${flag.getInformation()}">
             </label>
           </div>
         </div>
         <label for="inputAction">What have you done</label>
-        <input type="text" class="form-control" id="inputAction" name="inputAction" placeholder="What have you done">
+        <input type="text" class="form-control" id="inputAction" th:field="*{solution}" name="inputAction" placeholder="What have you done">
         <button type="submit" class="btn btn-primary">Voer onderhoudsactie uit</button>
       </form>
 
