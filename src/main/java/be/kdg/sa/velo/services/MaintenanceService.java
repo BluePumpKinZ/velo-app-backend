@@ -1,5 +1,6 @@
 package be.kdg.sa.velo.services;
 
+import be.kdg.sa.velo.domain.maintenance.MaintenanceFlagging;
 import be.kdg.sa.velo.domain.rides.Ride;
 import be.kdg.sa.velo.dto.maintenance.MaintenanceActionDTO;
 import be.kdg.sa.velo.exceptions.LockNotFoundException;
@@ -38,18 +39,22 @@ public class MaintenanceService {
 	
 	public boolean addVehicleToMaintenanceIfRequired (MaintenanceQualifyContext context) {
 		
-		if (maintenanceQualifiers.stream ().noneMatch (q -> q.isMaintenanceNeeded (context)))
-			return false;
+		var maintenanceQualifier = maintenanceQualifiers.stream ()
+				.filter (q -> q.isMaintenanceNeeded (context))
+				.findFirst ();
+		if (maintenanceQualifier.isEmpty()) return false;
+
 		
-		AddVehicleToMaintenance (context.getVehicleId ());
+		addVehicleToMaintenance(context.getVehicleId (), maintenanceQualifier.get ().getReason());
 		return true;
 	}
 	
-	public void AddVehicleToMaintenance (int vehicleId) {
+	public void addVehicleToMaintenance(int vehicleId, String reason) {
 		var vehicle = vehicleRepository.findById (vehicleId).orElseThrow (() -> new VehicleNotFoundException (vehicleId));
 		var lock = lockRepository.getClosestLock (vehicle.getLocation ().getX (), vehicle.getLocation ().getY ()).orElseThrow (() -> new LockNotFoundException (0));
 		var ride = new Ride (vehicle, vehicle.getLocation (), lock, null);
 		rideRepository.save (ride);
+		maintenanceFlaggingRepository.save (new MaintenanceFlagging (vehicle, LocalDateTime.now (), reason));
 	}
 	
 	public void removeVehicleFromMaintenance (MaintenanceActionDTO maintenanceActionDTO) {

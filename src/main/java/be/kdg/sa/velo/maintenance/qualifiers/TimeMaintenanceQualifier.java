@@ -30,4 +30,9 @@ public class TimeMaintenanceQualifier implements MaintenanceQualifier {
 		return getDurationFromLastMaintenance (context).toDays () > days;
 	
 	}
+
+	@Override
+	public String getReason() {
+		return "Too long since last maintenance, time to check the vehicle";
+	}
 }

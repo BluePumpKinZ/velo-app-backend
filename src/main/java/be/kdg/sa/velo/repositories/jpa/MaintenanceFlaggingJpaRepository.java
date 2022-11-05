@@ -12,13 +12,12 @@ import java.util.List;
 @Repository
 public interface MaintenanceFlaggingJpaRepository extends JpaRepository<MaintenanceFlagging, Integer> {
 	@Query(value = """
-			SELECT new be.kdg.sa.velo.models.maintenance.MaintenanceFlag(MF.id, V.serialNumber, BT.description, MF.reason) FROM Vehicles V
-			JOIN Bikelots BL ON V.lot = BL
-			JOIN BikeTypes BT ON BL.type = BT
-			JOIN MaintenanceFlaggings MF on V.id = MF.vehicle.id
-			WHERE V.id IN
-			(SELECT MF.vehicle.id FROM MaintenanceFlaggings MF
-			WHERE MF.id NOT IN (SELECT MA.flagging.id FROM MaintenanceActions MA))
-						""")
-	List<MaintenanceFlag> getMaintenanceFlaggings ();
+			SELECT new be.kdg.sa.velo.models.maintenance.MaintenanceFlag(MF.id, V.serialNumber, BT.description, MF.reason)
+			FROM MaintenanceFlaggings MF
+			         INNER JOIN Vehicles V ON MF.vehicle.id = V.id
+			         Inner Join Bikelots B on V.lot.id = B.id
+			         Inner Join BikeTypes BT on B.type.id = BT.id
+			WHERE MF.id NOT IN (SELECT MA.flagging.id FROM MaintenanceActions MA)
+			""", nativeQuery = false)
+	List<MaintenanceFlag> getMaintenanceFlaggings();
 }

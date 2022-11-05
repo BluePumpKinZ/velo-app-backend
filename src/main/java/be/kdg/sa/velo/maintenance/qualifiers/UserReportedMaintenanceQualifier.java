@@ -10,4 +10,9 @@ public class UserReportedMaintenanceQualifier implements MaintenanceQualifier {
 	public boolean isMaintenanceNeeded (MaintenanceQualifyContext context) {
 		return context.getEvent ().isDefect ();
 	}
+
+	@Override
+	public String getReason() {
+		return "User reported defect";
+	}
 }
