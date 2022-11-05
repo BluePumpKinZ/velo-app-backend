@@ -64,7 +64,7 @@ public class LockController {
 		}
 	}
 	
-	@DeleteMapping (path="/{lockId}/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping (path="/{lockId}/delete")
 	public ResponseEntity<LockModel> deleteLock (@PathVariable int lockId) {
 		try {
 			lockService.deleteLock (lockId);

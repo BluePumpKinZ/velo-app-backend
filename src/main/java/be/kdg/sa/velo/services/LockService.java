@@ -25,7 +25,7 @@ public class LockService {
 	
 	
 	public Lock addLock (AddLockDTO lockDTO) {
-		var lock = new Lock (lockDTO.stationLockNr);
+		var lock = new Lock (lockDTO.lockId,lockDTO.stationLockNr);
 		lock.setStation (stationRepository.findById (lockDTO.stationId).orElseThrow (() -> new StationNotFoundException (lockDTO.stationId)));
 		lock.setVehicle (vehicleRepository.findById (lockDTO.vehicleId).orElse (null));
 		return lockRepository.save (lock);

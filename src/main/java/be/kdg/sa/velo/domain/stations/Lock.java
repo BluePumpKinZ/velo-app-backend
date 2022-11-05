@@ -1,14 +1,19 @@
 package be.kdg.sa.velo.domain.stations;
 
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
+//@NoArgsConstructor
+//@AllArgsConstructor
+@Getter
+@Setter
 
 @Entity(name = "Locks")
 public class Lock {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "LockId")
 	private int id;
 	@OneToOne (optional = true)
@@ -23,7 +28,8 @@ public class Lock {
 	public Lock () {
 	}
 	
-	public Lock (int stationLockNr) {
+	public Lock (int lockId, int stationLockNr) {
+		this.id = lockId;
 		this.stationLockNr = stationLockNr;
 	}
 	
