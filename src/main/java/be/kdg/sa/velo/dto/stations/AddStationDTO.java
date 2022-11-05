@@ -41,5 +41,23 @@ public class AddStationDTO {
 	public int labelId;
 	@Positive
 	public int cityId;
-	
+
+	public AddStationDTO(String objectId, String stationNr, String type, String street, String number, String zipCode, String district, double latitude, double longitude) {
+		this.objectId = objectId;
+		this.stationNr = stationNr;
+		this.type = type;
+		this.street = street;
+		this.number = number;
+		this.zipCode = zipCode;
+		this.district = district;
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public AddStationDTO() {
+	}
 }

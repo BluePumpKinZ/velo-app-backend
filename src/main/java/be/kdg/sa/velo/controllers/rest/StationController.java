@@ -82,7 +82,7 @@ public class StationController {
 		}
 	}
 	
-	@DeleteMapping (path="/{stationId}/delete", produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping (path="/{stationId}/delete")
 	public ResponseEntity<StationModel> deleteStation (@PathVariable int stationId) {
 		try {
 			stationService.deleteStation (stationId);
