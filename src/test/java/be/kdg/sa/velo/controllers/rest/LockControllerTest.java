@@ -1,29 +1,16 @@
 package be.kdg.sa.velo.controllers.rest;
 
 import be.kdg.sa.velo.controllers.VeloApplicationMvcTests;
-import be.kdg.sa.velo.dto.stations.AddLockDTO;
-import be.kdg.sa.velo.dto.stations.AddVehicleDTO;
-import be.kdg.sa.velo.exceptions.VehicleNotFoundException;
-import be.kdg.sa.velo.utils.LocalDateTimeUtils;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDateTime;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * @author Maxim Derboven
- * @version 1.0 5/11/2022 15:00
- */
 class LockControllerTest extends VeloApplicationMvcTests {
 	@Autowired
 	private MockMvc mvc;

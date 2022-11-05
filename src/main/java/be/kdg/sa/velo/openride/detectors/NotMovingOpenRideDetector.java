@@ -29,9 +29,9 @@ public class NotMovingOpenRideDetector implements OpenRideDetector {
 	@Override
 	public int checkOpenRides () {
 		var rides = rideRepository.getOpenRides ();
-		var ridesToClose = rides.stream().filter (this::isRideNotMoving);
+		var ridesToClose = rides.stream().filter (this::isRideNotMoving).toList ();
 		ridesToClose.forEach (openRideCloser::closeRide);
-		return (int)ridesToClose.count ();
+		return (int)ridesToClose.size ();
 	}
 	
 	private boolean isRideNotMoving (Ride ride) {
@@ -41,8 +41,8 @@ public class NotMovingOpenRideDetector implements OpenRideDetector {
 				.isAfter (LocalDateTime.now ()))
 				.map (VehicleLocation::getLocation).toList ();
 		
-		double maxDistance = PointUtils.maxPointsDistance (lastCoupleVehicleLocations);
-		return maxDistance < properties.getMaxNotMovingDistance () * 1000;
+		double maxDistance = PointUtils.maxPointsDistance (lastCoupleVehicleLocations) * 1000;
+		return maxDistance < properties.getMaxNotMovingDistance ();
 	}
 	
 }
