@@ -20,12 +20,12 @@ public class MaintenanceMvcController {
 		this.maintenanceService = maintenanceService;
 	}
 
-	@PostMapping("/add")
+	@PostMapping
 	public String addMaintenanceAction (@ModelAttribute("maintenanceActionDTO") MaintenanceActionDTO maintenanceActionDTO, BindingResult result, Model model) {
 		if (result.hasErrors ())
 			return "maintenance";
 		maintenanceService.removeVehicleFromMaintenance(maintenanceActionDTO);
-		return "maintenance";
+		return "redirect:/maintenance"; // redirect to avoid duplicate submissions
 	}
 
 	@GetMapping
