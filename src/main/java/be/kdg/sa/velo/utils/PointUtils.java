@@ -3,6 +3,9 @@ package be.kdg.sa.velo.utils;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Point;
 
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
+
 import static be.kdg.sa.velo.utils.ExtraMath.dotProduct;
 import static java.lang.Math.*;
 
@@ -27,6 +30,17 @@ public class PointUtils {
 		y = cos (toRadians (location.getX ())) * sin (toRadians (location.getY ()));
 		z = sin (toRadians (location.getX ()));
 		return new double[] {x, y, z};
+	}
+	
+	public static double maxPointsDistance (List<Point> locations) {
+		AtomicReference<Double> maxDistance = new AtomicReference<> ((double) 0);
+		locations.forEach (location1 -> {
+			locations.forEach (location2 -> {
+				double distance = getDistanceBetweenPoints (location1, location2);
+				maxDistance.set (Math.max (maxDistance.get (), distance));
+			});
+		});
+		return maxDistance.get ();
 	}
 	
 }
