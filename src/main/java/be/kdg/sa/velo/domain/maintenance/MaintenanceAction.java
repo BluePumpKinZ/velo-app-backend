@@ -18,7 +18,7 @@ public class MaintenanceAction {
 	
 	public MaintenanceAction () {
 	}
-	
+
 	public int getId () {
 		return id;
 	}

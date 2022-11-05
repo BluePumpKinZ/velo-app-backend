@@ -1,15 +1,15 @@
 package be.kdg.sa.velo.services;
 
 import be.kdg.sa.velo.domain.rides.Ride;
+import be.kdg.sa.velo.dto.maintenance.MaintenanceActionDTO;
 import be.kdg.sa.velo.exceptions.LockNotFoundException;
+import be.kdg.sa.velo.exceptions.MaintenanceNotFoundException;
 import be.kdg.sa.velo.exceptions.RideNotFoundException;
 import be.kdg.sa.velo.exceptions.VehicleNotFoundException;
 import be.kdg.sa.velo.maintenance.qualifiers.MaintenanceQualifier;
 import be.kdg.sa.velo.maintenance.qualifiers.MaintenanceQualifyContext;
-import be.kdg.sa.velo.models.maintenance.MaintenanceVehicle;
-import be.kdg.sa.velo.repositories.LockRepository;
-import be.kdg.sa.velo.repositories.RideRepository;
-import be.kdg.sa.velo.repositories.VehicleRepository;
+import be.kdg.sa.velo.models.maintenance.MaintenanceFlag;
+import be.kdg.sa.velo.repositories.*;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -23,13 +23,17 @@ public class MaintenanceService {
 	private final VehicleRepository vehicleRepository;
 	private final LockRepository lockRepository;
 	private final RideRepository rideRepository;
+	private final MaintenanceFlaggingRepository maintenanceFlaggingRepository;
+	private final MaintenanceActionRepository maintenanceActionRepository;
 	private final Collection<MaintenanceQualifier> maintenanceQualifiers;
 	
-	public MaintenanceService (VehicleRepository vehicleRepository, LockRepository lockRepository, RideRepository rideRepository, Collection<MaintenanceQualifier> maintenanceQualifiers) {
+	public MaintenanceService (VehicleRepository vehicleRepository, LockRepository lockRepository, RideRepository rideRepository, Collection<MaintenanceQualifier> maintenanceQualifiers, MaintenanceFlaggingRepository maintenanceFlaggingRepository, MaintenanceActionRepository maintenanceActionRepository) {
 		this.vehicleRepository = vehicleRepository;
 		this.lockRepository = lockRepository;
 		this.rideRepository = rideRepository;
 		this.maintenanceQualifiers = maintenanceQualifiers;
+		this.maintenanceFlaggingRepository = maintenanceFlaggingRepository;
+		this.maintenanceActionRepository = maintenanceActionRepository;
 	}
 	
 	public boolean addVehicleToMaintenanceIfRequired (MaintenanceQualifyContext context) {
@@ -48,18 +52,21 @@ public class MaintenanceService {
 		rideRepository.save (ride);
 	}
 	
-	public void removeVehicleFromMaintenance (int vehicleId) {
-		var vehicle = vehicleRepository.findById (vehicleId).orElseThrow (() -> new VehicleNotFoundException (vehicleId));
-		vehicle.setLastMaintenanceDate (LocalDateTime.now ());
-		var ride = rideRepository.getLastRideForVehicle (vehicleId).orElseThrow (() -> new RideNotFoundException (0));
-		ride.setEndLock (ride.getStartLock ());
-		ride.setEndPoint (ride.getStartPoint ());
-		ride.setEndTime (LocalDateTime.now ());
-		rideRepository.save (ride);
+	public void removeVehicleFromMaintenance (MaintenanceActionDTO maintenanceActionDTO) {
+		var maintenanceFlag = maintenanceFlaggingRepository.findById (maintenanceActionDTO.getflaggingId()).orElseThrow (() -> new MaintenanceNotFoundException (maintenanceActionDTO.getflaggingId()));
+		var maintenanceAction = maintenanceActionDTO.toMaintenanceAction(maintenanceFlag);
+		maintenanceActionRepository.save(maintenanceAction);
+//		var vehicle = vehicleRepository.findById (maintenanceFlag.getVehicle().getId()).orElseThrow (() -> new VehicleNotFoundException (maintenanceFlag.getVehicle().getId()));
+//		vehicle.setLastMaintenanceDate (LocalDateTime.now ());
+//		var ride = rideRepository.getLastRideForVehicle (maintenanceFlag.getVehicle().getId()).orElseThrow (() -> new RideNotFoundException(maintenanceFlag.getVehicle().getId()));
+//		ride.setEndLock (ride.getStartLock ());
+//		ride.setEndPoint (ride.getStartPoint ());
+//		ride.setEndTime (LocalDateTime.now ());
+//		rideRepository.save (ride);
 	}
 	
-	public List<MaintenanceVehicle> getVehiclesInMaintenance () {
-		return vehicleRepository.getVehiclesInMaintenance ();
+	public List<MaintenanceFlag> getMaintenanceFlaggings () {
+		return maintenanceFlaggingRepository.getMaintenanceFlaggings ();
 	}
 	
 }

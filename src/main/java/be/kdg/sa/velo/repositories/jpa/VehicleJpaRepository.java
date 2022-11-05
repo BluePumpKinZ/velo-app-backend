@@ -2,7 +2,6 @@ package be.kdg.sa.velo.repositories.jpa;
 
 import be.kdg.sa.velo.domain.vehicles.Vehicle;
 import be.kdg.sa.velo.domain.vehicles.VehicleType;
-import be.kdg.sa.velo.models.maintenance.MaintenanceVehicle;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -39,15 +38,4 @@ public interface VehicleJpaRepository extends JpaRepository<Vehicle, Integer> {
 			ORDER BY V.VEHICLEID
 			""", nativeQuery = true)
 	List<Integer> getValidSimulatorVehicleIds ();
-	
-	@Query (value = """
-			SELECT new be.kdg.sa.velo.models.maintenance.MaintenanceVehicle (V.id, V.serialNumber, BT.description, MF.reason) FROM Vehicles V
-			JOIN Bikelots BL ON V.lot = BL
-			JOIN BikeTypes BT ON BL.type = BT
-			JOIN MaintenanceFlaggings MF on V.id = MF.vehicle.id
-			WHERE V.id IN
-			(SELECT MF.vehicle.id FROM MaintenanceFlaggings MF
-			WHERE MF.id NOT IN (SELECT MA.flagging.id FROM MaintenanceActions MA))
-						""")
-	List<MaintenanceVehicle> getVehiclesInMaintenance ();
 }
