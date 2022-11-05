@@ -1,18 +1,9 @@
 package be.kdg.sa.velo.models.maintenance;
 
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Getter
-@Setter
 @NoArgsConstructor
-@Entity
 public class MaintenanceVehicle {
-	@Id
 	private int vehicleId;
 	private String serialNumber;
 	private String type;
@@ -20,6 +11,30 @@ public class MaintenanceVehicle {
 	public MaintenanceVehicle(int vehicleId, String serialNumber, String type) {
 		this.vehicleId = vehicleId;
 		this.serialNumber = serialNumber;
+		this.type = type;
+	}
+	
+	public int getVehicleId () {
+		return vehicleId;
+	}
+	
+	public void setVehicleId (int vehicleId) {
+		this.vehicleId = vehicleId;
+	}
+	
+	public String getSerialNumber () {
+		return serialNumber;
+	}
+	
+	public void setSerialNumber (String serialNumber) {
+		this.serialNumber = serialNumber;
+	}
+	
+	public String getType () {
+		return type;
+	}
+	
+	public void setType (String type) {
 		this.type = type;
 	}
 }

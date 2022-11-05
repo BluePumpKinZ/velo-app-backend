@@ -8,7 +8,6 @@ import be.kdg.sa.velo.maintenance.qualifiers.MaintenanceQualifier;
 import be.kdg.sa.velo.maintenance.qualifiers.MaintenanceQualifyContext;
 import be.kdg.sa.velo.models.maintenance.MaintenanceVehicle;
 import be.kdg.sa.velo.repositories.LockRepository;
-import be.kdg.sa.velo.repositories.MaintenanceRepository;
 import be.kdg.sa.velo.repositories.RideRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
 import org.springframework.stereotype.Component;
@@ -25,14 +24,12 @@ public class MaintenanceService {
 	private final LockRepository lockRepository;
 	private final RideRepository rideRepository;
 	private final Collection<MaintenanceQualifier> maintenanceQualifiers;
-	private final MaintenanceRepository maintenanceRepository;
 	
-	public MaintenanceService (VehicleRepository vehicleRepository, LockRepository lockRepository, RideRepository rideRepository, Collection<MaintenanceQualifier> maintenanceQualifiers, MaintenanceRepository maintenanceRepository) {
+	public MaintenanceService (VehicleRepository vehicleRepository, LockRepository lockRepository, RideRepository rideRepository, Collection<MaintenanceQualifier> maintenanceQualifiers) {
 		this.vehicleRepository = vehicleRepository;
 		this.lockRepository = lockRepository;
 		this.rideRepository = rideRepository;
 		this.maintenanceQualifiers = maintenanceQualifiers;
-		this.maintenanceRepository = maintenanceRepository;
 	}
 	
 	public boolean addVehicleToMaintenanceIfRequired (MaintenanceQualifyContext context) {
@@ -62,7 +59,7 @@ public class MaintenanceService {
 	}
 	
 	public List<MaintenanceVehicle> getVehiclesInMaintenance () {
-		return maintenanceRepository.getVehiclesInMaintenance ();
+		return vehicleRepository.getVehiclesInMaintenance ();
 	}
 	
 }
