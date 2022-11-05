@@ -3,16 +3,16 @@ package be.kdg.sa.velo.domain.maintenance;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
+@Entity (name = "MaintenanceActions")
 public class MaintenanceAction {
 	
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	@Column (name = "MaintenanceActionId")
+	@Column (name = "MaintenanceActionId", columnDefinition = "SMALLINT")
 	private int id;
 	private String solution;
 	@OneToOne
-	@JoinColumn (name = "MaintenanceFlaggingId")
+	@JoinColumn (name = "MaintenanceFlaggingId", columnDefinition = "SMALLINT")
 	private MaintenanceFlagging flagging;
 	private LocalDateTime timestamp;
 	

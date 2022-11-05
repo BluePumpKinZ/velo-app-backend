@@ -1,13 +1,14 @@
 package be.kdg.sa.velo.services;
 
 import be.kdg.sa.velo.domain.rides.Ride;
-import be.kdg.sa.velo.domain.vehicles.Vehicle;
 import be.kdg.sa.velo.exceptions.LockNotFoundException;
 import be.kdg.sa.velo.exceptions.RideNotFoundException;
 import be.kdg.sa.velo.exceptions.VehicleNotFoundException;
 import be.kdg.sa.velo.maintenance.qualifiers.MaintenanceQualifier;
 import be.kdg.sa.velo.maintenance.qualifiers.MaintenanceQualifyContext;
+import be.kdg.sa.velo.models.maintenance.MaintenanceVehicle;
 import be.kdg.sa.velo.repositories.LockRepository;
+import be.kdg.sa.velo.repositories.MaintenanceRepository;
 import be.kdg.sa.velo.repositories.RideRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
 import org.springframework.stereotype.Component;
@@ -24,12 +25,14 @@ public class MaintenanceService {
 	private final LockRepository lockRepository;
 	private final RideRepository rideRepository;
 	private final Collection<MaintenanceQualifier> maintenanceQualifiers;
+	private final MaintenanceRepository maintenanceRepository;
 	
-	public MaintenanceService (VehicleRepository vehicleRepository, LockRepository lockRepository, RideRepository rideRepository, Collection<MaintenanceQualifier> maintenanceQualifiers) {
+	public MaintenanceService (VehicleRepository vehicleRepository, LockRepository lockRepository, RideRepository rideRepository, Collection<MaintenanceQualifier> maintenanceQualifiers, MaintenanceRepository maintenanceRepository) {
 		this.vehicleRepository = vehicleRepository;
 		this.lockRepository = lockRepository;
 		this.rideRepository = rideRepository;
 		this.maintenanceQualifiers = maintenanceQualifiers;
+		this.maintenanceRepository = maintenanceRepository;
 	}
 	
 	public boolean addVehicleToMaintenanceIfRequired (MaintenanceQualifyContext context) {
@@ -58,8 +61,8 @@ public class MaintenanceService {
 		rideRepository.save (ride);
 	}
 	
-	public List<Vehicle> getVehiclesInMaintenance () {
-		return rideRepository.getVehiclesInMaintenance ();
+	public List<MaintenanceVehicle> getVehiclesInMaintenance () {
+		return maintenanceRepository.getVehiclesInMaintenance ();
 	}
 	
 }

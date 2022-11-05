@@ -5,12 +5,12 @@ import be.kdg.sa.velo.domain.vehicles.Vehicle;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
+@Entity (name = "MaintenanceFlaggings")
 public class MaintenanceFlagging {
 	
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	@Column (name = "MaintenanceFlaggingId")
+	@Column (name = "MaintenanceFlaggingId", columnDefinition = "SMALLINT")
 	private int id;
 	@ManyToOne
 	@JoinColumn (name = "VehicleId", columnDefinition = "SMALLINT")
