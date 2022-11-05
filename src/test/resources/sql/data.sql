@@ -22,6 +22,17 @@ VALUES (CURRENT_TIMESTAMP, (SELECT BIKETYPEID FROM BIKETYPES WHERE BIKETYPEDESCR
 INSERT INTO BIKELOTS (DELIVERYDATE, BIKETYPEID)
 VALUES (CURRENT_TIMESTAMP, (SELECT BIKETYPEID FROM BIKETYPES WHERE BIKETYPEDESCRIPTION = 'Scooter'));
 
+INSERT INTO STATIONS (ObjectId, StationNr, Type, Street, Number, ZipCode, District, GPSCoord, AdditionalInfo,LabelId, CityId)
+VALUES (N'18000', N'1500', N'DUBBELZIJDIG', N'testStraat', N'10', N'2000', N'Antwerpen', Geometry::Point(1,2,4326), null, null, null);
+
+
+-- INSERT INTO Vehicles (SerialNumber, BikeLotId, LastMaintenanceOn, LockId, Point)
+-- VALUES (N'9999999', null, null, null, null);
+
+
+
+
+
 /*INSERT INTO BIKETYPES (BIKETYPEDESCRIPTION)
 VALUES ('VELO');
 
