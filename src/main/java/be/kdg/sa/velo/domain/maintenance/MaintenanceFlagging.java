@@ -17,7 +17,13 @@ public class MaintenanceFlagging {
 	private Vehicle vehicle;
 	private LocalDateTime timestamp;
 	private String reason;
-	
+
+	public MaintenanceFlagging(Vehicle vehicle, LocalDateTime timestamp, String reason) {
+		this.vehicle = vehicle;
+		this.timestamp = timestamp;
+		this.reason = reason;
+	}
+
 	public MaintenanceFlagging () {
 	}
 	
