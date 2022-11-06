@@ -67,4 +67,11 @@ Bij gebruik @Validated op controllers kunnen sommige requests niet worden uitgev
 - Bij de onderhoudsactie moeten we een beschrijving van de actie meegeven. Hier zal dus zowel een backend als frontend aanpassing voor nodig zijn.
 - De points en stations van een maintenanceride moeten ingesteld worden als volgt: (voor docked rides gwn 2x hetzelfde punt, voor undocked rides als startpoint de laatst gekende locatie nemen en als endpoint het dichtsbijzijnste station)
 - De simulatie moet vanuit te backend worden uitgevoerd voor feedback naar de gebruiker kunnen we best gewoon 1 antwoord terugsturen ipv met websockets te moeten werken. Deze zijn buiten de scope van het project.
-# Eindoplevering
+# Eindoplevering  
+## Pre Coaching  
+### Geschatte Progress (97%)  
+### Status  
+Het velo systeem is volledig afgewerkt rekening houdend met alle requirements.  
+De simulator is op het uitvoeren van docked rides ook volledig af.  
+Het bijhouden van data voor een generatie van docked rides is niet praktisch. Om hier niet teveel tijd aan te verliezen hebben we al de rest prioriteit gegeven en hebben we dit ook succesvol afgwerkt. Na vorige coaching hebben we een extra database aangemaakt voor testen.  
+Validaten van rest requests zijn we niet aan geraakt. We hebben een websocket gebruikt om de console op de webpagina interactief te maken. Dit was verassend makkelijk te implementeren.  
