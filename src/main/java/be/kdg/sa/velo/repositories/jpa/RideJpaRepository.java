@@ -19,7 +19,7 @@ public interface RideJpaRepository extends JpaRepository<Ride, Integer> {
 			"ORDER BY STARTTIME DESC", nativeQuery = true)
 	Optional<Ride> getLastRideForVehicle (int vehicleId);
 	
-	@EntityGraph (attributePaths = {"vehicle"})
+	//@EntityGraph (attributePaths = {"vehicle"})
 	@Query (value = """
 			SELECT * FROM RIDES
 			WHERE ENDTIME IS NULL
