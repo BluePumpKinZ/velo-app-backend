@@ -1,6 +1,7 @@
 package be.kdg.sa.velo.controllers.rest;
 
 import be.kdg.sa.velo.controllers.VeloApplicationMvcTests;
+import be.kdg.sa.velo.domain.vehicles.VehicleLot;
 import be.kdg.sa.velo.dto.stations.AddLockDTO;
 import be.kdg.sa.velo.dto.stations.AddStationDTO;
 import be.kdg.sa.velo.repositories.StationRepository;
@@ -13,6 +14,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,6 +34,7 @@ class StationControllerTest extends VeloApplicationMvcTests {
 	private ObjectMapper objectMapper;
 
 	private final Random random = new Random();
+
 
 	@Test
 	void testCrud() throws Exception {
