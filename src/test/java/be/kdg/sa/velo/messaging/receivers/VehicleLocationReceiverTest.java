@@ -1,51 +1,60 @@
 package be.kdg.sa.velo.messaging.receivers;
 
-import be.kdg.sa.velo.SimpleBeans;
 import be.kdg.sa.velo.VeloApplicationTests;
+import be.kdg.sa.velo.domain.vehicles.Vehicle;
+import be.kdg.sa.velo.domain.vehicles.VehicleLocation;
 import be.kdg.sa.velo.dto.vehicles.messages.VehicleLocationPingMessage;
-import be.kdg.sa.velo.models.maintenance.MaintenanceFlag;
+import be.kdg.sa.velo.repositories.VehicleLocationRepository;
 import be.kdg.sa.velo.repositories.VehicleRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 
 class VehicleLocationReceiverTest extends VeloApplicationTests {
 
-    @Value("${messaging.vehicle-location-queue}")
-    private final String vehicleLocationQueueName = "";
-
     @Autowired
-    private RabbitTemplate template;
+    private Receiver<VehicleLocationPingMessage> receiver;
     @MockBean
     private VehicleRepository vehicleRepository;
+    @MockBean
+    private VehicleLocationRepository vehicleLocationRepository;
     @Autowired
     private ObjectMapper objectMapper;
 
 
     @BeforeAll
-    static void setUp() {
-        var obj1 = new MaintenanceFlag(1,"123","Step","Platte band");
-        given(vehi)
-        given(vehicleRepository.findById).willReturn(obj1);
+    void setUp() {
+        var vehicle = new Vehicle ();
+        vehicle.setId(1);
+        given(vehicleRepository.findById(1)).willReturn(Optional.of (vehicle));
     }
+    
     @Test
     void testMessagingReceiver() throws JsonProcessingException {
         VehicleLocationPingMessage message = new VehicleLocationPingMessage(1,2,3);
-        this.template.convertAndSend(vehicleLocationQueueName, objectMapper.writeValueAsString(message));
-
-        assertThat(this.template.receiveAndConvert(vehicleLocationQueueName)).isNotNull();
+        receiver.receive (objectMapper.writeValueAsString(message));
+        
+        ArgumentCaptor<Vehicle> vehicleArgumentCaptor = ArgumentCaptor.forClass(Vehicle.class);
+        verify(vehicleRepository, times(1)).save(vehicleArgumentCaptor.capture());
+    
+        ArgumentCaptor<VehicleLocation> vehicleLocationArgumentCaptor = ArgumentCaptor.forClass(VehicleLocation.class);
+        verify (vehicleLocationRepository, times(1)).save(vehicleLocationArgumentCaptor.capture());
+        
+        VehicleLocation vehicleLocation = vehicleLocationArgumentCaptor.getValue();
+        assertThat(vehicleLocation.getVehicle ().getId ()).isEqualTo(1);
+        assertThat(vehicleLocation.getLocation ().getX ()).isEqualTo(2);
+        assertThat(vehicleLocation.getLocation ().getY ()).isEqualTo(3);
     }
 }
