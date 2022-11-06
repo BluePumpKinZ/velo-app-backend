@@ -59,15 +59,17 @@ public class MaintenanceService {
 	
 	public void removeVehicleFromMaintenance (MaintenanceActionDTO maintenanceActionDTO) {
 		var maintenanceFlag = maintenanceFlaggingRepository.findById (maintenanceActionDTO.getflaggingId()).orElseThrow (() -> new MaintenanceNotFoundException (maintenanceActionDTO.getflaggingId()));
+		
+		var vehicle = vehicleRepository.findById (maintenanceFlag.getVehicle().getId()).orElseThrow (() -> new VehicleNotFoundException (maintenanceFlag.getVehicle().getId()));
+		vehicle.setLastMaintenanceDate (LocalDateTime.now ());
+		var ride = rideRepository.getLastRideForVehicle (maintenanceFlag.getVehicle().getId()).orElseThrow (() -> new RideNotFoundException(maintenanceFlag.getVehicle().getId()));
+		ride.setEndLock (ride.getStartLock ());
+		ride.setEndPoint (ride.getStartPoint ());
+		ride.setEndTime (LocalDateTime.now ());
+		rideRepository.save (ride);
+		
 		var maintenanceAction = maintenanceActionDTO.toMaintenanceAction(maintenanceFlag);
 		maintenanceActionRepository.save(maintenanceAction);
-//		var vehicle = vehicleRepository.findById (maintenanceFlag.getVehicle().getId()).orElseThrow (() -> new VehicleNotFoundException (maintenanceFlag.getVehicle().getId()));
-//		vehicle.setLastMaintenanceDate (LocalDateTime.now ());
-//		var ride = rideRepository.getLastRideForVehicle (maintenanceFlag.getVehicle().getId()).orElseThrow (() -> new RideNotFoundException(maintenanceFlag.getVehicle().getId()));
-//		ride.setEndLock (ride.getStartLock ());
-//		ride.setEndPoint (ride.getStartPoint ());
-//		ride.setEndTime (LocalDateTime.now ());
-//		rideRepository.save (ride);
 	}
 	
 	public List<MaintenanceFlag> getMaintenanceFlaggings () {
