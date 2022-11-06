@@ -31,8 +31,8 @@ public class VehicleController {
 	}
 	
 	@GetMapping (path="/all", produces = "application/json")
-	public List<Vehicle> getAllVehicles () {
-		return vehicleService.getAllVehicles();
+	public ResponseEntity<List<Vehicle>> getAllVehicles () {
+		return new ResponseEntity<>(vehicleService.getAllVehicles(), HttpStatus.OK);
 	}
 	
 	@PostMapping (path="/location/new", consumes = "application/json", produces = "application/json")
@@ -45,7 +45,7 @@ public class VehicleController {
 		return vehicleService.getClosestVehicle(PointUtils.createPoint (latitude, longitude));
 	}
 	
-	@GetMapping (path="/add", produces = "application/json")
+	@PostMapping (path="/add", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<VehicleModel> addVehicle (@RequestBody AddVehicleDTO vehicle) {
 		try {
 			return new ResponseEntity<> (VehicleModel.FromVehicle (vehicleService.addVehicle (vehicle)), HttpStatus.CREATED);
@@ -84,7 +84,7 @@ public class VehicleController {
 		}
 	}
 	
-	@DeleteMapping (path = "/{vehicleId}/delete", produces = "application/json")
+	@DeleteMapping (path = "/{vehicleId}/delete")
 	public ResponseEntity<VehicleModel> deleteStation (@PathVariable int vehicleId) {
 		try {
 			vehicleService.deleteVehicle (vehicleId);
